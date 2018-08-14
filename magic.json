@@ -1,0 +1,588 @@
+{
+
+    "epub": {
+        "signs": [
+            "50 4B 03 04 0A 00 02 00"
+        ],
+        "mime": "application/epub+zip"
+        
+    },
+    "ttf": {
+        "signs": [
+            "00 01 00 00 00"
+        ],
+        "mime": "application/font-sfnt"
+
+   },
+    "elf": {
+        "signs": [
+            "7F 45 4C 46"
+        ],
+        "mime": "application/x-elf"
+
+    },
+    "py": {
+        "signs": [
+            "it's ascii! no magicbytes"
+        ],
+        "mime": "text/plain"
+        
+    },
+    "gz": {
+        "signs": [
+            "1F 8B 08"
+        ],
+        "mime": "application/gzip"
+
+    },
+    "bz2": {
+        "signs": [
+            "42 5A 68"
+        ],
+        "mime": "application/x-bzip2"
+        
+    },
+    "tgz": {
+        "signs": [
+            "1F 8B 08"
+        ],
+        "mime": "application/gzip"
+        
+    },
+
+    "doc": {
+        "signs": [
+            "D0 CF 11 E0 A1 B1 1A E1"
+        ],
+        "mime": "application/msword"
+        
+
+    },
+    "exe": {
+        "signs": [
+            "4D 5A"
+        ],
+        "mime": "application/octet-stream"
+    },
+    "class": {
+        "signs": [
+            "CA FE BA BE"
+        ],
+        "mime": "application/octet-stream"
+    },
+    "dll": {
+        "signs": [
+            "4D 5A"
+        ],
+        "mime": "application/octet-stream"
+        
+
+    },
+    "img": {
+        "signs": [
+            "00 01 00 00 53 74 61 6E 64 61 72 64 20 4A 65 74 20 44 42",
+            "50 49 43 54 00 08",
+            "51 46 49 FB",
+            "53 43 4D 49",
+            "7E 74 2C 01 50 70 02 4D 52 01 00 00 00 08 00 00 00 01 00 00 31 00 00 00 31 00 00 00 43 01 FF 00 01 00 08 00 01 00 00 00 7e 74 2c 01 ",
+            "EB 3C 90 2A"
+        ],
+        "mime": "application/octet-stream"
+        
+    },
+    "iso": {
+        "signs": [
+            "43 44 30 30 31"
+        ],
+        "mime": "application/octet-stream"
+
+
+    },
+    "pdf": {
+        "signs": [
+            "25 50 44 46"
+        ],
+        "mime": "application/pdf"
+
+    },
+    "rtf": {
+        "signs": [
+            "7B 5C 72 74 66 31"
+        ],
+        "mime": "application/rtf"
+    },
+    "tsa": {
+        "signs": [
+            "47"
+        ],
+        "mime": "application/tamp-sequence-adjust"
+
+    },
+    "org": {
+        "signs": [
+            "41 4F 4C 56 4D 31 30 30"
+        ],
+        "mime": "application/vnd.lotus-organizer"
+
+    },
+    "ppt": {
+        "signs": [
+            "D0 CF 11 E0 A1 B1 1A E1"
+        ],
+        "mime": "application/vnd.ms-powerpoint"
+    },
+    "pps": {
+        "signs": [
+            "D0 CF 11 E0 A1 B1 1A E1"
+        ],
+        "mime": "application/vnd.ms-powerpoint"
+
+    },
+    "xps": {
+        "signs": [
+            "50 4B 03 04"
+        ],
+        "mime": "application/vnd.ms-xpsdocument"
+    },
+    "odp": {
+        "signs": [
+            "50 4B 03 04"
+        ],
+        "mime": "application/vnd.oasis.opendocument.presentation"
+    },
+    "odt": {
+        "signs": [
+            "50 4B 03 04"
+        ],
+        "mime": "application/vnd.oasis.opendocument.text"
+    },
+    "ott": {
+        "signs": [
+            "50 4B 03 04"
+        ],
+        "mime": "application/vnd.oasis.opendocument.text-template"
+    },
+    "pptx": {
+        "signs": [
+            "50 4B 03 04 14 00 06 00"
+        ],
+        "mime": "application/vnd.openxmlformats-officedocument.presentationml.presentation"
+    },
+    "xlsx": {
+        "signs": [
+            "50 4B 03 04 14 00 06 00"
+        ],
+        "mime": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    },
+    "docx": {
+        "signs": [
+            "50 4B 03 04",
+            "504B030414000600"
+        ],
+        "mime": "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+
+    },
+    "qxd": {
+        "signs": [
+            "00 00 4D 4D 58 50 52"
+        ],
+        "mime": "application/vnd.Quark.QuarkXPress"
+    },
+    "rar": {
+        "signs": [
+            "52 61 72 21 1A 07 00",
+            "52 61 72 21 1A 07 01 00"
+        ],
+        "mime": "application/vnd.rar"
+
+    },
+    "cap": {
+        "signs": [
+            "52 54 53 53",
+            "58 43 50 00"
+        ],
+        "mime": "application/vnd.tcpdump.pcap"
+    },
+    "dmp": {
+        "signs": [
+            "4D 44 4D 50 93 A7",
+            "50 41 47 45 44 55 36 34",
+            "5041474544554D50"
+        ],
+        "mime": "application/vnd.tcpdump.pcap"
+
+    },
+    "xar": {
+        "signs": [
+            "78 61 72 21"
+        ],
+        "mime": "application/vnd.xara"
+
+    },
+    "zip": {
+        "signs": [
+            "50 4B 03 04",
+            "50 4B 07 08"
+        ],
+        "mime": "application/zip"
+    },
+    "amr": {
+        "signs": [
+            "23 21 41 4D 52"
+        ],
+        "mime": "audio/AMR"
+    },
+    "au": {
+        "signs": [
+            "2E 73 6E 64",
+            "646E732E"
+        ],
+        "mime": "audio/basic"
+    },
+    "m4a": {
+        "signs": [
+            "00 00 00 20 66 74 79 70 4D 34 41 20",
+            "66 74 79 70 4D 34 41 20"
+        ],
+        "mime": "audio/mp4"
+    },
+    "mp3": {
+        "signs": [
+            "49 44 33",
+            "FF FB"
+        ],
+        "mime": "audio/mpeg"
+    },
+    "oga": {
+        "signs": [
+            "4F 67 67 53"
+        ],
+        "mime": "audio/ogg"
+    },
+    "ogg": {
+        "signs": [
+            "4F 67 67 53 00 02 00 00 00 00 00 00 00 00"
+        ],
+        "mime": "audio/ogg"
+    },
+    "qcp": {
+        "signs": [
+            "52 49 46 46"
+        ],
+        "mime": "audio/qcelp"
+    },
+    "koz": {
+        "signs": [
+            "49 44 33 03 00 00 00"
+        ],
+        "mime": "audio/vnd.audikoz"
+    },
+    "bmp": {
+        "signs": [
+            "42 4D"
+        ],
+        "mime": "image/bmp"
+    },
+    "dib": {
+        "signs": [
+            "424D"
+        ],
+        "mime": "image/bmp"
+    },
+    "emf": {
+        "signs": [
+            "01 00 00 00"
+        ],
+        "mime": "image/emf"
+
+    },
+    "gif": {
+        "signs": [
+            "47 49 46 38 37 61",
+            "47 49 46 38 39 61"
+        ],
+        "mime": "image/gif"
+
+    },
+    "jpg": {
+        "signs": [
+            "FF D8"
+        ],
+        "mime": "image/jpeg"
+    },
+    "jpeg": {
+        "signs": [
+            "FF D8"
+        ],
+        "mime": "image/jpeg"
+    },
+    "jpe": {
+        "signs": [
+            "FF D8"
+        ],
+        "mime": "image/jpeg"
+    },
+    "jfif": {
+        "signs": [
+            "FF D8"
+        ],
+        "mime": "image/jpeg"
+    },
+    "png": {
+        "signs": [
+            "89 50 4E 47 0D 0A 1A 0A"
+        ],
+        "mime": "image/png"
+    },
+    "tiff": {
+        "signs": [
+            "49 49 2A 00",
+            "4D 4D 00 2A"
+        ],
+        "mime": "image/tiff"
+    },
+    "tif": {
+        "signs": [
+            "49 49 2A 00",
+            "4D 4D 00 2A"
+        ],
+        "mime": "image/tiff"
+    },
+    "psd": {
+        "signs": [
+            "38 42 50 53"
+        ],
+        "mime": "image/vnd.adobe.photoshop"
+    },
+    "dwg": {
+        "signs": [
+            "41 43 31 30"
+        ],
+        "mime": "image/vnd.dwg"
+    },
+    "ico": {
+        "signs": [
+            "00 00 01 00"
+        ],
+        "mime": "image/vnd.microsoft.icon"
+    },
+    "mdi": {
+        "signs": [
+            "45 50"
+        ],
+        "mime": "image/vnd.ms-modi"
+    },
+    "log": {
+        "signs": [
+            "2A 2A 2A 20 20 49 6E 73 74 61 6C 6C 61 74 69 6F 6E 20 53 74 61 72 74 65 64 20"
+        ],
+        "mime": "text/plain"
+    },
+    "tsv": {
+        "signs": [
+            "47"
+        ],
+        "mime": "text/tab-separated-values"
+
+    },
+    "dms": {
+        "signs": [
+            "44 4D 53 21"
+        ],
+        "mime": "text/vnd.DMClientScript"
+
+    },
+    "mp4": {
+        "signs": [
+            "66 74 79 70 4D 53 4E 56",
+            "66 74 79 70 69 73 6F 6D",
+            "66 74 79 70 6D 70 34 32"
+        ],
+        "mime": "video/mp4"
+    },
+    "m4v": {
+        "signs": [
+            "66 74 79 70 6D 70 34 32"
+        ],
+        "mime": "video/mp4"
+    },
+    "mpeg": {
+        "signs": [
+            "00000100",
+            "FFD8"
+        ],
+        "mime": "video/mpeg"
+    },
+    "mpg": {
+        "signs": [
+            "00 00 01 00",
+            "00 00 01 BA",
+            "FF D8"
+        ],
+        "mime": "video/mpeg"
+    },
+    "ogv": {
+        "signs": [
+            "4F 67 67 53 00 02 00 00 00 00 00 00 00 00"
+        ],
+        "mime": "video/ogg"
+    },
+    "mov": {
+        "signs": [
+            "66 74 79 70 71 74 20 20",
+            "6D 6F 6F 76"
+        ],
+        "mime": "video/quicktime"
+
+    },
+    "sxc": {
+        "signs": [
+            "50 4B 03 04"
+        ],
+        "mime": "application/vnd.sun.xml.calc"
+    },
+    "sxd": {
+        "signs": [
+            "50 4B 03 04"
+        ],
+        "mime": "application/vnd.sun.xml.draw"
+    },
+    "sxi": {
+        "signs": [
+            "50 4B 03 04"
+        ],
+        "mime": "application/vnd.sun.xml.impress"
+    },
+    "sxw": {
+        "signs": [
+            "50 4B 03 04"
+        ],
+        "mime": "application/vnd.sun.xml.writer"
+    },
+    "pcap": {
+        "signs": [
+            "a1 b2 c3 d4",
+            "d4 c3 b2 a1"
+        ],
+        "mime": "application/octet-stream"
+
+    },
+    "jar": {
+        "signs": [
+            "50 4B 03 04",
+            "50 4B 05 06",
+            "50 4B 07 08"
+        ],
+        "mime": "application/x-java-archive"
+
+    },
+    "tar": {
+        "signs": [
+            "75 73 74 61 72"
+        ],
+        "mime": "application/x-tar"
+
+    },
+    "mid": {
+        "signs": [
+            "4D 54 68 64"
+        ],
+        "mime": "audio/midi"
+    },
+    "midi": {
+        "signs": [
+            "4D 54 68 64"
+        ],
+        "mime": "audio/midi"
+    },
+    "aiff": {
+        "signs": [
+            "46 4F 52 4D 00"
+        ],
+        "mime": "audio/x-aiff"
+    },
+    "flac": {
+        "signs": [
+            "66 4C 61 43 00 00 00 22"
+        ],
+        "mime": "audio/x-flac"
+    },
+    "wma": {
+        "signs": [
+            "30 26 B2 75 8E 66 CF 11 A6 D9 00 AA 00 62 CE 6C"
+        ],
+        "mime": "audio/x-ms-wma"
+    },
+    "ram": {
+        "signs": [
+            "72 74 73 70 3A 2F 2F"
+        ],
+        "mime": "audio/x-pn-realaudio"
+    },
+    "rm": {
+        "signs": [
+            "2E 52 4D 46"
+        ],
+        "mime": "audio/x-pn-realaudio"
+    },
+    "ra": {
+        "signs": [
+            "2E 52 4D 46 00 00 00 12 00",
+            "2E 72 61 FD 00"
+        ],
+        "mime": "audio/x-realaudio"
+    },
+    "wav": {
+        "signs": [
+            "52 49 46 46",
+            "57 41 56 45 66 6D 74 20"
+        ],
+        "mime": "audio/x-wav"
+    },
+    "webp": {
+        "signs": [
+            "52 49 46 46"
+        ],
+        "mime": "image/webp"
+    },
+    "pgm": {
+        "signs": [
+            "50 35 0A"
+        ],
+        "mime": "image/x-portable-graymap"
+    },
+    "rgb": {
+        "signs": [
+            "01 DA 01 01 00 03"
+        ],
+        "mime": "image/x-rgb"
+    },
+    "webm": {
+        "signs": [
+            "1A 45 DF A3"
+        ],
+        "mime": "video/webm"
+    },
+    "flv": {
+        "signs": [
+            " 66 74 79 70 4D 34 56 20"
+
+        ],
+        "mime": "video/x-flv"
+
+    },
+    "wmv": {
+        "signs": [
+            "30 26 B2 75 8E 66 CF 11",
+            "A6 D9 00 AA 00 62 CE 6C"
+        ],
+        "mime": "video/x-ms-wmv"
+    },
+    "avi": {
+        "signs": [
+            "52 49 46 46"
+        ],
+        "mime": "video/x-msvideo"
+
+    }
+}
