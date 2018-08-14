@@ -30,13 +30,15 @@ from auth_token import *
 client = discord.Client()
 bot = commands.Bot(command_prefix='>')
 extensions = [
-    'encoding_decoding',
-    'cipher',
-    'ctfs',
-    'utility',
-]
-bot.remove_command('help')
+   
+   'encoding_decoding',
+   'cipher',
+   'ctfs',
+   'utility',
 
+]
+
+bot.remove_command('help')
 blacklisted = []
 cool_names = ['nullpxl', 'Test_Monkey'] 
 # This is intended to be able to be circumvented
