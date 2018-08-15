@@ -59,7 +59,7 @@ async def on_message(message):
          await bot.send_message(message.channel, 'https://youtube.com/nullpxl')
       
       if (choice == 2):
-         await bot.send_message(message.channel, 'https://www.youtube.com/channel/UCVeW9qkBjo3zosnqUbG7CFw')
+         await bot.send_message(message.channel, 'https://www.youtube.com/user/RootOfTheNull')
 
    await bot.process_commands(message)
 
@@ -123,7 +123,6 @@ async def amicool(ctx):
 
 
 if __name__ == '__main__':
-
    sys.path.insert(1, os.getcwd() + "/cogs/")
 
    for extension in extensions:
