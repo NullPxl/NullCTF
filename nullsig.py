@@ -41,10 +41,13 @@ async def on_ready():
 async def on_message(message):
     if 'who should I subscribe to?' in message.content:
         choice = random.randint(1, 2)
+        
         if choice == 1:  # This is intended to be able to be circumvented
             await message.channel.send('https://youtube.com/nullpxl')  # If you do something like report a bug with the report command, e.g, >report "a bug", you might be added to the list!
+        
         if choice == 2:
             await message.channel.send('https://www.youtube.com/user/RootOfTheNull')
+    
     await bot.process_commands(message)
 
 @bot.command()
@@ -57,9 +60,11 @@ async def help(ctx, page=None):
         page_num = '1'
         emb = discord.Embed(description=help_page, colour=4387968)
         emb.set_author(name='>request "x" - request a feature')
+    
     if page == '2':
         emb = discord.Embed(description=help_page_2, colour=4387968)
         emb.set_author(name='>request "x" - request a feature')
+    
     await ctx.channel.send(embed=emb)
 
 @bot.command()
@@ -83,10 +88,12 @@ async def creator(ctx):
 @bot.command()
 async def amicool(ctx):
     authors_name = str(ctx.author)
+    
     if any((name in authors_name for name in cool_names)):
         await ctx.send('You are very cool')
     else:  # Allows anyone to request a feature, bot dm's me with your name and the request
         await ctx.send('lolno')  # Usage: request "add this cool feature"
+
 if __name__ == '__main__':
     sys.path.insert(1, os.getcwd() + '/cogs/')
     for extension in extensions:

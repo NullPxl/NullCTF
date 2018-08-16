@@ -14,6 +14,7 @@ import time
 import datetime
 from datetime import timezone
 from datetime import datetime
+
 from colorthief import ColorThief
 import discord
 from discord.ext import commands
@@ -43,21 +44,24 @@ class Ctfs():
                 await ctx.send(':triangular_flag_on_post:')
             
             if params == 'list': # Usage: ctf challenge list
-                pretty_chal = str(self.challenges).replace('{', '').replace('}', '').replace("'", '').replace(',', '\n')
+                pretty_chal = str(self.challenges).replace(', ', '\n').replace('{', '').replace('}', '').replace("'", '')
+                
                 try:
                     await ctx.send(pretty_chal)
                 except:
                     await ctx.send("Add a challenge with >ctf challenge add <challengename>")
+            
             if params == 'working': # Usage: ctf challenge working challengename
                 author = str(ctx.message.author)
                 self.challenges[verbose] += ' | '+author+' '
                 await ctx.send(':white_check_mark:')
 
-
-    @commands.command()
+    # Returns upcoming ctfs, leaderboards, and currently running ctfs from ctftime.org (using their api)
+    # Usage: ctftime <upcoming/top/current> <number of ctfs/year>
+    @commands.command() 
     async def ctftime(self, ctx, status, params=None):
-        current_ctftime_cmds = ['upcoming', 'top', 'current']  # Returns upcoming ctfs, leaderboards, and currently running ctfs from ctftime.org (using their api)
-        default_image = 'https://pbs.twimg.com/profile_images/2189766987/ctftime-logo-avatar_400x400.png'  # Usage: ctftime <upcoming/top/current> <number of ctfs/year>
+        current_ctftime_cmds = ['upcoming', 'top', 'current']
+        default_image = 'https://pbs.twimg.com/profile_images/2189766987/ctftime-logo-avatar_400x400.png'
 
         def rgb2hex(r, g, b):
             tohex = '#{:02x}{:02x}{:02x}'.format(r, g, b)
@@ -65,14 +69,17 @@ class Ctfs():
         headers = {
             'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:61.0) Gecko/20100101 Firefox/61.0',
         }
+        
         if status == 'upcoming':
             upcoming_url = 'https://ctftime.org/api/v1/events/'
             response = requests.get(upcoming_url, headers=headers, params=params)
             data = response.json()
+            
             if params == None:
                 params = '3'
             else:
                 pass
+            
             for num in range(0, int(params)):
                 ctf_title = data[num]['title']
                 (ctf_start, ctf_end) = (data[num]['start'].replace('T', ' ').split('+', 1)[0] + ' UTC', data[num]['finish'].replace('T', ' ').split('+', 1)[0] + ' UTC')
@@ -83,39 +90,48 @@ class Ctfs():
                 ctf_image = data[num]['logo']
                 ctf_format = data[num]['format']
                 ctf_place = data[num]['onsite']
+                
                 if ctf_place == False:
                     ctf_place = 'Online'
                 else:
                     ctf_place = 'Onsite'
+                
                 if ctf_image != '':
                     fd = urlopen(ctf_image)
                 else:
                     fd = urlopen(default_image)
+                
                 f = io.BytesIO(fd.read())
                 color_thief = ColorThief(f)
                 rgb_color = color_thief.get_color(quality=49)
                 hexed = str(rgb2hex(rgb_color[0], rgb_color[1], rgb_color[2])).replace('#', '')
                 f_color = int(hexed, 16)
                 embed = discord.Embed(title=ctf_title, description=ctf_link, color=f_color)
+                
                 if ctf_image != '':
                     embed.set_thumbnail(url=ctf_image)
                 else:
                     embed.set_thumbnail(url=default_image)
+                
                 embed.add_field(name='Duration', value=((ctf_days + ' days, ') + ctf_hours) + ' hours', inline=True)
                 embed.add_field(name='Format', value=(ctf_place + ' ') + ctf_format, inline=True)
                 embed.add_field(name='─' * 23, value=(ctf_start + ' -> ') + ctf_end, inline=True)
-                await ctx.channel.send(embed=embed)  # Get the dominant color in image (ctf logo must be available to the api)
+                await ctx.channel.send(embed=embed)
+        
         if status == 'top':
             top_url = 'https://ctftime.org/api/v1/top/'
             response = requests.get(top_url, headers=headers, params=params)
             data = response.json()
             leaderboards = ''
+            
             if (not params):
-                params = '2018'  # Set up embed
-            for team in range(10):  #0x42f480
+                params = '2018'
+            
+            for team in range(10):
                 rank = team + 1
                 teamname = data[params][team]['team_name']
                 score = data[params][team]['points']
+                
                 if team != 9:
                     leaderboards += f'''
 [{rank}]    {teamname}: {score}
@@ -126,8 +142,8 @@ class Ctfs():
 '''
             await ctx.send(f''':triangular_flag_on_post:  **{params} CTFtime Leaderboards**```ini
 {leaderboards}```''')
+        
         if status == 'current':
-
             def updateDb():
                 upcoming = 'https://ctftime.org/api/v1/events/'
                 limit = '5'
@@ -136,9 +152,11 @@ class Ctfs():
 
                 with open('db.txt', 'r+') as db:
                     data = db.read()
+                    
                     for num in range(0, int(limit)):
                         ctf_title = json_data[num]['title']
                         ctf_check = f'''{ctf_title}'''
+                        
                         if ctf_check in data:
                             continue
                         else:
@@ -146,10 +164,12 @@ class Ctfs():
                             unix_now = int(now.replace(tzinfo=timezone.utc).timestamp())
                             ctf_format = json_data[num]['format']
                             ctf_place = json_data[num]['onsite']
+                            
                             if ctf_place == False:
                                 ctf_place = 'Online'
                             else:
                                 ctf_place = 'Onsite'
+                            
                             dur_dict = json_data[num]['duration']
                             (ctf_hours, ctf_days) = (str(dur_dict['hours']), str(dur_dict['days']))
                             (ctf_start, ctf_end) = (parse(json_data[num]['start'].replace('T', ' ').split('+', 1)[0]), parse(json_data[num]['finish'].replace('T', ' ').split('+', 1)[0]))
@@ -162,6 +182,7 @@ class Ctfs():
 <name>{ctf_title}<name> <start>{unix_start}<start> <end>{unix_end}end <link>{ctf_link}<link> <image>{ctf_image}<image> <format>{ctf_place} {ctf_format}<format> <duration>{ctf_days} days, {ctf_hours} hours<duration>''')
             updateDb()
             running = False
+            
             with open('db.txt', 'r+') as db:
                 data = db.readlines()
                 start_pat = r'<start>(.*)<start>'
@@ -171,9 +192,11 @@ class Ctfs():
                 ctf_img_pat = r'<image>(.*)<image>'
                 ctf_format_pat = r'<format>(.*)<format>'
                 ctf_dur_pat = r'<duration>(.*)<duration>'
+                
                 for line in data:
                     now = datetime.utcnow()
                     unix_now = int(now.replace(tzinfo=timezone.utc).timestamp())
+                    
                     try:
                         ctf_name = re.search(ctf_pat, line)
                         ctf_url = re.search(ctf_url_pat, line)
@@ -193,21 +216,26 @@ class Ctfs():
                         ctf = ctf_name.group(0).replace('<name>', '')
                     except:
                         continue
+                    
                     if (u_start < unix_now) and (u_end > unix_now):
                         running = True
                         embed = discord.Embed(title=(':red_circle: ' + ctf) + ' IS LIVE', description=url, color=15874645)
+                        
                         if img != '':
                             embed.set_thumbnail(url=img)
                         else:
                             embed.set_thumbnail(url=default_image)
+                        
                         embed.add_field(name='Duration', value=dur, inline=True)
                         embed.add_field(name='Format', value=format_c, inline=True)
                         embed.add_field(name='─' * 23, value=((start + ' UTC -> ') + end) + ' UTC', inline=True)
                         await ctx.channel.send(embed=embed)
+            
             if running == False:
                 await ctx.send("There are currently no running ctfs on ctftime.org :neutral_face: .  Check out '>ctftime upcoming' to see upcoming ctfs")
             else:
                 pass
+        
         if status not in current_ctftime_cmds:
             await ctx.send('Current ctftime commands are: top [year], upcoming [amount up to 5], current')
 
