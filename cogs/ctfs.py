@@ -22,12 +22,37 @@ class Ctfs():
 
     def __init__(self, bot):
         self.bot = bot
-
+        self.challenges = {}
     @commands.command()
-    async def ctf(self, ctx, cmd, name=None):
+    async def ctf(self, ctx, cmd, params=None, verbose=None):
         guild = ctx.guild
+        category = discord.utils.get(ctx.guild.categories, name="CTF")
+        
         if cmd == 'create':
-            await guild.create_text_channel(name, category=479358529740734474)
+            await guild.create_text_channel(name=params, category=category)
+            await guild.create_role(name=params)
+        
+        if cmd == 'challenge':
+            
+            if params == 'add': # Usage: ctf challenge add challengename
+                self.challenges[verbose] = 'Incomplete'
+                await ctx.send(':white_check_mark:')
+            
+            if params == 'solved': # usage: ctf challenge done challengename
+                self.challenges[verbose] = 'Complete'
+                await ctx.send(':triangular_flag_on_post:')
+            
+            if params == 'list': # Usage: ctf challenge list
+                pretty_chal = str(self.challenges).replace('{', '').replace('}', '').replace("'", '').replace(',', '\n')
+                try:
+                    await ctx.send(pretty_chal)
+                except:
+                    await ctx.send("Add a challenge with >ctf challenge add <challengename>")
+            if params == 'working': # Usage: ctf challenge working challengename
+                author = str(ctx.message.author)
+                self.challenges[verbose] += ' | '+author+' '
+                await ctx.send(':white_check_mark:')
+
 
     @commands.command()
     async def ctftime(self, ctx, status, params=None):
@@ -108,6 +133,7 @@ class Ctfs():
                 limit = '5'
                 response = requests.get(upcoming, headers=headers, params=limit)
                 json_data = response.json()
+
                 with open('db.txt', 'r+') as db:
                     data = db.read()
                     for num in range(0, int(limit)):
@@ -133,17 +159,18 @@ class Ctfs():
                             ctf_link = json_data[num]['url']
                             ctf_image = json_data[num]['logo']
                             db.write(f'''
-"{ctf_title}" "{unix_start}" "{unix_end}" <link>{ctf_link}<link> <image>{ctf_image}<image> <format>{ctf_place} {ctf_format}<format> <duration>{ctf_days} days, {ctf_hours} hours<duration>''')
+<name>{ctf_title}<name> <start>{unix_start}<start> <end>{unix_end}end <link>{ctf_link}<link> <image>{ctf_image}<image> <format>{ctf_place} {ctf_format}<format> <duration>{ctf_days} days, {ctf_hours} hours<duration>''')
             updateDb()
             running = False
             with open('db.txt', 'r+') as db:
                 data = db.readlines()
-                times_pat = '\\"(\\d+)\\"'
-                ctf_pat = '.*(?=\\s\\"\\d+\\"\\s\\"\\d+\\")'
-                ctf_url_pat = '<link>(.*)<link>'
-                ctf_img_pat = '<image>(.*)<image>'
-                ctf_format_pat = '<format>(.*)<format>'
-                ctf_dur_pat = '<duration>(.*)<duration>'
+                start_pat = r'<start>(.*)<start>'
+                end_pat =  r'<end>(.*)<end>'
+                ctf_pat = r'<name>(.*)<name>'
+                ctf_url_pat = r'<link>(.*)<link>'
+                ctf_img_pat = r'<image>(.*)<image>'
+                ctf_format_pat = r'<format>(.*)<format>'
+                ctf_dur_pat = r'<duration>(.*)<duration>'
                 for line in data:
                     now = datetime.utcnow()
                     unix_now = int(now.replace(tzinfo=timezone.utc).timestamp())
@@ -153,16 +180,17 @@ class Ctfs():
                         ctf_img = re.search(ctf_img_pat, line)
                         ctf_format = re.search(ctf_format_pat, line)
                         ctf_dur = re.search(ctf_dur_pat, line)
-                        times = re.findall(times_pat, line)
-                        u_start = int(times[0].replace('"', ''))
-                        u_end = int(times[1].replace('"', ''))
+                        ctf_start = re.search(start_pat, line)
+                        ctf_end = re.search(end_pat, line)
+                        u_start = int(ctf_start.group(0).replace('<start>', ''))
+                        u_end = int(ctf_end.group(0).replace('<end>', ''))
                         start = datetime.utcfromtimestamp(u_start).strftime('%Y-%m-%d %H:%M:%S')
                         end = datetime.utcfromtimestamp(u_end).strftime('%Y-%m-%d %H:%M:%S')
                         url = ctf_url.group(0).replace('<link>', '')
                         img = ctf_img.group(0).replace('<image>', '')
                         format_c = ctf_format.group(0).replace('<format>', '')
                         dur = ctf_dur.group(0).replace('<duration>', '')
-                        ctf = ctf_name.group(0).replace('"', '')
+                        ctf = ctf_name.group(0).replace('<name>', '')
                     except:
                         continue
                     if (u_start < unix_now) and (u_end > unix_now):
