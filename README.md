@@ -1,13 +1,13 @@
-<img src="https://raw.githubusercontent.com/NullPxl/NullSig/master/graphics/nullsigbanner.png" width ="920" height="165"/>
+<img src="https://raw.githubusercontent.com/NullPxl/NullCTF/master/graphics/nullctf_github_banner" width ="920" height="150"/>
 
->### *A [discord.py](http://discordpy.readthedocs.io/en/latest/) bot focused on providing easy to use, basic CTF tools for collaboration in Discord servers!  If you have a feature request, make it a GitHub issue or use the >request "x" command while the bot is online*
+>### *A [discord.py](http://discordpy.readthedocs.io/en/latest/) bot focused on providing easy to use, basic CTF tools for collaboration in Discord servers!  If you have a feature request, make it a GitHub issue or use the >request "x" command while the bot is online.*
 
 <br>
 
 * &gt;ctftime [upcoming/top/current] [number/year]\
   return info on a number of upcoming ctfs, leaderboards from a certain year, or the current running ctfs from ctftime.org
 
-* &gt;ctf [create/challenge] [channel_name/[add/solved/list/working]]
+* &gt;ctf [create/challenge/join] [channel_name/[add/solved/list/working]]
   create a channel and role for a ctf name of your choosing (in a catagory labeled CTF), and commands for collaboration.  ctf challenge add, adds a challenge to a list of challenges, solved marks a challenge as solved, working allows you to tell others in your server what challenge you're working on by adding your name to the list, which shows all of this info!
 
 * &gt;rot [message] [direction to rotate (right/left)]\
@@ -62,7 +62,7 @@
   get a 50/50 cointoss to make all your life's decisions
 
 * &gt;randread ["message 1" "message 2"...]\
-  have NullSig read out a random choice of one of your messages - use quotes for messages more than 1 word
+  have the bot read out a random choice of one of your messages - use quotes for messages more than 1 word
 
 * &gt;amicool\
   for the truth
