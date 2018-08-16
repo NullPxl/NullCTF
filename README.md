@@ -1,6 +1,6 @@
 <img src="https://raw.githubusercontent.com/NullPxl/NullSig/master/graphics/nullsigbanner.png" width ="920" height="165"/>
 
->### *A [discord.py](http://discordpy.readthedocs.io/en/latest/) bot focused on providing easy to use, basic CTF tools for collaboration in Discord servers!  If you have a feature request, use the >request "x" command.*
+>### *A [discord.py](http://discordpy.readthedocs.io/en/latest/) bot focused on providing easy to use, basic CTF tools for collaboration in Discord servers!  If you have a feature request, make it a GitHub issue or use the >request "x" command while the bot is online*
 
 <br>
 
