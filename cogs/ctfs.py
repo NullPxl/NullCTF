@@ -24,15 +24,17 @@ class Ctfs():
     def __init__(self, bot):
         self.bot = bot
         self.challenges = {}
+        self.ctfname = ""
     @commands.command()
     async def ctf(self, ctx, cmd, params=None, verbose=None):
         guild = ctx.guild
         category = discord.utils.get(ctx.guild.categories, name="CTF")
+        verbose = f"[{verbose}]"
         
         if cmd == 'create':
             await guild.create_text_channel(name=params, category=category)
             await guild.create_role(name=params)
-        
+            self.ctfname = params 
         if cmd == 'challenge':
             
             if params == 'add': # Usage: ctf challenge add challengename
@@ -40,21 +42,28 @@ class Ctfs():
                 await ctx.send(':white_check_mark:')
             
             if params == 'solved': # usage: ctf challenge done challengename
-                self.challenges[verbose] = 'Complete'
+                self.challenges[verbose] = str(self.challenges[verbose]).replace('Incomplete', 'Completed!')
                 await ctx.send(':triangular_flag_on_post:')
             
             if params == 'list': # Usage: ctf challenge list
                 pretty_chal = str(self.challenges).replace(', ', '\n').replace('{', '').replace('}', '').replace("'", '')
                 
                 try:
-                    await ctx.send(pretty_chal)
+                    await ctx.send(f"```ini\n{pretty_chal}```")
                 except:
                     await ctx.send("Add a challenge with >ctf challenge add <challengename>")
             
             if params == 'working': # Usage: ctf challenge working challengename
                 author = str(ctx.message.author)
-                self.challenges[verbose] += ' | '+author+' '
+                self.challenges[verbose] = 'Incomplete'+' '+author+' '
+                # self.challenges[verbose] += ' '+author+' '
                 await ctx.send(':white_check_mark:')
+
+        if cmd == 'join':
+            role = discord.utils.get(ctx.guild.roles, name=self.ctfname)
+            user = ctx.message.author
+            await user.add_roles(role)
+            await ctx.send(f"{user} has joined the {self.ctfname} team!")
 
     # Returns upcoming ctfs, leaderboards, and currently running ctfs from ctftime.org (using their api)
     # Usage: ctftime <upcoming/top/current> <number of ctfs/year>
