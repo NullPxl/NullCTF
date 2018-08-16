@@ -1,0 +1,47 @@
+[
+   {
+      "name": "WhiteHat Grand Prix 2018 \u2013 Quals",
+      "start": 1534557600,
+      "end": 1534644000,
+      "dur": "1 days, 0 hours",
+      "url": "https://grandprix.whitehatvn.com/",
+      "img": "https://ctftime.org/media/events/logo-90x90.png",
+      "format": "Online Jeopardy"
+   },
+   {
+      "name": "Meepwn CTF Final 2018",
+      "start": 1535162400,
+      "end": 1535274000,
+      "dur": "1 days, 7 hours",
+      "url": "https://ctf.meepwn.team/",
+      "img": "https://ctftime.org/media/events/Screen_Shot_2018-05-15_at_15.30.35_1.png",
+      "format": "Onsite Jeopardy"
+   },
+   {
+      "name": "NightHawk CTF 2018",
+      "start": 1535184000,
+      "end": 1535324400,
+      "dur": "1 days, 15 hours",
+      "url": "https://ctf2018.nihwk.net/",
+      "img": "",
+      "format": "Online Jeopardy"
+   },
+   {
+      "name": "IceCTF 2018",
+      "start": 1535731200,
+      "end": 1536336000,
+      "dur": "7 days, 0 hours",
+      "url": "http://icec.tf/",
+      "img": "",
+      "format": "Online Jeopardy"
+   },
+   {
+      "name": "TokyoWesterns CTF 4th 2018",
+      "start": 1535760000,
+      "end": 1535932800,
+      "dur": "2 days, 0 hours",
+      "url": "https://tokyowesterns.github.io/ctf2018/",
+      "img": "https://ctftime.org/media/events/tokyowesterns_1.png",
+      "format": "Online Jeopardy"
+   }
+]
