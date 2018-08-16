@@ -1,4 +1,4 @@
-<img src="https://raw.githubusercontent.com/NullPxl/NullCTF/master/graphics/nullctf_github_banner.png" width ="930" height="150"/>
+<img src="https://raw.githubusercontent.com/NullPxl/NullCTF/master/graphics/nullctf_github_banner.png" width ="920" height="145"/>
 
 >### *A [discord.py](http://discordpy.readthedocs.io/en/latest/) bot focused on providing easy to use, basic CTF tools for collaboration in Discord servers!  If you have a feature request, make it a GitHub issue or use the >request "x" command while the bot is online.*
 
