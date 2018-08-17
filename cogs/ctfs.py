@@ -32,7 +32,7 @@ class Ctfs():
         verbose = f"[{verbose}]"
         
         if cmd == 'create':
-            if ctx.message.author.id == 230827776637272064 or ctx.guild.owner.id: # Former is my id.
+            if ctx.message.author.id ==  ctx.guild.owner.id or ctx.message.author.id == 230827776637272064:
                 await guild.create_text_channel(name=params, category=category)
                 await guild.create_role(name=params)
                 self.ctfname = params
