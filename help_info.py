@@ -9,8 +9,8 @@ help_page = '''
 `>ctftime <upcoming/top/current> <number/year>`
 return info on a number of upcoming ctfs, leaderboards from a certain year, or currently running ctfs from ctftime.org
 
-`>ctf <create/challenge> <channel_name/[add/solved/list/working]>`
-create a channel and role for a ctf name of your choosing (in a catagory labeled CTF), and commands for collaboration.  ctf challenge add, adds a challenge to a list of challenges, solved marks a challenge as solved, working allows you to tell others in your server what challenge you're working on by adding your name to the list, which shows all of this info!
+`>ctf <create/challenge/join/leave/timeleft> <channel_name/[add/solved/list/working]>`
+create a channel and role for a ctf name of your choosing (in a catagory labeled CTF), and commands for collaboration.  ctf challenge add, adds a challenge to a list of challenges, solved marks a challenge as solved, working allows you to tell others in your server what challenge you're working on by adding your name to the list, which shows all of this info! (and more!)
 
 `>rot <message> <direction(optional, will default to left)>`
 return all 25 different possible combinations for the popular caesar cipher - use quotes for messages more than 1 word

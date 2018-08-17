@@ -13,7 +13,7 @@ from dateutil.parser import parse
 import time
 import datetime
 from datetime import timezone
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from colorthief import ColorThief
 import discord
@@ -32,9 +32,13 @@ class Ctfs():
         verbose = f"[{verbose}]"
         
         if cmd == 'create':
-            await guild.create_text_channel(name=params, category=category)
-            await guild.create_role(name=params)
-            self.ctfname = params 
+            if ctx.message.author.id == 230827776637272064 or ctx.guild.owner.id: # Former is my id.
+                await guild.create_text_channel(name=params, category=category)
+                await guild.create_role(name=params)
+                self.ctfname = params
+            else:
+                await ctx.send('You must be owner to use this command! Please tag the owner to create the ctf.') 
+        
         if cmd == 'challenge':
             
             if params == 'add': # Usage: ctf challenge add challengename
@@ -59,11 +63,47 @@ class Ctfs():
                 # self.challenges[verbose] += ' '+author+' '
                 await ctx.send(':white_check_mark:')
 
+        if cmd == 'timeleft': # Return the timeleft in the ctf in days, hours, minutes, seconds
+            with open("db.json") as db:
+                data = json.load(db)
+                running = False
+                
+                for ctf in data:
+                    now = datetime.utcnow()
+                    unix_now = int(now.replace(tzinfo=timezone.utc).timestamp())
+                    start = datetime.utcfromtimestamp(ctf['start']).strftime('%Y-%m-%d %H:%M:%S') + ' UTC'
+                    end = datetime.utcfromtimestamp(ctf['end']).strftime('%Y-%m-%d %H:%M:%S') + ' UTC'
+                  
+                    if ctf['start'] < unix_now and ctf['end'] > unix_now: #check if ctf is currently running
+                        running = True
+                        time = ctf['end'] - unix_now 
+                        days = time // (24 * 3600)
+                        time = time % (24 * 3600)
+                        hours = time // 3600
+                        time %= 3600
+                        minutes = time // 60
+                        time %= 60
+                        seconds = time
+                        await ctx.send(f"{ctf['name']} ends in: {days} days, {hours} hours, {minutes} minutes, {seconds} seconds")
+                
+                if running == False:
+                    await ctx.send('No ctfs are running! Use >ctftime upcoming to see upcoming ctfs')
+
+        if cmd == 'countdown': # Return the time until the ctfs start
+            #TODO: find a way to only return the appropriate ctf, if i loop through db.json it'll just spam the user.
+            pass 
+        
         if cmd == 'join':
             role = discord.utils.get(ctx.guild.roles, name=self.ctfname)
             user = ctx.message.author
             await user.add_roles(role)
             await ctx.send(f"{user} has joined the {self.ctfname} team!")
+
+        if cmd == 'leave':
+            role = discord.utils.get(ctx.guild.roles, name=self.ctfname)
+            user = ctx.message.author
+            await user.remove_roles(role)
+            await ctx.send(f"{user} has left the {self.ctfname} team.")
 
     # Returns upcoming ctfs, leaderboards, and currently running ctfs from ctftime.org (using their api)
     # Usage: ctftime <upcoming/top/current> <number of ctfs/year>
