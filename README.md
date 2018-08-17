@@ -1,79 +1,61 @@
-<img src="https://raw.githubusercontent.com/NullPxl/NullCTF/master/graphics/nullctf_github_banner.png" width ="920" height="135"/>
+<img src="https://raw.githubusercontent.com/NullPxl/NullCTF/master/graphics/nullctf_github_banner.png" width ="700" height="130"/>
 
 >### *A [discord.py](http://discordpy.readthedocs.io/en/latest/) bot focused on providing easy to use, basic CTF tools for collaboration in Discord servers!  If you have a feature request, make it a GitHub issue or use the >request "x" command while the bot is online.*
+>#### This tutorial should ideally be read by everyone who uses the bot, but if you are the server owner *please* read this.
 
-<br>
+#  How to Use
+>This bot has a ton of commands for encoding/decoding, ciphers, and more commonly used ctf tools.  But, the main use for NullCTF is to easily set up a CTF for your discord server.  The following commands listed are most likely to be used the most.
 
-* &gt;ctftime [upcoming/top/current] [number/year]\
-  return info on a number of upcoming ctfs, leaderboards from a certain year, or the current running ctfs from ctftime.org
+* `>ctf create "ctf name"`  This is the command you'll use when you want to begin a new CTF.  This command will make a text channel with your supplied name under the category 'CTF'.  *Only available to server owners*
 
-* &gt;ctf [create/challenge/join/leave/timeleft/countdown] [channel_name/[add/solved/list/working]]
-  create a channel and role for a ctf name of your choosing (in a catagory labeled CTF), and commands for collaboration.  ctf challenge add, adds a challenge to a list of challenges, solved marks a challenge as solved, working allows you to tell others in your server what challenge you're working on by adding your name to the list, which shows all of this info! (and more!)
+ * `>ctf join/leave` Using this command will either give or remove the role of the previously created CTF to/from you.
+ 
+ * `>ctf challenge add/working/solved` These commands are one of the most important parts of this bot, it allows your users to add a challenge to a list, add your discord username next to the challenge (so other users can see who's working on what challenge), and allow other users to see which challenges have been solved without leaving the discord chat.
+ 
+ * `>ctf challenge list` This is the list command that was previously mentioned, it displays the added challenges, who's working on what, and if a challenge is solved.
+ 
+ * `>ctf countdown/timeleft` Countdown will return when a selected CTF starts, and timeleft will return when any currently running CTFs end in the form of days hours minutes and seconds.  
+---
+>The following commands use the api from [ctftime](https://ctftime.org/)
 
-* &gt;rot [message] [direction to rotate (right/left)]\
-  returns all 25 different possible combinations for the popular caesar cipher, either rotate your message to the left or right (default it left) - use quotes for messages more than 1 word
+* `>ctftime upcoming <number>` Uses the api mentioned to return an embed up to 5 upcoming CTFs.  If no number is provided the default is 3.  The embed includes the following info: title, link, duration, format, and start/end dates.
 
-* &gt;magicb [filetype]\
-  returns the magicbytes of a supplied filetype.
+* `>ctftime current` Displays any currently running CTFs in the same embed as previously mentioned.
 
-* &gt;b64 [encode/decode] [message]\
-  encodes or decodes in base64 - if message has spaces use quotations
+* `>ctftime top <year>`  Shows the ctftime leaderboards from a certain year *(dates back to 2011)*.
 
-* &gt;binary [encode/decode] [message]\
-  encodes or decodes in binary - if message has spaces use quotations
+---
+>Utility commands
+* `>magicb filetype` Returns the mime and magicbytes of your supplied filetype. Useful for stegonography challenges where a filetype is corrupt.
 
-* &gt;hex [encode/decode] [message]\
-  encodes or decodes in hex - if message has spaces use quotations
+* `>rot  "a message" <right/left>` Returns all 25 possible rotations for a message with an optional direction (defaults to left).
 
-* &gt;url [encode/decode] [message]\
-  encodes or decodes based on url encoding - if message has spaces use quotations
+* `>b64 encode/decode "message"`  Encode or decode in base64 *(at the time of writing this, if there are any unprintable characters this command will not work, this goes for all encoding/decoding commands).*
 
-* &gt;reverse [message]\
-  reverse the supplied string - if message has spaces use quotations
+* `>binary encode/decode "message"` Encode or decode in binary.
 
-* &gt;counteach [message]\
-  count the occurences of each character in the supplied string - if message has spaces use quotations
+* `>hex encode/decode "message"` Encode or decode in hex.
 
-* &gt;clear [amount of messages]\
-  clear the supplied amount of messages in the current channel
+* `>url encode/decode "message"` Encode or decode with url parse.  This could be used for generating XSS payloads.
 
-* &gt;characters [message]\
-  count the amount of characters in your supplied message
+* `>reverse "message"` Reverse a message.
 
-* &gt;wordcount [phrase]\
-  count the amount of words in your supplied message
+* `>counteach "message"` Count the occurrences of each character in the supplied message.
 
-* &gt;atbash [message]\
-  encodes/decodes in the atbash cipher (which is just reversed alphabet) 
+* `>clear amount` Clear the supplied amount of messages in the current channel.
 
-* &gt;calc [expression]\
-  evaluate a math expression
+* `>characters "message"` Count the amount of characters in your message.
 
-* &gt;htb\
-  returns the latest tweet from @hackthebox_eu that says when the next box will be released
+* `>wordcount a test` Counts the amount of words in  your message (don't use quotations).
 
-* &gt;github [user]\
-  get a direct link to a github profile page with your supplied user
+* `>calc "expression"` Evaluate a math expression.
 
-* &gt;twitter [user]\
-  get a direct link to a twitter profile page with your supplied user
+* `>htb` Return when the next hackthebox machine is going live from @hackthebox_eu on twitter.
 
-* &gt;cointoss\
-  get a 50/50 cointoss to make all your life's decisions
+* `>cointoss` Get a 50/50 cointoss to make all your life's decisions.
 
-* &gt;randread ["message 1" "message 2"...]\
-  have the bot read out a random choice of one of your messages - use quotes for messages more than 1 word
+* `>request/report "a feature"/"a bug"` Dm's the creator with your feature/bug  request/report.
 
-* &gt;amicool\
-  for the truth
-<br>
+* `>help pagenumber` Returns the help page of your supplied number (currently there are 2 pages)
 
-
-> &gt;source, to see the github link\
-&gt;help [page number], to see the help message\
-&gt;request ["anything"], to request a feature\
-&gt;report ["an issue"], report an issue you found with the bot, if it is helpful your name will be added to the 'cool names' list!
-
-
-
-
+## Have a feature request?  Make a GitHub issue or use the >request command.
