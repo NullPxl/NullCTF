@@ -29,7 +29,8 @@ bot = commands.Bot(command_prefix='>')
 extensions = ['encoding_decoding', 'cipher', 'ctfs', 'utility']
 bot.remove_command('help')
 blacklisted = []
-cool_names = ['nullpxl', 'Test_Monkey']
+cool_names = ['nullpxl', 'Test_Monkey'] # This is intended to be able to be circumvented
+# If you do something like report a bug with the report command (OR GITHUB), e.g, >report "a bug", you might be added to the list!
 
 @bot.event
 async def on_ready():
@@ -42,8 +43,8 @@ async def on_message(message):
     if 'who should I subscribe to?' in message.content:
         choice = random.randint(1, 2)
         
-        if choice == 1:  # This is intended to be able to be circumvented
-            await message.channel.send('https://youtube.com/nullpxl')  # If you do something like report a bug with the report command, e.g, >report "a bug", you might be added to the list!
+        if choice == 1:
+            await message.channel.send('https://youtube.com/nullpxl')
         
         if choice == 2:
             await message.channel.send('https://www.youtube.com/user/RootOfTheNull')
@@ -69,14 +70,14 @@ async def help(ctx, page=None):
 
 @bot.command()
 async def request(ctx, feature):
-    creator = await bot.get_user_info(230827776637272064)  # Shows code source
+    creator = await bot.get_user_info(230827776637272064)
     authors_name = str(ctx.author)  # Usage: source
     await creator.send(f''':pencil: {authors_name}: {feature}''')
     await ctx.send(f''':pencil: Thanks, "{feature}" has been requested!''')
 
 @bot.command()
-async def report(ctx, error_report):  # Displays help message(s) 
-    creator = await bot.get_user_info(230827776637272064)  # Usage: help <page number>
+async def report(ctx, error_report):
+    creator = await bot.get_user_info(230827776637272064)
     authors_name = str(ctx.author)
     await creator.send(f''':triangular_flag_on_post: {authors_name}: {error_report}''')
     await ctx.send(f''':triangular_flag_on_post: Thanks for the help, "{error_report}" has been reported!''')
@@ -91,8 +92,8 @@ async def amicool(ctx):
     
     if any((name in authors_name for name in cool_names)):
         await ctx.send('You are very cool')
-    else:  # Allows anyone to request a feature, bot dm's me with your name and the request
-        await ctx.send('lolno')  # Usage: request "add this cool feature"
+    else:
+        await ctx.send('lolno')
 
 if __name__ == '__main__':
     sys.path.insert(1, os.getcwd() + '/cogs/')
