@@ -59,8 +59,9 @@ class Ctfs():
             
             if params == 'working': # Usage: ctf challenge working challengename
                 author = str(ctx.message.author)
-                self.challenges[verbose] = 'Incomplete'+' '+author+' '
-                # self.challenges[verbose] += ' '+author+' '
+                author = re.sub(r'#(\d{4})', '', author)
+                self.challenges[verbose] += ' - '+author
+
                 await ctx.send(':white_check_mark:')
 
         if cmd == 'timeleft': # Return the timeleft in the ctf in days, hours, minutes, seconds
@@ -84,14 +85,40 @@ class Ctfs():
                         minutes = time // 60
                         time %= 60
                         seconds = time
-                        await ctx.send(f"{ctf['name']} ends in: {days} days, {hours} hours, {minutes} minutes, {seconds} seconds")
+                        await ctx.send(f"```ini\n{ctf['name']} ends in: [{days} days], [{hours} hours], [{minutes} minutes], [{seconds} seconds]```\n{ctf['url']}")
                 
                 if running == False:
                     await ctx.send('No ctfs are running! Use >ctftime upcoming to see upcoming ctfs')
 
         if cmd == 'countdown': # Return the time until the ctfs start
             #TODO: find a way to only return the appropriate ctf, if i loop through db.json it'll just spam the user.
-            pass 
+            with open("db.json") as db:
+                data = json.load(db)
+                running = False
+                i = 1
+                numbers = ""
+
+                if params == None:
+                    for ctf in data:
+                        numbers += f"\n[{i}] {ctf['name']}\n"
+                        i += 1
+                    await ctx.send(f"Type >ctf countdown <number> to select.```ini\n{numbers}```")
+                else:
+                    x = int(params) - 1
+                    now = datetime.utcnow()
+                    unix_now = int(now.replace(tzinfo=timezone.utc).timestamp())
+                    start = datetime.utcfromtimestamp(data[x]['start']).strftime('%Y-%m-%d %H:%M:%S') + ' UTC'
+                    end = datetime.utcfromtimestamp(data[x]['end']).strftime('%Y-%m-%d %H:%M:%S') + ' UTC'
+                      
+                    time = data[x]['start'] - unix_now 
+                    days = time // (24 * 3600)
+                    time = time % (24 * 3600)
+                    hours = time // 3600
+                    time %= 3600
+                    minutes = time // 60
+                    time %= 60
+                    seconds = time
+                    await ctx.send(f"```ini\n{data[x]['name']} starts in: [{days} days], [{hours} hours], [{minutes} minutes], [{seconds} seconds]```\n{data[x]['url']}")
         
         if cmd == 'join':
             role = discord.utils.get(ctx.guild.roles, name=self.ctfname)
