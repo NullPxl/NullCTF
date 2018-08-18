@@ -10,7 +10,7 @@
 
  * `>ctf join/leave` Using this command will either give or remove the role of the previously created CTF to/from you.
  
- * `>ctf challenge add/working/solved` These commands are one of the most important parts of this bot, it allows your users to add a challenge to a list, add your discord username next to the challenge (so other users can see who's working on what challenge), and allow other users to see which challenges have been solved without leaving the discord chat.
+ * `>ctf challenge add/working/solved "challenge name"` These commands are one of the most important parts of this bot, it allows your users to add a challenge to a list, add your discord username next to the challenge (so other users can see who's working on what challenge), and allow other users to see which challenges have been solved without leaving the discord chat.
  
  * `>ctf challenge list` This is the list command that was previously mentioned, it displays the added challenges, who's working on what, and if a challenge is solved.
  
