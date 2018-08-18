@@ -25,6 +25,7 @@ class Ctfs():
         self.bot = bot
         self.challenges = {}
         self.ctfname = ""
+        self.upcoming_l = []
     @commands.command()
     async def ctf(self, ctx, cmd, params=None, verbose=None):
         guild = ctx.guild
@@ -90,27 +91,35 @@ class Ctfs():
                 if running == False:
                     await ctx.send('No ctfs are running! Use >ctftime upcoming to see upcoming ctfs')
 
-        if cmd == 'countdown': # Return the time until the ctfs start
-            #TODO: find a way to only return the appropriate ctf, if i loop through db.json it'll just spam the user.
+        if cmd == 'countdown':
             with open("db.json") as db:
                 data = json.load(db)
-                running = False
-                i = 1
+                i = 0
                 numbers = ""
+                now = datetime.utcnow()
+                unix_now = int(now.replace(tzinfo=timezone.utc).timestamp())
 
-                if params == None:
+                if params == None:                    
                     for ctf in data:
-                        numbers += f"\n[{i}] {ctf['name']}\n"
+                        
+                        if ctf['start'] > unix_now:
+                            self.upcoming_l.append(ctf)
+                        else:
+                            pass
+
+                    for entry in self.upcoming_l:
+                        numbers += f"\n[{i}] {entry['name']}\n"
                         i += 1
+                    
                     await ctx.send(f"Type >ctf countdown <number> to select.```ini\n{numbers}```")
+                
                 else:
-                    x = int(params) - 1
-                    now = datetime.utcnow()
-                    unix_now = int(now.replace(tzinfo=timezone.utc).timestamp())
-                    start = datetime.utcfromtimestamp(data[x]['start']).strftime('%Y-%m-%d %H:%M:%S') + ' UTC'
-                    end = datetime.utcfromtimestamp(data[x]['end']).strftime('%Y-%m-%d %H:%M:%S') + ' UTC'
+                    x = int(params)
+
+                    start = datetime.utcfromtimestamp(self.upcoming_l[x]['start']).strftime('%Y-%m-%d %H:%M:%S') + ' UTC'
+                    end = datetime.utcfromtimestamp(self.upcoming_l[x]['end']).strftime('%Y-%m-%d %H:%M:%S') + ' UTC'
                       
-                    time = data[x]['start'] - unix_now 
+                    time = self.upcoming_l[x]['start'] - unix_now 
                     days = time // (24 * 3600)
                     time = time % (24 * 3600)
                     hours = time // 3600
@@ -118,7 +127,7 @@ class Ctfs():
                     minutes = time // 60
                     time %= 60
                     seconds = time
-                    await ctx.send(f"```ini\n{data[x]['name']} starts in: [{days} days], [{hours} hours], [{minutes} minutes], [{seconds} seconds]```\n{data[x]['url']}")
+                    await ctx.send(f"```ini\n{self.upcoming_l[x]['name']} starts in: [{days} days], [{hours} hours], [{minutes} minutes], [{seconds} seconds]```\n{self.upcoming_l[x]['url']}")
         
         if cmd == 'join':
             role = discord.utils.get(ctx.guild.roles, name=self.ctfname)
@@ -220,8 +229,6 @@ class Ctfs():
 {leaderboards}```''')
         
         if status == 'current':
-            # THIS IS A MESS HELP ME ANYONE WHO SEES THIS D:
-            # This is not a joke, please message me if you know how to fix this. 
             headers = {
                     'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:61.0) Gecko/20100101 Firefox/61.0',
                     }
@@ -315,7 +322,7 @@ class Ctfs():
                         await ctx.channel.send(embed=embed)
                         
             if running == False:
-                await ctx.send("This command is currently broken along with ctf timeleft (I'm working on it!). In the meantime, check out >ctf countdown, and >ctftime upcoming to see when ctfs will start!")
+                await ctx.send("No CTFs currently running! Check out >ctf countdown, and >ctftime upcoming to see when ctfs will start!")
  
         
         if status not in current_ctftime_cmds:
