@@ -9,7 +9,7 @@
 * `>ctf create "ctf name"`  This is the command you'll use when you want to begin a new CTF.  This command will make a text channel with your supplied name under the category 'CTF'.  *Only available to server owners*
 
  * `>ctf join/leave` Using this command will either give or remove the role of the previously created CTF to/from you. 
- ![enter image description here](https://i.imgur.com/IWJ5OYD.png)
+ ![enter image description here](https://i.imgur.com/4QPUgvM.png)
  
  * `>ctf challenge add/working/solved "challenge name"` These commands are one of the most important parts of this bot, it allows your users to add a challenge to a list, add your discord username next to the challenge (so other users can see who's working on what challenge), and allow other users to see which challenges have been solved without leaving the discord chat.
  
