@@ -307,7 +307,6 @@ class Ctfs():
                     end = datetime.utcfromtimestamp(ctf['end']).strftime('%Y-%m-%d %H:%M:%S') + ' UTC'
                   
                     if ctf['start'] < unix_now and ctf['end'] > unix_now: #check if ctf is currently running
-                        print('test')
                         running = True
                         embed = discord.Embed(title=':red_circle: ' + ctf['name']+' IS LIVE', description=ctf['url'], color=15874645)
                      

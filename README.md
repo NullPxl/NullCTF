@@ -18,6 +18,7 @@
  
  * `>ctf countdown/timeleft` Countdown will return when a selected CTF starts, and timeleft will return when any currently running CTFs end in the form of days hours minutes and seconds.
  ![enter image description here](https://i.imgur.com/PpGMZTh.png)  
+ ![enter image description here](https://i.imgur.com/gp7sBJG.png)
 ---
 >The following commands use the api from [ctftime](https://ctftime.org/)
 
@@ -25,6 +26,7 @@
 ![enter image description here](https://i.imgur.com/UpouneO.png)
 
 * `>ctftime current` Displays any currently running CTFs in the same embed as previously mentioned.
+![enter image description here](https://i.imgur.com/RCh3xg6.png)
 
 * `>ctftime top <year>`  Shows the ctftime leaderboards from a certain year *(dates back to 2011)*.
 ![enter image description here](https://i.imgur.com/2npW7gM.png)
