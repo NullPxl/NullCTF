@@ -220,7 +220,8 @@ class Ctfs():
 {leaderboards}```''')
         
         if status == 'current':
-            # Update db.json
+            # THIS IS A MESS HELP ME ANYONE WHO SEES THIS D:
+            # This is not a joke, please message me if you know how to fix this. 
             headers = {
                     'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:61.0) Gecko/20100101 Firefox/61.0',
                     }
@@ -234,9 +235,24 @@ class Ctfs():
                     json.dump(data, db, indent=3)
 
             with open("db.json", 'w') as db:
+                #db_data = json.load(db)
 
                 for num in range(0, int(limit)):
                     ctf_title = json_data[num]['title']
+                    # local_ctftitle = db_data[num]['name']
+                    
+                    # if local_ctftitle not in ctf_title:
+                    #     ctf_info = {
+                    #         'name': db_data[num]['name'],
+                    #         'start': db_data[num]['start'],
+                    #         'end': db_data[num]['end'],
+                    #         'dur': db_data[num]['dur'],
+                    #         'url': db_data[num]['url'],
+                    #         'img': db_data[num]['img'],
+                    #         'format': db_data[num]['format']
+                    #         }
+                    #     data.append(ctf_info)
+
                     now = datetime.utcnow()
                     unix_now = int(now.replace(tzinfo=timezone.utc).timestamp())
                     ctf_format = json_data[num]['format']
@@ -282,7 +298,7 @@ class Ctfs():
                     if ctf['start'] < unix_now and ctf['end'] > unix_now: #check if ctf is currently running
                         print('test')
                         running = True
-                        embed = discord.Embed(title=(':red_circle: ' + ctf) + ' IS LIVE', description=url, color=15874645)
+                        embed = discord.Embed(title=':red_circle: ' + ctf+' IS LIVE', description=url, color=15874645)
                      
                         if ctf['img'] != '':
                             embed.set_thumbnail(url=img)
@@ -295,7 +311,7 @@ class Ctfs():
                         await ctx.channel.send(embed=embed)
                         
             if running == False:
-                await ctx.send("There are currently no running ctfs on ctftime.org :neutral_face: .  Check out '>ctftime upcoming' to see upcoming ctfs")
+                await ctx.send("This command is currently broken along with ctf timeleft (I'm working on it!). In the meantime, check out >ctf countdown, and >ctftime upcoming to see when ctfs will start!")
  
         
         if status not in current_ctftime_cmds:
