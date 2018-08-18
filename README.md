@@ -31,7 +31,7 @@
 ---
 >Utility commands
 * `>magicb filetype` Returns the mime and magicbytes of your supplied filetype. Useful for stegonography challenges where a filetype is corrupt.
-![enter image description here](https://i.imgur.com/1lG7ibn.png)
+
 * `>rot  "a message" <right/left>` Returns all 25 possible rotations for a message with an optional direction (defaults to left).
 
 * `>b64 encode/decode "message"`  Encode or decode in base64 *(at the time of writing this, if there are any unprintable characters this command will not work, this goes for all encoding/decoding commands).*

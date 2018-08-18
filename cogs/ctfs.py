@@ -230,29 +230,33 @@ class Ctfs():
             response = requests.get(upcoming, headers=headers, params=limit)
             json_data = response.json()
             data = []
+            with open("db.json", 'r') as local:
+                db_data = json.load(local)
+            
             def update(name, entry):
                 with open("db.json", mode='a', encoding='utf-8') as db:
                     json.dump(data, db, indent=3)
 
             with open("db.json", 'w') as db:
-                #db_data = json.load(db)
+                if len(db_data) > len(json_data):
+                    diff = int(len(db_data)) - int(len(json_data))
+                    
+                    for each in range (0, diff):
+                        ctf_info = {
+                            'name': db_data[each]['name'],
+                            'start': db_data[each]['start'],
+                            'end': db_data[each]['end'],
+                            'dur': db_data[each]['dur'],
+                            'url': db_data[each]['url'],
+                            'img': db_data[each]['img'],
+                            'format': db_data[each]['format']
+                            }
+                        data.append(ctf_info)
+
+
 
                 for num in range(0, int(limit)):
                     ctf_title = json_data[num]['title']
-                    # local_ctftitle = db_data[num]['name']
-                    
-                    # if local_ctftitle not in ctf_title:
-                    #     ctf_info = {
-                    #         'name': db_data[num]['name'],
-                    #         'start': db_data[num]['start'],
-                    #         'end': db_data[num]['end'],
-                    #         'dur': db_data[num]['dur'],
-                    #         'url': db_data[num]['url'],
-                    #         'img': db_data[num]['img'],
-                    #         'format': db_data[num]['format']
-                    #         }
-                    #     data.append(ctf_info)
-
                     now = datetime.utcnow()
                     unix_now = int(now.replace(tzinfo=timezone.utc).timestamp())
                     ctf_format = json_data[num]['format']
@@ -298,10 +302,10 @@ class Ctfs():
                     if ctf['start'] < unix_now and ctf['end'] > unix_now: #check if ctf is currently running
                         print('test')
                         running = True
-                        embed = discord.Embed(title=':red_circle: ' + ctf+' IS LIVE', description=url, color=15874645)
+                        embed = discord.Embed(title=':red_circle: ' + ctf['name']+' IS LIVE', description=ctf['url'], color=15874645)
                      
                         if ctf['img'] != '':
-                            embed.set_thumbnail(url=img)
+                            embed.set_thumbnail(url=ctf['img'])
                         else:
                             embed.set_thumbnail(url=default_image)
                          
