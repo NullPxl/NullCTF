@@ -61,7 +61,11 @@ class Ctfs():
             if params == 'working': # Usage: ctf challenge working challengename
                 author = str(ctx.message.author)
                 author = re.sub(r'#(\d{4})', '', author)
-                self.challenges[verbose] += ' - '+author
+                try:
+                    self.challenges[verbose] += ' - '+author
+                except:
+                    self.challenges[verbose] = 'Incomplete'
+                    self.challenges[verbose] += ' - '+author
 
                 await ctx.send(':white_check_mark:')
 
