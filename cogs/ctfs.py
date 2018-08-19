@@ -99,7 +99,8 @@ class Ctfs():
                 now = datetime.utcnow()
                 unix_now = int(now.replace(tzinfo=timezone.utc).timestamp())
 
-                if params == None:                    
+                if params == None:
+                    self.upcoming_l = []                    
                     for ctf in data:
                         
                         if ctf['start'] > unix_now:
