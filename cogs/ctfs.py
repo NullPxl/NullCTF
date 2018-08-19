@@ -109,13 +109,13 @@ class Ctfs():
                             pass
 
                     for entry in self.upcoming_l:
-                        numbers += f"\n[{i}] {entry['name']}\n"
+                        numbers += f"\n[{i + 1}] {entry['name']}\n"
                         i += 1
                     
                     await ctx.send(f"Type >ctf countdown <number> to select.```ini\n{numbers}```")
                 
                 else:
-                    x = int(params)
+                    x = int(params) - 1
 
                     start = datetime.utcfromtimestamp(self.upcoming_l[x]['start']).strftime('%Y-%m-%d %H:%M:%S') + ' UTC'
                     end = datetime.utcfromtimestamp(self.upcoming_l[x]['end']).strftime('%Y-%m-%d %H:%M:%S') + ' UTC'
