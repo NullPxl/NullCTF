@@ -112,7 +112,6 @@ class Ctfs():
             
             if params == 'add': # Usage: ctf challenge add challengename
                 self.challenges[verbose] = 'Incomplete'
-                await ctx.send(':white_check_mark:')
             
             if params == 'solved': # usage: ctf challenge done challengename
                 self.challenges[verbose] = str(self.challenges[verbose]).replace('Incomplete', 'Completed!')
@@ -135,7 +134,6 @@ class Ctfs():
                     self.challenges[verbose] = 'Incomplete'
                     self.challenges[verbose] += ' - '+author
 
-                await ctx.send(':white_check_mark:')
 
         if cmd == 'timeleft': # Return the timeleft in the ctf in days, hours, minutes, seconds
             Ctfs.updatedb()
