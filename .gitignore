@@ -3,3 +3,4 @@ nullsig.pyc
 nullctf.pyc
 __pycache__/
 cogs/__pycache__/
+ctf.json

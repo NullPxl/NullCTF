@@ -96,43 +96,87 @@ class Ctfs():
         update('db.json', data)
     @commands.command()
     async def ctf(self, ctx, cmd, params=None, verbose=None):
+
         guild = ctx.guild
+        gid = ctx.guild.id
+        print(gid)
         category = discord.utils.get(ctx.guild.categories, name="CTF")
-        verbose = f"[{verbose}]"
+        data = []
+        def update(name, entry):
+            with open('ctf.json', mode='a', encoding='utf-8') as g_ctfs:
+                json.dump(data, g_ctfs, indent=3)        
+
+        # with open('ctf.json', 'r') as json_ctf:
+        #     ctf_data = json.load(json_ctf)
+        #     for ctf in ctf_data:
+        #         g_challenges = ctf[str(gid)]["challenges"]
+        #     print(g_challenges)
+        #"challenges": g_challenges.update(self.challenges)
+
+
+        with open('ctf.json', 'w') as g_ctfs: #FIX THIS!
         
-        if cmd == 'create':
-            if ctx.message.author.id ==  ctx.guild.owner.id or ctx.message.author.id == 230827776637272064:
-                await guild.create_text_channel(name=params, category=category)
-                await guild.create_role(name=params)
-                self.ctfname = params
-            else:
-                await ctx.send('You must be owner to use this command! Please tag the owner to create the ctf.') 
-        
-        if cmd == 'challenge':
+            if cmd == 'create':
+                if ctx.message.author.id ==  ctx.guild.owner.id or ctx.message.author.id == 230827776637272064:
+                    await guild.create_text_channel(name=params, category=category)
+                    await guild.create_role(name=params)
+                    self.ctfname = params
+                    ctf_info = {str(ctx.guild.id):{
+                        "ctf_name": self.ctfname,
+                        "challenges": self.challenges
+                        }}
+                else:
+                    await ctx.send('You must be owner to use this command! Please tag the owner to create the ctf.') 
             
-            if params == 'add': # Usage: ctf challenge add challengename
-                self.challenges[verbose] = 'Incomplete'
-            
-            if params == 'solved': # usage: ctf challenge done challengename
-                self.challenges[verbose] = str(self.challenges[verbose]).replace('Incomplete', 'Completed!')
-                await ctx.send(':triangular_flag_on_post:')
-            
-            if params == 'list': # Usage: ctf challenge list
-                pretty_chal = str(self.challenges).replace(', ', '\n').replace('{', '').replace('}', '').replace("'", '')
-                
-                try:
-                    await ctx.send(f"```ini\n{pretty_chal}```")
-                except:
-                    await ctx.send("Add a challenge with >ctf challenge add <challengename>")
-            
-            if params == 'working': # Usage: ctf challenge working challengename
-                author = str(ctx.message.author)
-                author = re.sub(r'#(\d{4})', '', author)
-                try:
-                    self.challenges[verbose] += ' - '+author
-                except:
+            if cmd == 'challenge':
+
+                if params == 'add': # Usage: ctf challenge add challengename
                     self.challenges[verbose] = 'Incomplete'
-                    self.challenges[verbose] += ' - '+author
+                    #if g_challenges != None
+                    ctf_info = {str(ctx.guild.id):{
+                        "ctf_name": self.ctfname,
+                        "challenges": self.challenges
+                        }}
+                
+                if params == 'solved': # usage: ctf challenge done challengename
+                    self.challenges[verbose] = str(self.challenges[verbose]).replace('Incomplete', 'Completed!')
+                    await ctx.send(':triangular_flag_on_post:')
+                    ctf_info = {str(ctx.guild.id):{
+                        "ctf_name": self.ctfname,
+                        "challenges": self.challenges
+                        }}             
+
+                if params == 'working': # Usage: ctf challenge working challengename
+                    author = str(ctx.message.author)
+                    author = re.sub(r'#(\d{4})', '', author)
+                    try:
+                        self.challenges[verbose] += ' - '+author
+                    except:
+                        self.challenges[verbose] = 'Incomplete'
+                        self.challenges[verbose] += ' - '+author
+                    
+                    ctf_info = {str(ctx.guild.id):{
+                        "ctf_name": self.ctfname,
+                        "challenges": self.challenges
+                        }}
+
+                if params == 'list': # Usage: ctf challenge list
+                    pretty_chal = str(self.challenges).replace(', ', '\n').replace('{', '').replace('}', '').replace("'", '')
+                    print(self.challenges)
+                    try:
+                        await ctx.send(f"```ini\n{pretty_chal}```")
+                    except:
+                        await ctx.send("Add a challenge with >ctf challenge add <challengename>")
+
+                    ctf_info = {str(ctx.guild.id):{
+                        "ctf_name": self.ctfname,
+                        "challenges": self.challenges
+                        }}
+
+
+            if cmd == 'create' or cmd == 'challenge':
+                data.append(ctf_info)
+                update('ctf.json', data)
 
 
         if cmd == 'timeleft': # Return the timeleft in the ctf in days, hours, minutes, seconds

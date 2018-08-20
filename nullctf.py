@@ -29,7 +29,7 @@ bot = commands.Bot(command_prefix='>')
 extensions = ['encoding_decoding', 'cipher', 'ctfs', 'utility']
 bot.remove_command('help')
 blacklisted = []
-cool_names = ['nullpxl', 'Test_Monkey'] # This is intended to be able to be circumvented.
+cool_names = ['nullpxl', 'Test_Monkey', 'Yiggles', 'romangraef89', 'JohnHammond'] # This is intended to be able to be circumvented.
 # If you do something like report a bug with the report command (OR GITHUB), e.g, >report "a bug", you might be added to the list!
 
 @bot.event
