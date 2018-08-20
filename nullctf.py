@@ -29,7 +29,7 @@ bot = commands.Bot(command_prefix='>')
 extensions = ['encoding_decoding', 'cipher', 'ctfs', 'utility']
 bot.remove_command('help')
 blacklisted = []
-cool_names = ['nullpxl', 'Test_Monkey'] # This is intended to be able to be circumvented
+cool_names = ['nullpxl', 'Test_Monkey'] # This is intended to be able to be circumvented.
 # If you do something like report a bug with the report command (OR GITHUB), e.g, >report "a bug", you might be added to the list!
 
 @bot.event
@@ -51,6 +51,7 @@ async def on_message(message):
     
     await bot.process_commands(message)
 
+# Sends the github link.
 @bot.command()
 async def source(ctx):
     await ctx.send(src)
@@ -68,13 +69,15 @@ async def help(ctx, page=None):
     
     await ctx.channel.send(embed=emb)
 
+# Bot sends a dm to creator with the name of the user and their request.
 @bot.command()
 async def request(ctx, feature):
     creator = await bot.get_user_info(230827776637272064)
-    authors_name = str(ctx.author)  # Usage: source
+    authors_name = str(ctx.author)
     await creator.send(f''':pencil: {authors_name}: {feature}''')
     await ctx.send(f''':pencil: Thanks, "{feature}" has been requested!''')
 
+# Bot sends a dm to creator with the name of the user and their report.
 @bot.command()
 async def report(ctx, error_report):
     creator = await bot.get_user_info(230827776637272064)

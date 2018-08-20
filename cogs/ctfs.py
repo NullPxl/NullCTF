@@ -26,6 +26,74 @@ class Ctfs():
         self.challenges = {}
         self.ctfname = ""
         self.upcoming_l = []
+
+    @staticmethod
+    def updatedb():
+        headers = {
+                'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:61.0) Gecko/20100101 Firefox/61.0',
+                }
+        upcoming = 'https://ctftime.org/api/v1/events/'
+        limit = '5'
+        response = requests.get(upcoming, headers=headers, params=limit)
+        json_data = response.json()
+        data = []
+        with open("db.json", 'r') as local:
+            db_data = json.load(local)
+        
+        def update(name, entry):
+            with open("db.json", mode='a', encoding='utf-8') as db:
+                json.dump(data, db, indent=3)
+
+        with open("db.json", 'w') as db:
+            if len(db_data) > len(json_data):
+                diff = int(len(db_data)) - int(len(json_data))
+                
+                for each in range (0, diff):
+                    ctf_info = {
+                        'name': db_data[each]['name'],
+                        'start': db_data[each]['start'],
+                        'end': db_data[each]['end'],
+                        'dur': db_data[each]['dur'],
+                        'url': db_data[each]['url'],
+                        'img': db_data[each]['img'],
+                        'format': db_data[each]['format']
+                        }
+                    data.append(ctf_info)
+
+
+
+            for num in range(0, int(limit)):
+                ctf_title = json_data[num]['title']
+                now = datetime.utcnow()
+                unix_now = int(now.replace(tzinfo=timezone.utc).timestamp())
+                ctf_format = json_data[num]['format']
+                ctf_place = json_data[num]['onsite']
+                
+                if ctf_place == False:
+                    ctf_place = 'Online'
+                else:
+                    ctf_place = 'Onsite'
+                
+                dur_dict = json_data[num]['duration']
+                (ctf_hours, ctf_days) = (str(dur_dict['hours']), str(dur_dict['days']))
+                (ctf_start, ctf_end) = (parse(json_data[num]['start'].replace('T', ' ').split('+', 1)[0]), parse(json_data[num]['finish'].replace('T', ' ').split('+', 1)[0]))
+                (unix_start, unix_end) = (int(ctf_start.replace(tzinfo=timezone.utc).timestamp()), int(ctf_end.replace(tzinfo=timezone.utc).timestamp()))
+                dur_dict = json_data[num]['duration']
+                (ctf_hours, ctf_days) = (str(dur_dict['hours']), str(dur_dict['days']))
+                ctf_link = json_data[num]['url']
+                ctf_image = json_data[num]['logo']
+                ctf_info = {
+                    'name': ctf_title,
+                    'start': unix_start,
+                    'end': unix_end,
+                    'dur': ctf_days+' days, '+ctf_hours+' hours',
+                    'url': ctf_link,
+                    'img': ctf_image,
+                    'format': ctf_place+' '+ctf_format
+                    }
+                data.append(ctf_info)
+                
+        update('db.json', data)
     @commands.command()
     async def ctf(self, ctx, cmd, params=None, verbose=None):
         guild = ctx.guild
@@ -70,6 +138,7 @@ class Ctfs():
                 await ctx.send(':white_check_mark:')
 
         if cmd == 'timeleft': # Return the timeleft in the ctf in days, hours, minutes, seconds
+            Ctfs.updatedb()
             with open("db.json") as db:
                 data = json.load(db)
                 running = False
@@ -96,6 +165,7 @@ class Ctfs():
                     await ctx.send('No ctfs are running! Use >ctftime upcoming to see upcoming ctfs')
 
         if cmd == 'countdown':
+            Ctfs.updatedb()
             with open("db.json") as db:
                 data = json.load(db)
                 i = 0
@@ -234,72 +304,7 @@ class Ctfs():
 {leaderboards}```''')
         
         if status == 'current':
-            headers = {
-                    'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:61.0) Gecko/20100101 Firefox/61.0',
-                    }
-            upcoming = 'https://ctftime.org/api/v1/events/'
-            limit = '5'
-            response = requests.get(upcoming, headers=headers, params=limit)
-            json_data = response.json()
-            data = []
-            with open("db.json", 'r') as local:
-                db_data = json.load(local)
-            
-            def update(name, entry):
-                with open("db.json", mode='a', encoding='utf-8') as db:
-                    json.dump(data, db, indent=3)
-
-            with open("db.json", 'w') as db:
-                if len(db_data) > len(json_data):
-                    diff = int(len(db_data)) - int(len(json_data))
-                    
-                    for each in range (0, diff):
-                        ctf_info = {
-                            'name': db_data[each]['name'],
-                            'start': db_data[each]['start'],
-                            'end': db_data[each]['end'],
-                            'dur': db_data[each]['dur'],
-                            'url': db_data[each]['url'],
-                            'img': db_data[each]['img'],
-                            'format': db_data[each]['format']
-                            }
-                        data.append(ctf_info)
-
-
-
-                for num in range(0, int(limit)):
-                    ctf_title = json_data[num]['title']
-                    now = datetime.utcnow()
-                    unix_now = int(now.replace(tzinfo=timezone.utc).timestamp())
-                    ctf_format = json_data[num]['format']
-                    ctf_place = json_data[num]['onsite']
-                    
-                    if ctf_place == False:
-                        ctf_place = 'Online'
-                    else:
-                        ctf_place = 'Onsite'
-                    
-                    dur_dict = json_data[num]['duration']
-                    (ctf_hours, ctf_days) = (str(dur_dict['hours']), str(dur_dict['days']))
-                    (ctf_start, ctf_end) = (parse(json_data[num]['start'].replace('T', ' ').split('+', 1)[0]), parse(json_data[num]['finish'].replace('T', ' ').split('+', 1)[0]))
-                    (unix_start, unix_end) = (int(ctf_start.replace(tzinfo=timezone.utc).timestamp()), int(ctf_end.replace(tzinfo=timezone.utc).timestamp()))
-                    dur_dict = json_data[num]['duration']
-                    (ctf_hours, ctf_days) = (str(dur_dict['hours']), str(dur_dict['days']))
-                    ctf_link = json_data[num]['url']
-                    ctf_image = json_data[num]['logo']
-                    ctf_info = {
-                        'name': ctf_title,
-                        'start': unix_start,
-                        'end': unix_end,
-                        'dur': ctf_days+' days, '+ctf_hours+' hours',
-                        'url': ctf_link,
-                        'img': ctf_image,
-                        'format': ctf_place+' '+ctf_format
-                        }
-                    data.append(ctf_info)
-                    
-            update('db.json', data)
-
+            Ctfs.updatedb()
             running = False
             #read from file and check if ctf is running
             with open("db.json") as db:
