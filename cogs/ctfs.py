@@ -99,32 +99,39 @@ class Ctfs():
 
         guild = ctx.guild
         gid = ctx.guild.id
-        print(gid)
         category = discord.utils.get(ctx.guild.categories, name="CTF")
         data = []
         def update(name, entry):
             with open('ctf.json', mode='a', encoding='utf-8') as g_ctfs:
                 json.dump(data, g_ctfs, indent=3)        
 
-        # with open('ctf.json', 'r') as json_ctf:
-        #     ctf_data = json.load(json_ctf)
-        #     for ctf in ctf_data:
-        #         g_challenges = ctf[str(gid)]["challenges"]
-        #     print(g_challenges)
-        #"challenges": g_challenges.update(self.challenges)
+        with open('ctf.json', 'r') as json_ctf:
+            try:
+                ctf_data = json.load(json_ctf)
+                for ctf in ctf_data:
+                    try:
+                        g_challenges = ctf[str(gid)]["challenges"]
+                    except:
+                        print(f"erver {gid} is not in ctf.json")
+            except:
+                print('error loading json file (might just be empty)')
 
 
         with open('ctf.json', 'w') as g_ctfs: #FIX THIS!
         
-            if cmd == 'create':
+            if cmd == 'create': #todo, make this append onto the ctf.json file, not replace it.
                 if ctx.message.author.id ==  ctx.guild.owner.id or ctx.message.author.id == 230827776637272064:
                     await guild.create_text_channel(name=params, category=category)
                     await guild.create_role(name=params)
                     self.ctfname = params
+                    self.challenges = {}
                     ctf_info = {str(ctx.guild.id):{
                         "ctf_name": self.ctfname,
                         "challenges": self.challenges
                         }}
+                    print(ctf_info)
+                    data.append(ctf_info)
+                    update('ctf.json', data)
                 else:
                     await ctx.send('You must be owner to use this command! Please tag the owner to create the ctf.') 
             
@@ -132,18 +139,20 @@ class Ctfs():
 
                 if params == 'add': # Usage: ctf challenge add challengename
                     self.challenges[verbose] = 'Incomplete'
-                    #if g_challenges != None
+                    g_challenges.update(self.challenges)
                     ctf_info = {str(ctx.guild.id):{
                         "ctf_name": self.ctfname,
-                        "challenges": self.challenges
+                        "challenges": g_challenges
                         }}
                 
-                if params == 'solved': # usage: ctf challenge done challengename
-                    self.challenges[verbose] = str(self.challenges[verbose]).replace('Incomplete', 'Completed!')
+                if params == 'solved': # Usage: ctf challenge solved challengename
+                    self.challenges[verbose] = g_challenges[verbose].replace('Incomplete', 'Completed!')
                     await ctx.send(':triangular_flag_on_post:')
+                    
+                    g_challenges.update(self.challenges)
                     ctf_info = {str(ctx.guild.id):{
                         "ctf_name": self.ctfname,
-                        "challenges": self.challenges
+                        "challenges": g_challenges
                         }}             
 
                 if params == 'working': # Usage: ctf challenge working challengename
@@ -154,30 +163,34 @@ class Ctfs():
                     except:
                         self.challenges[verbose] = 'Incomplete'
                         self.challenges[verbose] += ' - '+author
+
+                    g_challenges.update(self.challenges)
                     
                     ctf_info = {str(ctx.guild.id):{
                         "ctf_name": self.ctfname,
-                        "challenges": self.challenges
+                        "challenges": g_challenges
                         }}
 
                 if params == 'list': # Usage: ctf challenge list
-                    pretty_chal = str(self.challenges).replace(', ', '\n').replace('{', '').replace('}', '').replace("'", '')
-                    print(self.challenges)
                     try:
-                        await ctx.send(f"```ini\n{pretty_chal}```")
+                        pretty_g_chal = str(g_challenges).replace(', ', '\n').replace('{', '').replace('}', '').replace("'", '')
+                        await ctx.send(f"```ini\n{pretty_g_chal}```")
                     except:
-                        await ctx.send("Add a challenge with >ctf challenge add <challengename>")
+                        await ctx.send("Steps:  Create a ctf with >ctf create \"ctf\", Add a challenge with >ctf challenge add <challengename>")
 
+                    g_challenges.update(self.challenges)
                     ctf_info = {str(ctx.guild.id):{
                         "ctf_name": self.ctfname,
-                        "challenges": self.challenges
+                        "challenges": g_challenges
                         }}
 
+                else:
+                    pass
 
-            if cmd == 'create' or cmd == 'challenge':
+                    #CTF.JSON GETS CLEARED WHEN THIS ANY OTHER CTF COMMANDS ARE CALLED! FIX
+                print(ctf_info)
                 data.append(ctf_info)
                 update('ctf.json', data)
-
 
         if cmd == 'timeleft': # Return the timeleft in the ctf in days, hours, minutes, seconds
             Ctfs.updatedb()
