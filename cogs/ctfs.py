@@ -110,9 +110,10 @@ class Ctfs():
                 ctf_data = json.load(json_ctf)
                 for ctf in ctf_data:
                     try:
+                        g_ctfname = ctf[str(gid)]["ctf_name"]
                         g_challenges = ctf[str(gid)]["challenges"]
                     except:
-                        print(f"erver {gid} is not in ctf.json")
+                        print(f"server {gid} is not in ctf.json")
             except:
                 print('error loading json file (might just be empty)')
 
@@ -139,9 +140,10 @@ class Ctfs():
 
                 if params == 'add': # Usage: ctf challenge add challengename
                     self.challenges[verbose] = 'Incomplete'
+
                     g_challenges.update(self.challenges)
                     ctf_info = {str(ctx.guild.id):{
-                        "ctf_name": self.ctfname,
+                        "ctf_name": g_ctfname,
                         "challenges": g_challenges
                         }}
                 
@@ -151,7 +153,7 @@ class Ctfs():
                     
                     g_challenges.update(self.challenges)
                     ctf_info = {str(ctx.guild.id):{
-                        "ctf_name": self.ctfname,
+                        "ctf_name": g_ctfname,
                         "challenges": g_challenges
                         }}             
 
@@ -167,7 +169,7 @@ class Ctfs():
                     g_challenges.update(self.challenges)
                     
                     ctf_info = {str(ctx.guild.id):{
-                        "ctf_name": self.ctfname,
+                        "ctf_name": g_ctfname,
                         "challenges": g_challenges
                         }}
 
@@ -180,7 +182,7 @@ class Ctfs():
 
                     g_challenges.update(self.challenges)
                     ctf_info = {str(ctx.guild.id):{
-                        "ctf_name": self.ctfname,
+                        "ctf_name": g_ctfname,
                         "challenges": g_challenges
                         }}
 
@@ -260,16 +262,42 @@ class Ctfs():
                     await ctx.send(f"```ini\n{self.upcoming_l[x]['name']} starts in: [{days} days], [{hours} hours], [{minutes} minutes], [{seconds} seconds]```\n{self.upcoming_l[x]['url']}")
         
         if cmd == 'join':
-            role = discord.utils.get(ctx.guild.roles, name=self.ctfname)
+            guild = ctx.guild
+            gid = ctx.guild.id
+            with open('ctf.json', 'r') as json_ctf:
+                try:
+                    ctf_data = json.load(json_ctf)
+                    for ctf in ctf_data:
+                        try:
+                            g_ctfname = ctf[str(gid)]["ctf_name"]
+                        except:
+                            print(f"server {gid} is not in ctf.json")
+                except:
+                    print('error loading json file (might just be empty)')
+            
+            role = discord.utils.get(ctx.guild.roles, name=g_ctfname)
             user = ctx.message.author
             await user.add_roles(role)
-            await ctx.send(f"{user} has joined the {self.ctfname} team!")
+            await ctx.send(f"{user} has joined the {g_ctfname} team!")
 
         if cmd == 'leave':
-            role = discord.utils.get(ctx.guild.roles, name=self.ctfname)
+            guild = ctx.guild
+            gid = ctx.guild.id
+            with open('ctf.json', 'r') as json_ctf:
+                try:
+                    ctf_data = json.load(json_ctf)
+                    for ctf in ctf_data:
+                        try:
+                            g_ctfname = ctf[str(gid)]["ctf_name"]
+                        except:
+                            print(f"server {gid} is not in ctf.json")
+                except:
+                    print('error loading json file (might just be empty)')
+            
+            role = discord.utils.get(ctx.guild.roles, name=g_ctfnamez)
             user = ctx.message.author
             await user.remove_roles(role)
-            await ctx.send(f"{user} has left the {self.ctfname} team.")
+            await ctx.send(f"{user} has left the {g_ctfname} team.")
 
     # Returns upcoming ctfs, leaderboards, and currently running ctfs from ctftime.org (using their api)
     # Usage: ctftime <upcoming/top/current> <number of ctfs/year>
