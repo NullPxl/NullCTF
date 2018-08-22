@@ -96,7 +96,7 @@ class Ctfs():
         update('db.json', data)
     @commands.command()
     async def ctf(self, ctx, cmd, params=None, verbose=None):
-
+    # I understand how terrible this all this, I will make an actual fix using tinydb, but for now this should sort of work.
         guild = ctx.guild
         gid = ctx.guild.id
         category = discord.utils.get(ctx.guild.categories, name="CTF")
@@ -196,11 +196,24 @@ class Ctfs():
 
         if cmd == 'timeleft': # Return the timeleft in the ctf in days, hours, minutes, seconds
             Ctfs.updatedb()
+            guild = ctx.guild
+            gid = ctx.guild.id
+            with open('ctf.json', 'r') as json_ctf:
+                try:
+                    ctf_data = json.load(json_ctf)
+                    for ctf in ctf_data:
+                        try:
+                            g_ctfname = ctf[str(gid)]["ctf_name"]
+                        except:
+                            print(f"server {gid} is not in ctf.json")
+                except:
+                    print('error loading json file (might just be empty)')            
+
             with open("db.json") as db:
-                data = json.load(db)
+                time_data = json.load(db)
                 running = False
                 
-                for ctf in data:
+                for ctf in time_data:
                     now = datetime.utcnow()
                     unix_now = int(now.replace(tzinfo=timezone.utc).timestamp())
                     start = datetime.utcfromtimestamp(ctf['start']).strftime('%Y-%m-%d %H:%M:%S') + ' UTC'
@@ -221,10 +234,32 @@ class Ctfs():
                 if running == False:
                     await ctx.send('No ctfs are running! Use >ctftime upcoming to see upcoming ctfs')
 
+
+            ctf_info = {str(ctx.guild.id):{
+                "ctf_name": g_ctfname,
+                "challenges": g_challenges
+                }}
+            print(ctf_info)
+            data.append(ctf_info)
+            update('ctf.json', data)
+
         if cmd == 'countdown':
             Ctfs.updatedb()
+            guild = ctx.guild
+            gid = ctx.guild.id
+            with open('ctf.json', 'r') as json_ctf:
+                try:
+                    ctf_data = json.load(json_ctf)
+                    for ctf in ctf_data:
+                        try:
+                            g_ctfname = ctf[str(gid)]["ctf_name"]
+                        except:
+                            print(f"server {gid} is not in ctf.json")
+                except:
+                    print('error loading json file (might just be empty)')
+            
             with open("db.json") as db:
-                data = json.load(db)
+                time_data = json.load(db)
                 i = 0
                 numbers = ""
                 now = datetime.utcnow()
@@ -232,7 +267,7 @@ class Ctfs():
 
                 if params == None:
                     self.upcoming_l = []                    
-                    for ctf in data:
+                    for ctf in time_data:
                         
                         if ctf['start'] > unix_now:
                             self.upcoming_l.append(ctf)
@@ -261,6 +296,14 @@ class Ctfs():
                     seconds = time
                     await ctx.send(f"```ini\n{self.upcoming_l[x]['name']} starts in: [{days} days], [{hours} hours], [{minutes} minutes], [{seconds} seconds]```\n{self.upcoming_l[x]['url']}")
         
+            ctf_info = {str(ctx.guild.id):{
+                "ctf_name": g_ctfname,
+                "challenges": g_challenges
+                }}
+            print(ctf_info)
+            data.append(ctf_info)
+            update('ctf.json', data)
+
         if cmd == 'join':
             guild = ctx.guild
             gid = ctx.guild.id
@@ -280,6 +323,14 @@ class Ctfs():
             await user.add_roles(role)
             await ctx.send(f"{user} has joined the {g_ctfname} team!")
 
+            ctf_info = {str(ctx.guild.id):{
+                "ctf_name": g_ctfname,
+                "challenges": g_challenges
+                }}
+            print(ctf_info)
+            data.append(ctf_info)
+            update('ctf.json', data)
+
         if cmd == 'leave':
             guild = ctx.guild
             gid = ctx.guild.id
@@ -293,11 +344,18 @@ class Ctfs():
                             print(f"server {gid} is not in ctf.json")
                 except:
                     print('error loading json file (might just be empty)')
-            
-            role = discord.utils.get(ctx.guild.roles, name=g_ctfnamez)
+            role = discord.utils.get(ctx.guild.roles, name=g_ctfname)
             user = ctx.message.author
             await user.remove_roles(role)
             await ctx.send(f"{user} has left the {g_ctfname} team.")
+
+            ctf_info = {str(ctx.guild.id):{
+                "ctf_name": g_ctfname,
+                "challenges": g_challenges
+                }}
+            print(ctf_info)
+            data.append(ctf_info)
+            update('ctf.json', data)
 
     # Returns upcoming ctfs, leaderboards, and currently running ctfs from ctftime.org (using their api)
     # Usage: ctftime <upcoming/top/current> <number of ctfs/year>
