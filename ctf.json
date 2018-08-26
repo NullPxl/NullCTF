@@ -3,8 +3,12 @@
       "470253814235136040": {
          "ctf_name": "NighthawkCTF",
          "challenges": {
-            "Test Challenge": "Completed!",
-            "another": "Completed! - nullpxl"
+            "Wordpress": "Incomplete - nullpxl",
+            "Can you SQLi": "Completed! - Yiggles - nullpxl",
+            "so cute": "Completed! - nullpxl",
+            "list primes": "Completed! - nullpxl",
+            "forum redirect": "Completed!",
+            "Flower Magic Flute SQL Injection": "Incomplete - Yiggles"
          }
       }
    }
