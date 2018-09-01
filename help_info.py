@@ -36,9 +36,6 @@ reverse the supplied string - if message has spaces use quotations
 `>counteach <message>`
 count the occurences of each character in the supplied message - if message has spaces use quotations
 
-`>clear <amount of messages>`
-clear the supplied amount of messages in the current channel
-
 `>characters <message>`
 count the amount of characters in your supplied message
 
@@ -51,9 +48,6 @@ help_page_2 = '''
 
 `>atbash <message>`
 encode or decode in the atbash cipher - if message has spaces use quotations (encode/decode do the same thing)
-
-`>calc <expression>`
-evaluate a math expression (put it in quotations)
 
 `>htb`
 return the latest tweet from @hackthebox_eu that says when the next box will be released

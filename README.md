@@ -54,8 +54,6 @@
 
 * `>wordcount a test` Counts the amount of words in  your message (don't use quotations).
 
-* `>calc "expression"` Evaluate a math expression.
-
 * `>htb` Return when the next hackthebox machine is going live from @hackthebox_eu on twitter.
 
 * `>cointoss` Get a 50/50 cointoss to make all your life's decisions.
