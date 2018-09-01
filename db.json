@@ -1,20 +1,20 @@
 [
    {
-      "name": "Meepwn CTF Final 2018",
-      "start": 1535162400,
-      "end": 1535274000,
-      "dur": "1 days, 7 hours",
-      "url": "https://ctf.meepwn.team/",
-      "img": "https://ctftime.org/media/events/Screen_Shot_2018-05-15_at_15.30.35_1.png",
-      "format": "Onsite Jeopardy"
-   },
-   {
       "name": "TokyoWesterns CTF 4th 2018",
       "start": 1535760000,
       "end": 1535932800,
       "dur": "2 days, 0 hours",
       "url": "https://tokyowesterns.github.io/ctf2018/",
       "img": "https://ctftime.org/media/events/tokyowesterns_1.png",
+      "format": "Online Jeopardy"
+   },
+   {
+      "name": "ICON CTF Quals",
+      "start": 1535445060,
+      "end": 1536357600,
+      "dur": "11 days, 13 hours",
+      "url": "https://ctf.icon-2018.org/",
+      "img": "",
       "format": "Online Jeopardy"
    },
    {
@@ -41,16 +41,25 @@
       "end": 1536566400,
       "dur": "2 days, 0 hours",
       "url": "https://ctf.hackit.ua/",
-      "img": "https://ctftime.org/media/events/e6b3d1861299d4513cbfcec78c8b60d0.png",
+      "img": "https://ctftime.org/media/events/d2_1.png",
       "format": "Online Jeopardy"
    },
    {
-      "name": "InCTF 2018",
-      "start": 1536404400,
-      "end": 1536534000,
-      "dur": "1 days, 12 hours",
-      "url": "https://ctf.inctf.in/",
-      "img": "https://ctftime.org/media/events/inctf_logo--01.png",
+      "name": "ISITDTU CTF 2018 Final",
+      "start": 1536454800,
+      "end": 1536498000,
+      "dur": "0 days, 12 hours",
+      "url": "https://isitdtu.com/",
+      "img": "https://ctftime.org/media/events/logo_25.png",
+      "format": "Onsite Jeopardy"
+   },
+   {
+      "name": "SEC-T CTF",
+      "start": 1536822000,
+      "end": 1536933600,
+      "dur": "1 days, 7 hours",
+      "url": "https://sect.ctf.rocks/",
+      "img": "https://ctftime.org/media/events/logo_1.jpg",
       "format": "Online Jeopardy"
    }
 ]

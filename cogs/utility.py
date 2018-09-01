@@ -13,16 +13,16 @@ class Utility():
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(aliases=['purge'])
-    async def clear(self, ctx, amount):
-        amount = int(amount)
-        await ctx.message.delete()
+    # @commands.command(aliases=['purge'])
+    # async def clear(self, ctx, amount):
+    #     amount = int(amount)
+    #     await ctx.message.delete()
         
-        try:
-            for amount in range(amount, 0, (- 100)):
-                await ctx.channel.purge(limit=amount)
-        except discord.errors.HTTPException:
-            await ctx.send("Can't delete messages more than 14 days old!  Try a lower number.")
+    #     try:
+    #         for amount in range(amount, 0, (- 100)):
+    #             await ctx.channel.purge(limit=amount)
+    #     except discord.errors.HTTPException:
+    #         await ctx.send("Can't delete messages more than 14 days old!  Try a lower number.")
 
     @commands.command()
     async def calc(self, ctx, expression):

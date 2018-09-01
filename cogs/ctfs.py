@@ -234,7 +234,7 @@ class Ctfs():
                 if running == False:
                     await ctx.send('No ctfs are running! Use >ctftime upcoming to see upcoming ctfs')
 
-
+                    
             ctf_info = {str(ctx.guild.id):{
                 "ctf_name": g_ctfname,
                 "challenges": g_challenges
