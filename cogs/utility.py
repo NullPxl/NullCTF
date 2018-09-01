@@ -24,11 +24,6 @@ class Utility():
     #     except discord.errors.HTTPException:
     #         await ctx.send("Can't delete messages more than 14 days old!  Try a lower number.")
 
-    @commands.command()
-    async def calc(self, ctx, expression):
-        value = eval(expression)
-        await ctx.send(value)
-
     @commands.command(aliases=['char', 'c'])
     async def characters(self, ctx, string):
         await ctx.send(len(string))
