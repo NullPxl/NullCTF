@@ -1,8 +1,10 @@
 [
    {
       "470253814235136040": {
-         "ctf_name": "codefest2018",
-         "challenges": {}
+         "ctf_name": "oh boy I hate json",
+         "challenges": {
+            "kill json": "Incomplete - nullpxl"
+         }
       }
    }
 ]
