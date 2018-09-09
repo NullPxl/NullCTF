@@ -28,7 +28,7 @@ class Ctfs():
         self.upcoming_l = []
 
     @staticmethod
-    def updatedb():
+    def updatedb(): #Why is this not working? When a ctf becomes current it will delete it from the file/not reappend it to data.
         headers = {
                 'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:61.0) Gecko/20100101 Firefox/61.0',
                 }
@@ -41,12 +41,12 @@ class Ctfs():
             db_data = json.load(local)
         
         def update(name, entry):
-            with open("db.json", mode='a', encoding='utf-8') as db:
+            with open("db.json", mode='w', encoding='utf-8') as db:
                 json.dump(data, db, indent=3)
 
         with open("db.json", 'w') as db:
             if len(db_data) > len(json_data):
-                diff = int(len(db_data)) - int(len(json_data))
+                diff = int(len(db_data)) - int(len(json_data)) # ctfs that aren't upcoming (over or current)
                 
                 for each in range (0, diff):
                     ctf_info = {

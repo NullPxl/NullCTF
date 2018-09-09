@@ -61,5 +61,14 @@
       "url": "https://www.trendmicro.com/en_us/campaigns/capture-the-flag.html",
       "img": "https://ctftime.org/media/events/T-Ball_blk.jpg",
       "format": "Onsite Jeopardy"
+   },
+   {
+      "name": "IFIP SEC 2018 Capture-the-Flag",
+      "start": 1537167600,
+      "end": 1537214400,
+      "dur": "0 days, 13 hours",
+      "url": "https://www.facebook.com/events/1619217688199929/",
+      "img": "https://ctftime.org/media/events/CtF_2018_Poster_small.png",
+      "format": "Onsite Jeopardy"
    }
 ]
