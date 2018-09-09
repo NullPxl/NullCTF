@@ -1,38 +1,11 @@
 [
    {
-      "name": "TokyoWesterns CTF 4th 2018",
-      "start": 1535760000,
-      "end": 1535932800,
-      "dur": "2 days, 0 hours",
-      "url": "https://tokyowesterns.github.io/ctf2018/",
-      "img": "https://ctftime.org/media/events/tokyowesterns_1.png",
-      "format": "Online Jeopardy"
-   },
-   {
-      "name": "ICON CTF Quals",
-      "start": 1535445060,
-      "end": 1536357600,
-      "dur": "11 days, 13 hours",
-      "url": "https://ctf.icon-2018.org/",
-      "img": "",
-      "format": "Online Jeopardy"
-   },
-   {
       "name": "IceCTF 2018",
       "start": 1536249600,
       "end": 1536854400,
       "dur": "7 days, 0 hours",
       "url": "http://icec.tf/",
       "img": "",
-      "format": "Online Jeopardy"
-   },
-   {
-      "name": "noxCTF 2018",
-      "start": 1536253200,
-      "end": 1536426000,
-      "dur": "2 days, 0 hours",
-      "url": "https://ctf18.noxale.com/",
-      "img": "https://ctftime.org/media/events/WhatsApp_Image_2018-08-24_at_11.12.32.jpeg",
       "format": "Online Jeopardy"
    },
    {
@@ -61,5 +34,32 @@
       "url": "https://sect.ctf.rocks/",
       "img": "https://ctftime.org/media/events/logo_1.jpg",
       "format": "Online Jeopardy"
+   },
+   {
+      "name": "ICON CTF Finals",
+      "start": 1536919200,
+      "end": 1536948000,
+      "dur": "0 days, 8 hours",
+      "url": "https://ctf.icon-2018.org/",
+      "img": "https://ctftime.org/media/events/logo_27.png",
+      "format": "Onsite Jeopardy"
+   },
+   {
+      "name": "CSAW CTF Qualification Round 2018",
+      "start": 1536955200,
+      "end": 1537128000,
+      "dur": "2 days, 0 hours",
+      "url": "https://ctf.csaw.io/",
+      "img": "",
+      "format": "Online Jeopardy"
+   },
+   {
+      "name": "Trend Micro CTF 2018 - Raimund Genes Cup - Online Qualifier",
+      "start": 1537016400,
+      "end": 1537102800,
+      "dur": "1 days, 0 hours",
+      "url": "https://www.trendmicro.com/en_us/campaigns/capture-the-flag.html",
+      "img": "https://ctftime.org/media/events/T-Ball_blk.jpg",
+      "format": "Onsite Jeopardy"
    }
 ]
