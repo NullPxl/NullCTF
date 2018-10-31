@@ -397,11 +397,11 @@ class Ctfs():
                 else:
                     ctf_place = 'Onsite'
                 
-                if ctf_image != '':
-                    fd = urlopen(ctf_image)
-                else:
-                    fd = urlopen(default_image)
-                
+                # if ctf_image != '':
+                #     fd = urlopen(ctf_image) # 403 is on this line, no longer able to access this?
+                # else:
+                #     fd = urlopen(default_image)
+                fd = urlopen(default_image)
                 f = io.BytesIO(fd.read())
                 color_thief = ColorThief(f)
                 rgb_color = color_thief.get_color(quality=49)

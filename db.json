@@ -1,74 +1,74 @@
 [
    {
-      "name": "IceCTF 2018",
-      "start": 1536249600,
-      "end": 1536854400,
-      "dur": "7 days, 0 hours",
-      "url": "http://icec.tf/",
+      "name": "P.W.N. CTF",
+      "start": 1540577880,
+      "end": 1540667940,
+      "dur": "1 days, 1 hours",
+      "url": "https://uni.hctf.fun/",
       "img": "",
       "format": "Online Jeopardy"
    },
    {
-      "name": "HackIT CTF 2018",
-      "start": 1536393600,
-      "end": 1536566400,
-      "dur": "2 days, 0 hours",
-      "url": "https://ctf.hackit.ua/",
-      "img": "https://ctftime.org/media/events/d2_1.png",
-      "format": "Online Jeopardy"
-   },
-   {
-      "name": "ISITDTU CTF 2018 Final",
-      "start": 1536454800,
-      "end": 1536498000,
-      "dur": "0 days, 12 hours",
-      "url": "https://isitdtu.com/",
-      "img": "https://ctftime.org/media/events/logo_25.png",
-      "format": "Onsite Jeopardy"
-   },
-   {
-      "name": "SEC-T CTF",
-      "start": 1536822000,
-      "end": 1536933600,
-      "dur": "1 days, 7 hours",
-      "url": "https://sect.ctf.rocks/",
-      "img": "https://ctftime.org/media/events/logo_1.jpg",
-      "format": "Online Jeopardy"
-   },
-   {
-      "name": "ICON CTF Finals",
-      "start": 1536919200,
-      "end": 1536948000,
-      "dur": "0 days, 8 hours",
-      "url": "https://ctf.icon-2018.org/",
-      "img": "https://ctftime.org/media/events/logo_27.png",
-      "format": "Onsite Jeopardy"
-   },
-   {
-      "name": "CSAW CTF Qualification Round 2018",
-      "start": 1536955200,
-      "end": 1537128000,
-      "dur": "2 days, 0 hours",
-      "url": "https://ctf.csaw.io/",
-      "img": "",
-      "format": "Online Jeopardy"
-   },
-   {
-      "name": "Trend Micro CTF 2018 - Raimund Genes Cup - Online Qualifier",
-      "start": 1537016400,
-      "end": 1537102800,
+      "name": "SECCON 2018 Online CTF",
+      "start": 1540620000,
+      "end": 1540706400,
       "dur": "1 days, 0 hours",
-      "url": "https://www.trendmicro.com/en_us/campaigns/capture-the-flag.html",
-      "img": "https://ctftime.org/media/events/T-Ball_blk.jpg",
+      "url": "https://score-quals.seccon.jp/",
+      "img": "",
+      "format": "Online Jeopardy"
+   },
+   {
+      "name": "Google Capture The Flag 2018 (Finals)",
+      "start": 1540630800,
+      "end": 1540753200,
+      "dur": "1 days, 10 hours",
+      "url": "https://g.co/ctf",
+      "img": "https://ctftime.org/media/events/LOGO_CTF_nohand_1_1.png",
       "format": "Onsite Jeopardy"
    },
    {
-      "name": "IFIP SEC 2018 Capture-the-Flag",
-      "start": 1537167600,
-      "end": 1537214400,
-      "dur": "0 days, 13 hours",
-      "url": "https://www.facebook.com/events/1619217688199929/",
-      "img": "https://ctftime.org/media/events/CtF_2018_Poster_small.png",
+      "name": "CODE BLUE CTF 2018 Finals",
+      "start": 1541034000,
+      "end": 1541134800,
+      "dur": "1 days, 4 hours",
+      "url": "https://codeblue.jp/",
+      "img": "",
       "format": "Onsite Jeopardy"
+   },
+   {
+      "name": "WhiteHat Grand Prix 2018 - Final Round",
+      "start": 1541064600,
+      "end": 1541093400,
+      "dur": "0 days, 8 hours",
+      "url": "https://grandprix.whitehatvn.com/",
+      "img": "",
+      "format": "Onsite Attack-Defense"
+   },
+   {
+      "name": "InnoCTF 2018 - quals",
+      "start": 1541235600,
+      "end": 1541322000,
+      "dur": "1 days, 0 hours",
+      "url": "https://innoctf.ru/",
+      "img": "https://ctftime.org/media/events/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA_%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0_2018-10-23_%D0%B2_21.39.38.png",
+      "format": "Online Jeopardy"
+   },
+   {
+      "name": "DefCamp CTF Finals 2018",
+      "start": 1541667600,
+      "end": 1541754000,
+      "dur": "1 days, 0 hours",
+      "url": "https://dctf.def.camp/",
+      "img": "https://ctftime.org/media/events/dctf-150x150.png",
+      "format": "Onsite Jeopardy"
+   },
+   {
+      "name": "Square CTF",
+      "start": 1541703600,
+      "end": 1542222000,
+      "dur": "6 days, 0 hours",
+      "url": "http://squarectf.com/",
+      "img": "",
+      "format": "Online Jeopardy"
    }
 ]
