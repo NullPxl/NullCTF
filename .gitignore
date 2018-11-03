@@ -3,3 +3,6 @@ nullsig.pyc
 nullctf.pyc
 __pycache__/
 cogs/__pycache__/
+auth.py
+cogs/auth.py
+cogs/mongo.py
