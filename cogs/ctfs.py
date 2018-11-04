@@ -181,6 +181,7 @@ class Ctfs():
             #     update('ctf.json', data)
 
         if cmd == 'timeleft': # Return the timeleft in the ctf in days, hours, minutes, seconds
+            Ctfs.updatedb()
             now = datetime.utcnow()
             unix_now = int(now.replace(tzinfo=timezone.utc).timestamp())
             running = False
@@ -201,6 +202,7 @@ class Ctfs():
                 await ctx.send('No ctfs are running! Use >ctftime upcoming or >ctf countdown to see upcoming ctfs')
 
         if cmd == 'countdown':
+            Ctfs.updatedb()
             now = datetime.utcnow()
             unix_now = int(now.replace(tzinfo=timezone.utc).timestamp())
             
