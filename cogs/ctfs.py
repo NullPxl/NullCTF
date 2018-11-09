@@ -193,21 +193,39 @@ class Ctfs():
                 await ctx.send(f"Type >ctf countdown <number> to select.\n```ini\n{index}```")
             
             else:
-                x = int(params) - 1     
-                start = datetime.utcfromtimestamp(self.upcoming_l[x]['start']).strftime('%Y-%m-%d %H:%M:%S') + ' UTC'
-                end = datetime.utcfromtimestamp(self.upcoming_l[x]['end']).strftime('%Y-%m-%d %H:%M:%S') + ' UTC'
-                  
-                time = self.upcoming_l[x]['start'] - unix_now 
-                days = time // (24 * 3600)
-                time = time % (24 * 3600)
-                hours = time // 3600
-                time %= 3600
-                minutes = time // 60
-                time %= 60
-                seconds = time
-                
-                await ctx.send(f"```ini\n{self.upcoming_l[x]['name']} starts in: [{days} days], [{hours} hours], [{minutes} minutes], [{seconds} seconds]```\n{self.upcoming_l[x]['url']}")
-
+                if self.upcoming_l != []:
+                    x = int(params) - 1     
+                    start = datetime.utcfromtimestamp(self.upcoming_l[x]['start']).strftime('%Y-%m-%d %H:%M:%S') + ' UTC'
+                    end = datetime.utcfromtimestamp(self.upcoming_l[x]['end']).strftime('%Y-%m-%d %H:%M:%S') + ' UTC'
+                      
+                    time = self.upcoming_l[x]['start'] - unix_now 
+                    days = time // (24 * 3600)
+                    time = time % (24 * 3600)
+                    hours = time // 3600
+                    time %= 3600
+                    minutes = time // 60
+                    time %= 60
+                    seconds = time
+                    
+                    await ctx.send(f"```ini\n{self.upcoming_l[x]['name']} starts in: [{days} days], [{hours} hours], [{minutes} minutes], [{seconds} seconds]```\n{self.upcoming_l[x]['url']}")
+                else: # TODO: make this a function, too much repeated code here.
+                    for ctf in ctfs.find():
+                        if ctf['start'] > unix_now:
+                          self.upcoming_l.append(ctf)
+                    x = int(params) - 1     
+                    start = datetime.utcfromtimestamp(self.upcoming_l[x]['start']).strftime('%Y-%m-%d %H:%M:%S') + ' UTC'
+                    end = datetime.utcfromtimestamp(self.upcoming_l[x]['end']).strftime('%Y-%m-%d %H:%M:%S') + ' UTC'
+                      
+                    time = self.upcoming_l[x]['start'] - unix_now 
+                    days = time // (24 * 3600)
+                    time = time % (24 * 3600)
+                    hours = time // 3600
+                    time %= 3600
+                    minutes = time // 60
+                    time %= 60
+                    seconds = time
+                    
+                    await ctx.send(f"```ini\n{self.upcoming_l[x]['name']} starts in: [{days} days], [{hours} hours], [{minutes} minutes], [{seconds} seconds]```\n{self.upcoming_l[x]['url']}")   
 
 
         # if cmd == 'join':
