@@ -128,21 +128,31 @@ class Ctfs():
 
                 
                 if params == 'solved': # Usage: ctf challenge solved "challenge name"
-                    solve = f"Solved by {str(ctx.message.author)}"
+                    solve = f"Solved - {str(ctx.message.author)}"
                     updatechallenge(solve)
                     await ctx.send(f":triangular_flag_on_post: {verbose} has been solved by {str(ctx.message.author)}")
                                
 
                 if params == 'working': # Usage: ctf challenge working "challenge name"
-                    working = f"Working on it - {str(ctx.message.author)}"
+                    working = f"Working - {str(ctx.message.author)}"
                     updatechallenge(working)
                     await ctx.send(f"{str(ctx.message.author)} is working on {verbose}!")
 
                 if params == 'list': # Usage: ctf challenge list
                     ctf = server.find_one({'name': str(ctx.message.channel)})
-                    challenges = ctf['challenges']
-                    formatted_challenges = str(challenges).replace(', ', '\n').replace('{', '').replace('}', '').replace("'", '')
-                    await ctx.send(f"```ini\n{formatted_challenges}```")
+                    challenges = str(ctf['challenges']).replace('"', '').replace("'", "").replace('{', '').replace('}', '').split(',')
+                    formatted_chals = ""
+                    for i, c in enumerate(challenges):
+                        if i != 0:
+                            pos = c.index(':') - 1
+                        else:
+                            pos = c.index(':')
+                        c = c.lstrip(' ')
+                        formatted_c = '[' + c[:pos] + ']' + c[pos:] + '\n'
+                        formatted_chals += formatted_c
+                    
+                    await ctx.send(f"```ini\n{formatted_chals}```")
+                    
                     
 
         if cmd == 'timeleft': # Return the timeleft in the ctf in days, hours, minutes, seconds
