@@ -29,12 +29,11 @@ class Ctfs():
         self.challenges = {}
         self.ctfname = ""
         self.upcoming_l = []
-        # self.client = MongoClient(conn)
-        # self.db=self.client['ctftime'] # Create database
-        # self.ctfs = self.db['ctfs'] # Create collection
 
     @staticmethod
     def updatedb():
+        now = datetime.utcnow()
+        unix_now = int(now.replace(tzinfo=timezone.utc).timestamp())
         headers = {
                 'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:61.0) Gecko/20100101 Firefox/61.0',
                 }
@@ -71,15 +70,14 @@ class Ctfs():
             info.append(ctf)
         
         for ctf in info: # If the document doesn't exist: add it, if it does: update it.
-           print(f"Updated: {ctf['name']}")
-           query = ctf['name']
-           ctfs.update({'name': query}, {"$set":ctf}, upsert=True)
-           now = datetime.utcnow()
-           unix_now = int(now.replace(tzinfo=timezone.utc).timestamp())
-           if ctf['end'] < unix_now: # Remove the document if the ctf is over. NOT TESTED
-              ctfs.remove({'name': ctf['name']})
+            print(f"Got {ctf['name']} from ctftime")
+            query = ctf['name']
+            ctfs.update({'name': query}, {"$set":ctf}, upsert=True)
+        
+        for ctf in ctfs.find(): # Delete ctfs that are over from the db
+            if ctf['end'] < unix_now:
+                ctfs.remove({'name': ctf['name']})
 
-    
     @commands.command()
     async def ctf(self, ctx, cmd, params=None, verbose=None):
     # I understand how terrible this all this, I will make an actual fix using pymongo, but for now this should sort of work.
@@ -387,8 +385,8 @@ class Ctfs():
                     embed = discord.Embed(title=':red_circle: ' + ctf['name']+' IS LIVE', description=ctf['url'], color=15874645)
                     start = datetime.utcfromtimestamp(ctf['start']).strftime('%Y-%m-%d %H:%M:%S') + ' UTC'
                     end = datetime.utcfromtimestamp(ctf['end']).strftime('%Y-%m-%d %H:%M:%S') + ' UTC'
-                    if ctf['image'] != '':
-                        embed.set_thumbnail(url=ctf['image'])
+                    if ctf['img'] != '':
+                        embed.set_thumbnail(url=ctf['img'])
                     else:
                         embed.set_thumbnail(url=default_image)
                      
