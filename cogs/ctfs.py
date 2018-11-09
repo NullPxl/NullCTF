@@ -83,7 +83,7 @@ class Ctfs():
         guild = ctx.guild
         gid = ctx.guild.id
         category = discord.utils.get(ctx.guild.categories, name="CTF")
-        if cmd == 'create': # Slowly migrating ctf team commands into using mongodb
+        if cmd == 'create':
             if ctx.message.author.id ==  ctx.guild.owner.id or ctx.message.author.id == 230827776637272064:
                 await guild.create_text_channel(name=params, category=category)
                 await guild.create_role(name=params)
@@ -152,6 +152,28 @@ class Ctfs():
                         formatted_chals += formatted_c
                     
                     await ctx.send(f"```ini\n{formatted_chals}```")
+        
+        if cmd != 'create':
+            if teamdb[str(gid)].find_one({'name': str(ctx.message.channel)}):
+                correct_channel = True
+            else:
+                await ctx.send('You must be in a created ctf channel to use this command!')
+                correct_channel = False
+
+            if correct_channel == True:        
+                    # Not sure if I should keep or remove join/leave, are roles useful?
+                    if cmd == 'join':          
+                        role = discord.utils.get(ctx.guild.roles, name=str(ctx.message.channel))
+                        user = ctx.message.author
+                        await user.add_roles(role)
+                        await ctx.send(f"{user} has joined the {str(ctx.message.channel)} team!")
+
+
+                    if cmd == 'leave':
+                        role = discord.utils.get(ctx.guild.roles, name=str(ctx.message.channel))
+                        user = ctx.message.author
+                        await user.remove_roles(role)
+                        await ctx.send(f"{user} has left the {str(ctx.message.channel)} team.")
                     
                     
 
@@ -227,59 +249,6 @@ class Ctfs():
                     
                     await ctx.send(f"```ini\n{self.upcoming_l[x]['name']} starts in: [{days} days], [{hours} hours], [{minutes} minutes], [{seconds} seconds]```\n{self.upcoming_l[x]['url']}")   
 
-        # Not sure if I should keep or remove join/leave, are roles useful?
-        # if cmd == 'join':
-        #     guild = ctx.guild
-        #     gid = ctx.guild.id
-        #     with open('ctf.json', 'r') as json_ctf:
-        #         try:
-        #             ctf_data = json.load(json_ctf)
-        #             for ctf in ctf_data:
-        #                 try:
-        #                     g_ctfname = ctf[str(gid)]["ctf_name"]
-        #                 except:
-        #                     print(f"server {gid} is not in ctf.json")
-        #         except:
-        #             print('error loading json file (might just be empty)')
-            
-        #     role = discord.utils.get(ctx.guild.roles, name=g_ctfname)
-        #     user = ctx.message.author
-        #     await user.add_roles(role)
-        #     await ctx.send(f"{user} has joined the {g_ctfname} team!")
-
-        #     ctf_info = {str(ctx.guild.id):{
-        #         "ctf_name": g_ctfname,
-        #         "challenges": g_challenges
-        #         }}
-        #     print(ctf_info)
-        #     data.append(ctf_info)
-        #     update('ctf.json', data)
-
-        # if cmd == 'leave':
-        #     guild = ctx.guild
-        #     gid = ctx.guild.id
-        #     with open('ctf.json', 'r') as json_ctf:
-        #         try:
-        #             ctf_data = json.load(json_ctf)
-        #             for ctf in ctf_data:
-        #                 try:
-        #                     g_ctfname = ctf[str(gid)]["ctf_name"]
-        #                 except:
-        #                     print(f"server {gid} is not in ctf.json")
-        #         except:
-        #             print('error loading json file (might just be empty)')
-        #     role = discord.utils.get(ctx.guild.roles, name=g_ctfname)
-        #     user = ctx.message.author
-        #     await user.remove_roles(role)
-        #     await ctx.send(f"{user} has left the {g_ctfname} team.")
-
-        #     ctf_info = {str(ctx.guild.id):{
-        #         "ctf_name": g_ctfname,
-        #         "challenges": g_challenges
-        #         }}
-        #     print(ctf_info)
-        #     data.append(ctf_info)
-        #     update('ctf.json', data)
 
     # Returns upcoming ctfs, leaderboards, and currently running ctfs from ctftime.org (using their api)
     # Usage: ctftime <upcoming/top/current> <number of ctfs/year>
