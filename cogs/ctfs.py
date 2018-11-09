@@ -80,80 +80,70 @@ class Ctfs():
 
     @commands.command()
     async def ctf(self, ctx, cmd, params=None, verbose=None):
-        # guild = ctx.guild
-        # gid = ctx.guild.id
-        # category = discord.utils.get(ctx.guild.categories, name="CTF")
-        # For now these commands will be deprecated until I find an appropriate solution.
-        # if cmd == 'create': # slowly migrating ctf team commands into using mongodb... 
-        # # having trouble of thinking of ways to have a single server work on more than 1 ctf at a time.
-        #     if ctx.message.author.id ==  ctx.guild.owner.id or ctx.message.author.id == 230827776637272064:
-        #         await guild.create_text_channel(name=params, category=category)
-        #         await guild.create_role(name=params)
-        #         server = teamdb[str(gid)]
-        #         server_ctf = server[params]
-        #         ctf_info = {'name': params}
-        #         server_ctf.update({'name': params}, {"$set": ctf_info}, upsert=True)
-
-        # else:
-        #     await ctx.send('You must be owner to use this command! Please tag the owner to create the ctf.')
-            
-            # if cmd == 'challenge':
-
-            #     if params == 'add': # Usage: ctf challenge add challengename
-            #         self.challenges[verbose] = 'Incomplete'
-
-            #         g_challenges.update(self.challenges)
-            #         ctf_info = {str(ctx.guild.id):{
-            #             "ctf_name": g_ctfname,
-            #             "challenges": g_challenges
-            #             }}
+        guild = ctx.guild
+        gid = ctx.guild.id
+        category = discord.utils.get(ctx.guild.categories, name="CTF")
+        if cmd == 'create': # Slowly migrating ctf team commands into using mongodb
+            if ctx.message.author.id ==  ctx.guild.owner.id or ctx.message.author.id == 230827776637272064:
+                await guild.create_text_channel(name=params, category=category)
+                await guild.create_role(name=params)
                 
-            #     if params == 'solved': # Usage: ctf challenge solved challengename
-            #         self.challenges[verbose] = g_challenges[verbose].replace('Incomplete', 'Completed!')
-            #         await ctx.send(':triangular_flag_on_post:')
+                server = teamdb[str(gid)]
+                            
+                ctf_info = {'name': params, "text_channel": params} # I know this is redundant\
+                # I'm just doing the name and text channel thing for readability in the future.
+                server.update({'name': params}, {"$set": ctf_info}, upsert=True)
+            else:
+                await ctx.send('You must be owner to use this command! Please tag the owner to create the ctf.')
+            
+        if cmd == 'challenge':
+            # Testing if the command was sent in a ctf channel
+            # This is how I will differenciate between different ctfs in the same server.
+            server = teamdb[str(gid)]
+            if teamdb[str(gid)].find_one({'name': str(ctx.message.channel)}):
+                correct_channel = True
+                
+                def updatechallenge(status):
+                    challenge = {str(verbose): status}
+                    ctf = server.find_one({'name': str(ctx.message.channel)})
+                    try: # If there are existing challenges already...
+                        challenges = ctf['challenges']
+                        challenges.update(challenge)
+                    except:
+                        challenges = challenge
+                    ctf_info = {'name': str(ctx.message.channel),
+                    'challenges': challenges
+                    }
+                    server.update({'name': str(ctx.message.channel)}, {"$set": ctf_info}, upsert=True)
+
+            else:
+                await ctx.send('You must be in a created ctf channel to use this command!')
+                correct_channel = False
+
+            if correct_channel == True:
+
+                if params == 'add': # Usage: ctf challenge add "challenge name"
+                    updatechallenge('Unsolved')
+                    await ctx.send(f"'{verbose}' has been added to the challenge list for {str(ctx.message.channel)}")
+
+                
+                if params == 'solved': # Usage: ctf challenge solved "challenge name"
+                    solve = f"Solved by {str(ctx.message.author)}"
+                    updatechallenge(solve)
+                    await ctx.send(f":triangular_flag_on_post: {verbose} has been solved by {str(ctx.message.author)}")
+                               
+
+                if params == 'working': # Usage: ctf challenge working "challenge name"
+                    working = f"Working on it - {str(ctx.message.author)}"
+                    updatechallenge(working)
+                    await ctx.send(f"{str(ctx.message.author)} is working on {verbose}!")
+
+                if params == 'list': # Usage: ctf challenge list
+                    ctf = server.find_one({'name': str(ctx.message.channel)})
+                    challenges = ctf['challenges']
+                    formatted_challenges = str(challenges).replace(', ', '\n').replace('{', '').replace('}', '').replace("'", '')
+                    await ctx.send(f"```ini\n{formatted_challenges}```")
                     
-            #         g_challenges.update(self.challenges)
-            #         ctf_info = {str(ctx.guild.id):{
-            #             "ctf_name": g_ctfname,
-            #             "challenges": g_challenges
-            #             }}             
-
-            #     if params == 'working': # Usage: ctf challenge working challengename
-            #         author = str(ctx.message.author)
-            #         author = re.sub(r'#(\d{4})', '', author)
-            #         try:
-            #             self.challenges[verbose] += ' - '+author
-            #         except:
-            #             self.challenges[verbose] = 'Incomplete'
-            #             self.challenges[verbose] += ' - '+author
-
-            #         g_challenges.update(self.challenges)
-                    
-            #         ctf_info = {str(ctx.guild.id):{
-            #             "ctf_name": g_ctfname,
-            #             "challenges": g_challenges
-            #             }}
-
-            #     if params == 'list': # Usage: ctf challenge list
-            #         try:
-            #             pretty_g_chal = str(g_challenges).replace(', ', '\n').replace('{', '').replace('}', '').replace("'", '')
-            #             await ctx.send(f"```ini\n{pretty_g_chal}```")
-            #         except:
-            #             await ctx.send("Steps:  Create a ctf with >ctf create \"ctf\", Add a challenge with >ctf challenge add <challengename>")
-
-            #         g_challenges.update(self.challenges)
-            #         ctf_info = {str(ctx.guild.id):{
-            #             "ctf_name": g_ctfname,
-            #             "challenges": g_challenges
-            #             }}
-
-            #     else:
-            #         pass
-
-            #         #CTF.JSON GETS CLEARED WHEN THIS ANY OTHER CTF COMMANDS ARE CALLED! FIX
-            #     print(ctf_info)
-            #     data.append(ctf_info)
-            #     update('ctf.json', data)
 
         if cmd == 'timeleft': # Return the timeleft in the ctf in days, hours, minutes, seconds
             Ctfs.updatedb()
@@ -227,7 +217,7 @@ class Ctfs():
                     
                     await ctx.send(f"```ini\n{self.upcoming_l[x]['name']} starts in: [{days} days], [{hours} hours], [{minutes} minutes], [{seconds} seconds]```\n{self.upcoming_l[x]['url']}")   
 
-
+        # Not sure if I should keep or remove join/leave, are roles useful?
         # if cmd == 'join':
         #     guild = ctx.guild
         #     gid = ctx.guild.id
