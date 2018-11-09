@@ -80,45 +80,22 @@ class Ctfs():
 
     @commands.command()
     async def ctf(self, ctx, cmd, params=None, verbose=None):
-    # I understand how terrible this all this, I will make an actual fix using pymongo, but for now this should sort of work.
         # guild = ctx.guild
         # gid = ctx.guild.id
         # category = discord.utils.get(ctx.guild.categories, name="CTF")
-        # data = []
-        # def update(name, entry):
-        #     with open('ctf.json', mode='a', encoding='utf-8') as g_ctfs:
-        #         json.dump(data, g_ctfs, indent=3)        
+        # For now these commands will be deprecated until I find an appropriate solution.
+        # if cmd == 'create': # slowly migrating ctf team commands into using mongodb... 
+        # # having trouble of thinking of ways to have a single server work on more than 1 ctf at a time.
+        #     if ctx.message.author.id ==  ctx.guild.owner.id or ctx.message.author.id == 230827776637272064:
+        #         await guild.create_text_channel(name=params, category=category)
+        #         await guild.create_role(name=params)
+        #         server = teamdb[str(gid)]
+        #         server_ctf = server[params]
+        #         ctf_info = {'name': params}
+        #         server_ctf.update({'name': params}, {"$set": ctf_info}, upsert=True)
 
-        # with open('ctf.json', 'r') as json_ctf:
-        #     try:
-        #         ctf_data = json.load(json_ctf)
-        #         for ctf in ctf_data:
-        #             try:
-        #                 g_ctfname = ctf[str(gid)]["ctf_name"]
-        #                 g_challenges = ctf[str(gid)]["challenges"]
-        #             except:
-        #                 print(f"server {gid} is not in ctf.json")
-        #     except:
-        #         print('error loading json file (might just be empty)')
-
-
-        # with open('ctf.json', 'w') as g_ctfs: #FIX THIS!
-        
-            # if cmd == 'create': #todo, make this append onto the ctf.json file, not replace it.
-            #     if ctx.message.author.id ==  ctx.guild.owner.id or ctx.message.author.id == 230827776637272064:
-            #         await guild.create_text_channel(name=params, category=category)
-            #         await guild.create_role(name=params)
-            #         self.ctfname = params
-            #         self.challenges = {}
-            #         ctf_info = {str(ctx.guild.id):{
-            #             "ctf_name": self.ctfname,
-            #             "challenges": self.challenges
-            #             }}
-            #         print(ctf_info)
-            #         data.append(ctf_info)
-            #         update('ctf.json', data)
-            #     else:
-            #         await ctx.send('You must be owner to use this command! Please tag the owner to create the ctf.') 
+        # else:
+        #     await ctx.send('You must be owner to use this command! Please tag the owner to create the ctf.')
             
             # if cmd == 'challenge':
 
