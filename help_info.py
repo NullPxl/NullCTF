@@ -6,11 +6,40 @@ from string import *
 help_page = '''
 
 
-`>ctftime <upcoming/top/current> <number/year>`
-return info on a number of upcoming ctfs, leaderboards from a certain year, or currently running ctfs from ctftime.org
 
-`>ctf <create/challenge/join/leave/timeleft/countdown> <channel_name/[add/solved/list/working]>`
-create a channel and role for a ctf name of your choosing (in a catagory labeled CTF), and commands for collaboration.  ctf challenge add, adds a challenge to a list of challenges, solved marks a challenge as solved, working allows you to tell others in your server what challenge you're working on by adding your name to the list, which shows all of this info! (and more!)
+`>ctftime <upcoming/current> <number>`
+return info on a number of upcoming ctfs, or currently running ctfs from ctftime.org (number param is just for upcoming)
+
+`>ctftime <countdown/timeleft>`
+return specific times for the time until a ctf begins, or until a currently running ctf ends.
+
+`>ctftime top <year>`
+display the leaderboards from ctftime from a certain year.
+
+`>ctf create "<ctf name>"`
+create a text channel and role in the CTF category for a ctf (only for owner).
+
+`>ctf challenge <[add/working/solved> "<challenge name>"`
+add a ctf challenge to a list of challenges in the ctf, then mark it as solved or being worked on.
+
+`>ctf challenge <list>`
+get a list of the challenges in the ctf, and their statuses.
+
+`>ctf <join/leave>`
+get or get rid of the ctf role that was created with ctf create.
+
+`>ctf <end>`
+delete the role, and entry from the database for the ctf (only for owner).
+
+`>htb`
+return the latest tweet from @hackthebox_eu that says when the next box will be released
+
+*next page is utility commands*
+
+**page: 1/2 - (>help 1)**
+'''
+help_page_2 = '''
+
 
 `>rot <message> <direction(optional, will default to left)>`
 return all 25 different possible combinations for the popular caesar cipher - use quotes for messages more than 1 word
@@ -42,15 +71,8 @@ count the amount of characters in your supplied message
 `>wordcount <phrase>`
 count the amount of words in your supplied message
 
-**page: 1/2 - (>help 1)**
-'''
-help_page_2 = '''
-
 `>atbash <message>`
 encode or decode in the atbash cipher - if message has spaces use quotations (encode/decode do the same thing)
-
-`>htb`
-return the latest tweet from @hackthebox_eu that says when the next box will be released
 
 `>github <user>`
 get a direct link to a github profile page with your supplied user
@@ -70,5 +92,5 @@ report an issue you found with the bot, if it is helpful your name will be added
 **page: 2/2 - (>help 2)** ; more commands and documentation viewable on the github page (>source)
 '''
 
-src = "https://github.com/NullPxl/NullSig"
+src = "https://github.com/NullPxl/NullCTF"
 creator_info = "https://youtube.com/nullpxl\nhttps://github.com/nullpxl\nhttps://twitter.com/nullpxl"

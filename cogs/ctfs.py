@@ -85,14 +85,12 @@ class Ctfs():
         category = discord.utils.get(ctx.guild.categories, name="CTF")
         if cmd == 'create':
             if ctx.message.author.id ==  ctx.guild.owner.id or ctx.message.author.id == 230827776637272064:
-                await guild.create_text_channel(name=params, category=category)
-                await guild.create_role(name=params)
-                
+                await guild.create_text_channel(name=params, category=category)        
                 server = teamdb[str(gid)]
-                            
-                ctf_info = {'name': params, "text_channel": params} # I know this is redundant\
-                # I'm just doing the name and text channel thing for readability in the future.
-                server.update({'name': params}, {"$set": ctf_info}, upsert=True)
+                name = params.replace(' ', '-').lower() # Discord does this when creating text channels. 
+                await guild.create_role(name=name)         
+                ctf_info = {'name': name, "text_channel": name}
+                server.update({'name': name}, {"$set": ctf_info}, upsert=True)
             else:
                 await ctx.send('You must be owner to use this command! Please tag the owner to create the ctf.')
             
@@ -161,7 +159,6 @@ class Ctfs():
                 correct_channel = False
 
             if correct_channel == True:        
-                    # Not sure if I should keep or remove join/leave, are roles useful?
                     if cmd == 'join':          
                         role = discord.utils.get(ctx.guild.roles, name=str(ctx.message.channel))
                         user = ctx.message.author
@@ -174,6 +171,17 @@ class Ctfs():
                         user = ctx.message.author
                         await user.remove_roles(role)
                         await ctx.send(f"{user} has left the {str(ctx.message.channel)} team.")
+
+                    if cmd == 'end':
+                        if ctx.message.author.id ==  ctx.guild.owner.id or ctx.message.author.id == 230827776637272064:
+                            #delete role from server, delete entry from db
+                            role = discord.utils.get(ctx.guild.roles, name=str(ctx.message.channel))
+                            await role.delete()
+                            await ctx.send(f"`{role.name}` role deleted")
+                            teamdb[str(gid)].remove({'name': str(ctx.message.channel)})
+                            await ctx.send(f"`{str(ctx.message.channel)}` deleted from db")
+                        else:
+                            await ctx.send('Only the server owner may use this command.')
                        
 
 
@@ -363,7 +371,7 @@ class Ctfs():
 
 
         if status not in current_ctftime_cmds:
-            await ctx.send('Current ctftime commands are: top [year], upcoming [amount up to 5], current')
+            await ctx.send('Current ctftime commands are: top [year], upcoming [amount up to 5], current, countdown, timeleft')
 
     @commands.command()
     async def htb(self, ctx):
