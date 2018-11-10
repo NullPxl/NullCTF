@@ -1,7 +1,6 @@
 <img src="https://i.imgur.com/mZ2bVY4.png"/>
 
->### *A [discord.py](http://discordpy.readthedocs.io/en/latest/) bot focused on providing easy to use, basic CTF tools for collaboration in Discord servers!  If you have a feature request, make it a GitHub issue or use the >request "x" command while the bot is online.*
->#### This 'tutorial' should ideally be read by everyone who uses the bot, but if you are the server owner *please* read this.
+>### *A [discord.py](http://discordpy.readthedocs.io/en/latest/) bot focused on providing CTF tools for collaboration in Discord servers!  If you have a feature request, make it a GitHub issue or use the >request "x" command.*
 
 #  How to Use
 >This bot has commands for encoding/decoding, ciphers, and other commonly accessed tools during CTFs.  But, the main use for NullCTF is to easily set up a CTF for your discord server to play as a team.  The following commands listed are probably going to be used the most.
@@ -19,11 +18,11 @@
  ![enter image description here](https://i.imgur.com/KH5dYZr.png)
 
 ---
->The following commands use the api from [ctftime](https://ctftime.org/)
+>The following commands use the api from [ctftime](https://ctftime.org/api)
 
- * `>ctf countdown/timeleft` Countdown will return when a selected CTF starts, and timeleft will return when any currently running CTFs end in the form of days hours minutes and seconds.
- ![enter image description here](https://i.imgur.com/PpGMZTh.png)  
- ![enter image description here](https://i.imgur.com/gp7sBJG.png)
+ * `>ctftime countdown/timeleft` Countdown will return when a selected CTF starts, and timeleft will return when any currently running CTFs end in the form of days hours minutes and seconds.
+ ![enter image description here](https://i.imgur.com/LFSTr33.png)  
+ ![enter image description here](https://i.imgur.com/AkBfp6E.png)
 
 * `>ctftime upcoming <number>` Uses the api mentioned to return an embed up to 5 upcoming CTFs.  If no number is provided the default is 3.
 ![enter image description here](https://i.imgur.com/UpouneO.png)
