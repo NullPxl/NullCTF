@@ -77,10 +77,10 @@ class Utility():
         if choice == 2:
             await ctx.send('tails')
 
-    @commands.command()
-    async def randread(self, ctx, *args):
-        choice = random.choice(args)
-        await ctx.channel.send(choice, tts=True)
+    # @commands.command()
+    # async def randread(self, ctx, *args):
+    #     choice = random.choice(args)
+    #     await ctx.channel.send(choice, tts=True)
 
 def setup(bot):
     bot.add_cog(Utility(bot))
