@@ -82,9 +82,13 @@ class Ctfs():
     async def ctf(self, ctx, cmd, params=None, verbose=None):
         guild = ctx.guild
         gid = ctx.guild.id
-        category = discord.utils.get(ctx.guild.categories, name="CTF")
         if cmd == 'create':
             if ctx.message.author.id ==  ctx.guild.owner.id or ctx.message.author.id == 230827776637272064:
+                category = discord.utils.get(ctx.guild.categories, name="CTF")
+                if category == None: # Checks if category exists, if it doesn't it will create it.
+                    await guild.create_category(name='CTF')
+                    category = discord.utils.get(ctx.guild.categories, name="CTF")
+
                 await guild.create_text_channel(name=params, category=category)        
                 server = teamdb[str(gid)]
                 name = params.replace(' ', '-').lower() # Discord does this when creating text channels. 
