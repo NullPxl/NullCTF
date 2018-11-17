@@ -92,7 +92,7 @@ class Ctfs():
                 await guild.create_text_channel(name=params, category=category)        
                 server = teamdb[str(gid)]
                 name = params.replace(' ', '-').lower() # Discord does this when creating text channels. 
-                await guild.create_role(name=name)         
+                await guild.create_role(name=name, mentionable=True)         
                 ctf_info = {'name': name, "text_channel": name}
                 server.update({'name': name}, {"$set": ctf_info}, upsert=True)
             else:

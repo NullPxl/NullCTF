@@ -1,9 +1,9 @@
 <img src="https://i.imgur.com/mZ2bVY4.png"/>
 
->### *A [discord.py](http://discordpy.readthedocs.io/en/latest/) bot focused on providing CTF tools for collaboration in Discord servers!  If you have a feature request, make it a GitHub issue or use the >request "x" command.*
+>### *A [discord.py](http://discordpy.readthedocs.io/en/latest/) bot focused on providing CTF tools for collaboration in Discord servers (ctftime.org commands, team setup, utilites, etc)!  If you have a feature request, make it a GitHub issue or use the >request "x" command.*
 
 [Invite to your server](https://discordapp.com/oauth2/authorize?client_id=455502163452362753&scope=bot&permissions=268545136)
-Join the support server: https://discord.gg/yf8E2s8
+[Join the support server](https://discord.gg/yf8E2s8)
 
 #  How to Use
 >This bot has commands for encoding/decoding, ciphers, and other commonly accessed tools during CTFs.  But, the main use for NullCTF is to easily set up a CTF for your discord server to play as a team.  The following commands listed are probably going to be used the most.
@@ -15,7 +15,7 @@ Join the support server: https://discord.gg/yf8E2s8
  * `>ctf join/leave` Using this command will either give or remove the role of a created ctf to/from you.
  ![enter image description here](https://i.imgur.com/4QPUgvM.png)
  
- * `>ctf challenge add/working/solved "challenge name"` Allows users to add challenges to a list, and then set the status of that challenge.
+ * `>ctf challenge add/working/solved "challenge name"` Allows users to add challenges to a list, and then set the status of that challenge. *Use quotations*
  
  * `>ctf challenge list` This is the list command that was previously mentioned, it displays the added challenges, who's working on what, and if a challenge is solved (and by who).
  ![enter image description here](https://i.imgur.com/KH5dYZr.png)
@@ -66,4 +66,5 @@ Join the support server: https://discord.gg/yf8E2s8
 * `>help pagenumber` Returns the help page of your supplied number (currently there are 2 pages)
 
 ## Have a feature request?  Make a GitHub issue or use the >request command.
+
 
