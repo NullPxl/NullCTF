@@ -299,7 +299,7 @@ class Ctfs():
                     await ctx.channel.send(embed=embed)
             
             if running == False: # No ctfs were found to be running
-                await ctx.send("No CTFs currently running! Check out >ctf countdown, and >ctftime upcoming to see when ctfs will start!")
+                await ctx.send("No CTFs currently running! Check out >ctftime countdown, and >ctftime upcoming to see when ctfs will start!")
 
         if status == 'timeleft': # Return the timeleft in the ctf in days, hours, minutes, seconds
             Ctfs.updatedb()
@@ -320,7 +320,7 @@ class Ctfs():
                   await ctx.send(f"```ini\n{ctf['name']} ends in: [{days} days], [{hours} hours], [{minutes} minutes], [{seconds} seconds]```\n{ctf['url']}")
             
             if running == False:
-                await ctx.send('No ctfs are running! Use >ctftime upcoming or >ctf countdown to see upcoming ctfs')
+                await ctx.send('No ctfs are running! Use >ctftime upcoming or >ctftime countdown to see upcoming ctfs')
 
         if status == 'countdown':
             Ctfs.updatedb()
@@ -336,7 +336,7 @@ class Ctfs():
                 for i, c in enumerate(self.upcoming_l):
                    index += f"\n[{i + 1}] {c['name']}\n"
                 
-                await ctx.send(f"Type >ctf countdown <number> to select.\n```ini\n{index}```")
+                await ctx.send(f"Type >ctftime countdown <number> to select.\n```ini\n{index}```")
             
             else:
                 if self.upcoming_l != []:
