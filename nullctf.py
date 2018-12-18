@@ -29,14 +29,14 @@ bot = commands.Bot(command_prefix='>')
 extensions = ['encoding_decoding', 'cipher', 'ctfs', 'utility']
 bot.remove_command('help')
 blacklisted = []
-cool_names = ['nullpxl', 'Test_Monkey', 'Yiggles', 'JohnHammond'] # This is intended to be able to be circumvented.
+cool_names = ['nullpxl', 'Test_Monkey', 'Yiggles', 'JohnHammond', 'voidUpdate', 'Michel Ney'] # This is intended to be able to be circumvented.
 # If you do something like report a bug with the report command (OR GITHUB), e.g, >report "a bug", you might be added to the list!
 
 @bot.event
 async def on_ready():
     print(('<' + bot.user.name) + ' Online>')
     print(discord.__version__)
-    await bot.change_presence(activity=discord.Game(name='>help | in development'))
+    await bot.change_presence(activity=discord.Game(name='>help / >report "issue"'))
 
 @bot.event
 async def on_message(message):
@@ -85,9 +85,9 @@ async def report(ctx, error_report):
     await creator.send(f''':triangular_flag_on_post: {authors_name}: {error_report}''')
     await ctx.send(f''':triangular_flag_on_post: Thanks for the help, "{error_report}" has been reported!''')
 
-@bot.command()
-async def creator(ctx):
-    await ctx.send(creator_info)
+# @bot.command()
+# async def creator(ctx):
+#     await ctx.send(creator_info)
 
 @bot.command()
 async def amicool(ctx):
@@ -97,6 +97,7 @@ async def amicool(ctx):
         await ctx.send('You are very cool')
     else:
         await ctx.send('lolno')
+        await ctx.send('Psst, kid.  Want to be cool?  Find an issue and report it or request a feature you think would be cool.')
 
 if __name__ == '__main__':
     sys.path.insert(1, os.getcwd() + '/cogs/')

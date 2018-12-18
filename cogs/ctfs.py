@@ -78,114 +78,127 @@ class Ctfs():
             if ctf['end'] < unix_now:
                 ctfs.remove({'name': ctf['name']})
 
-    @commands.command()
-    async def ctf(self, ctx, cmd, params=None, verbose=None):
+    @commands.group()
+    async def ctf(self, ctx):
+        if ctx.invoked_subcommand is None:
+            await ctx.send('Invalid command passed.  Use >help.')
+
+    @commands.has_permissions(manage_channels=True)
+    @ctf.command()
+    async def create(self, ctx, params):
         guild = ctx.guild
         gid = ctx.guild.id
-        if cmd == 'create':
-            if ctx.message.author.id ==  ctx.guild.owner.id or ctx.message.author.id == 230827776637272064:
-                category = discord.utils.get(ctx.guild.categories, name="CTF")
-                if category == None: # Checks if category exists, if it doesn't it will create it.
-                    await guild.create_category(name='CTF')
-                    category = discord.utils.get(ctx.guild.categories, name="CTF")
-
-                await guild.create_text_channel(name=params, category=category)        
-                server = teamdb[str(gid)]
-                name = params.replace(' ', '-').lower() # Discord does this when creating text channels. 
-                await guild.create_role(name=name, mentionable=True)         
-                ctf_info = {'name': name, "text_channel": name}
-                server.update({'name': name}, {"$set": ctf_info}, upsert=True)
-            else:
-                await ctx.send('You must be owner to use this command! Please tag the owner to create the ctf.')
-            
-        if cmd == 'challenge':
-            # Testing if the command was sent in a ctf channel
-            # This is how I will differenciate between different ctfs in the same server.
-            server = teamdb[str(gid)]
-            if teamdb[str(gid)].find_one({'name': str(ctx.message.channel)}):
-                correct_channel = True
-                
-                def updatechallenge(status):
-                    challenge = {str(verbose): status}
-                    ctf = server.find_one({'name': str(ctx.message.channel)})
-                    try: # If there are existing challenges already...
-                        challenges = ctf['challenges']
-                        challenges.update(challenge)
-                    except:
-                        challenges = challenge
-                    ctf_info = {'name': str(ctx.message.channel),
-                    'challenges': challenges
-                    }
-                    server.update({'name': str(ctx.message.channel)}, {"$set": ctf_info}, upsert=True)
-
-            else:
-                await ctx.send('You must be in a created ctf channel to use this command!')
-                correct_channel = False
-
-            if correct_channel == True:
-
-                if params == 'add': # Usage: ctf challenge add "challenge name"
-                    updatechallenge('Unsolved')
-                    await ctx.send(f"'{verbose}' has been added to the challenge list for {str(ctx.message.channel)}")
-
-                
-                if params == 'solved': # Usage: ctf challenge solved "challenge name"
-                    solve = f"Solved - {str(ctx.message.author)}"
-                    updatechallenge(solve)
-                    await ctx.send(f":triangular_flag_on_post: {verbose} has been solved by {str(ctx.message.author)}")
-                               
-
-                if params == 'working': # Usage: ctf challenge working "challenge name"
-                    working = f"Working - {str(ctx.message.author)}"
-                    updatechallenge(working)
-                    await ctx.send(f"{str(ctx.message.author)} is working on {verbose}!")
-
-                if params == 'list': # Usage: ctf challenge list
-                    ctf = server.find_one({'name': str(ctx.message.channel)})
-                    challenges = str(ctf['challenges']).replace('"', '').replace("'", "").replace('{', '').replace('}', '').split(',')
-                    formatted_chals = ""
-                    for i, c in enumerate(challenges):
-                        if i != 0:
-                            pos = c.index(':') - 1
-                        else:
-                            pos = c.index(':')
-                        c = c.lstrip(' ')
-                        formatted_c = '[' + c[:pos] + ']' + c[pos:] + '\n'
-                        formatted_chals += formatted_c
-                    
-                    await ctx.send(f"```ini\n{formatted_chals}```")
         
-        if cmd != 'create':
-            if teamdb[str(gid)].find_one({'name': str(ctx.message.channel)}):
-                correct_channel = True
-            else:
-                await ctx.send('You must be in a created ctf channel to use this command!')
-                correct_channel = False
+        category = discord.utils.get(ctx.guild.categories, name="CTF")
+        if category == None: # Checks if category exists, if it doesn't it will create it.
+            await guild.create_category(name='CTF')
+            category = discord.utils.get(ctx.guild.categories, name="CTF")
 
-            if correct_channel == True:        
-                    if cmd == 'join':          
-                        role = discord.utils.get(ctx.guild.roles, name=str(ctx.message.channel))
-                        user = ctx.message.author
-                        await user.add_roles(role)
-                        await ctx.send(f"{user} has joined the {str(ctx.message.channel)} team!")
+        await guild.create_text_channel(name=params, category=category)        
+        server = teamdb[str(gid)]
+        name = params.replace(' ', '-').replace("'", "").lower() # Discord does this when creating text channels. 
+        await guild.create_role(name=name, mentionable=True)         
+        ctf_info = {'name': name, "text_channel": name}
+        server.update({'name': name}, {"$set": ctf_info}, upsert=True)
 
+    @ctf.command()
+    async def join(self, ctx):
+        guild = ctx.guild
+        gid = ctx.guild.id
+        if teamdb[str(gid)].find_one({'name': str(ctx.message.channel)}):
+            role = discord.utils.get(ctx.guild.roles, name=str(ctx.message.channel))
+            user = ctx.message.author
+            await user.add_roles(role)
+            await ctx.send(f"{user} has joined the {str(ctx.message.channel)} team!")
+        else:
+            await ctx.send('You must be in a channel created using >ctf create to use this command!')
 
-                    if cmd == 'leave':
-                        role = discord.utils.get(ctx.guild.roles, name=str(ctx.message.channel))
-                        user = ctx.message.author
-                        await user.remove_roles(role)
-                        await ctx.send(f"{user} has left the {str(ctx.message.channel)} team.")
+    @ctf.command()
+    async def leave(self, ctx):
+        guild = ctx.guild
+        gid = ctx.guild.id
+        if teamdb[str(gid)].find_one({'name': str(ctx.message.channel)}):
+            role = discord.utils.get(ctx.guild.roles, name=str(ctx.message.channel))
+            user = ctx.message.author
+            await user.remove_roles(role)
+            await ctx.send(f"{user} has left the {str(ctx.message.channel)} team.")
+        else:
+            await ctx.send('You must be in a channel created using >ctf create to use this command!')
+    
+    @commands.has_permissions(manage_channels=True)
+    @ctf.command()
+    async def end(self, ctx):
+        guild = ctx.guild
+        gid = ctx.guild.id
+        if teamdb[str(gid)].find_one({'name': str(ctx.message.channel)}):
+            #delete role from server, delete entry from db
+            role = discord.utils.get(ctx.guild.roles, name=str(ctx.message.channel))
+            await role.delete()
+            await ctx.send(f"`{role.name}` role deleted")
+            teamdb[str(gid)].remove({'name': str(ctx.message.channel)})
+            await ctx.send(f"`{str(ctx.message.channel)}` deleted from db")
+        else:
+            await ctx.send('You must be in a channel created using >ctf create to use this command!')
+    
+    @ctf.command()
+    async def challenge(self, ctx, params, verbose=None):       
+        # Testing if the command was sent in a ctf channel
+        # This is how I will differenciate between different ctfs in the same server.
+        guild = ctx.guild
+        gid = ctx.guild.id
+        server = teamdb[str(gid)]
+        if teamdb[str(gid)].find_one({'name': str(ctx.message.channel)}):
+            correct_channel = True
+            
+            def updatechallenge(status):
+                challenge = {str(verbose): status}
+                ctf = server.find_one({'name': str(ctx.message.channel)})
+                try: # If there are existing challenges already...
+                    challenges = ctf['challenges']
+                    challenges.update(challenge)
+                except:
+                    challenges = challenge
+                ctf_info = {'name': str(ctx.message.channel),
+                'challenges': challenges
+                }
+                server.update({'name': str(ctx.message.channel)}, {"$set": ctf_info}, upsert=True)
 
-                    if cmd == 'end':
-                        if ctx.message.author.id ==  ctx.guild.owner.id or ctx.message.author.id == 230827776637272064:
-                            #delete role from server, delete entry from db
-                            role = discord.utils.get(ctx.guild.roles, name=str(ctx.message.channel))
-                            await role.delete()
-                            await ctx.send(f"`{role.name}` role deleted")
-                            teamdb[str(gid)].remove({'name': str(ctx.message.channel)})
-                            await ctx.send(f"`{str(ctx.message.channel)}` deleted from db")
-                        else:
-                            await ctx.send('Only the server owner may use this command.')
+        else:
+            await ctx.send('You must be in a created ctf channel to use this command!')
+            correct_channel = False
+
+        if correct_channel == True:
+
+            if params == 'add': # Usage: ctf challenge add "challenge name"
+                updatechallenge('Unsolved')
+                await ctx.send(f"'{verbose}' has been added to the challenge list for {str(ctx.message.channel)}")
+
+            
+            if params == 'solved': # Usage: ctf challenge solved "challenge name"
+                solve = f"Solved - {str(ctx.message.author)}"
+                updatechallenge(solve)
+                await ctx.send(f":triangular_flag_on_post: {verbose} has been solved by {str(ctx.message.author)}")
+                           
+
+            if params == 'working': # Usage: ctf challenge working "challenge name"
+                working = f"Working - {str(ctx.message.author)}"
+                updatechallenge(working)
+                await ctx.send(f"{str(ctx.message.author)} is working on {verbose}!")
+
+            if params == 'list': # Usage: ctf challenge list
+                ctf = server.find_one({'name': str(ctx.message.channel)})
+                challenges = str(ctf['challenges']).replace('"', '').replace("'", "").replace('{', '').replace('}', '').split(',')
+                formatted_chals = ""
+                for i, c in enumerate(challenges):
+                    if i != 0:
+                        pos = c.index(':') - 1
+                    else:
+                        pos = c.index(':')
+                    c = c.lstrip(' ')
+                    formatted_c = '[' + c[:pos] + ']' + c[pos:] + '\n'
+                    formatted_chals += formatted_c
+                
+                await ctx.send(f"```ini\n{formatted_chals}```")
                        
 
 

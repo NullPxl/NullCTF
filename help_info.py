@@ -17,7 +17,7 @@ return specific times for the time until a ctf begins, or until a currently runn
 display the leaderboards from ctftime from a certain year.
 
 `>ctf create "<ctf name>"`
-create a text channel and role in the CTF category for a ctf (only for owner).
+create a text channel and role in the CTF category for a ctf (must have permissions to manage channels).
 
 `>ctf challenge <[add/working/solved> "<challenge name>"`
 add a ctf challenge to a list of challenges in the ctf, then mark it as solved or being worked on.
@@ -29,7 +29,7 @@ get a list of the challenges in the ctf, and their statuses.
 get or get rid of the ctf role that was created with ctf create.
 
 `>ctf <end>`
-delete the role, and entry from the database for the ctf (only for owner).
+delete the role, and entry from the database for the ctf (must have permissions to manage channels).
 
 `>htb`
 return the latest tweet from @hackthebox_eu that says when the next box will be released

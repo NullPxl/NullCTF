@@ -8,7 +8,7 @@
 #  How to Use
 >This bot has commands for encoding/decoding, ciphers, and other commonly accessed tools during CTFs.  But, the main use for NullCTF is to easily set up a CTF for your discord server to play as a team.  The following commands listed are probably going to be used the most.
 
-* `>ctf create "ctf name"`  This is the command you'll use when you want to begin a new CTF.  This command will make a text channel with your supplied name under the category 'CTF' (If the category doesn't exist it will be created).  *Only available to server owners*
+* `>ctf create "ctf name"`  This is the command you'll use when you want to begin a new CTF.  This command will make a text channel with your supplied name under the category 'CTF' (If the category doesn't exist it will be created).  *Must have permissions to manage channels*
 
 *NOTE: the following ctf specific commands will only be accepted under the channel created for that ctf.  This is to avoid clashes with multiple ctfs going on in the same server.*
 
@@ -19,6 +19,8 @@
  
  * `>ctf challenge list` This is the list command that was previously mentioned, it displays the added challenges, who's working on what, and if a challenge is solved (and by who).
  ![enter image description here](https://i.imgur.com/KH5dYZr.png)
+
+ * `>ctf end` Delete the ctf info from the db, and remove the role from your server.  *Must have permissions to manage channels*
 
 ---
 >The following commands use the api from [ctftime](https://ctftime.org/api)

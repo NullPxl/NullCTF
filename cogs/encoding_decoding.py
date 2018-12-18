@@ -26,6 +26,7 @@ class EncodingDecoding():
     @commands.command()
     async def binary(self, ctx, encode_or_decode, string):
         if encode_or_decode == 'decode':
+            string = string.replace(" ", "")
             data = int(string, 2)
             decoded = data.to_bytes((data.bit_length() + 7) // 8, 'big').decode()
             await ctx.send(decoded)
@@ -37,6 +38,7 @@ class EncodingDecoding():
     @commands.command()
     async def hex(self, ctx, encode_or_decode, string):
         if encode_or_decode == 'decode':
+            string = string.replace(" ", "")
             decoded = binascii.unhexlify(string).decode('ascii')
             await ctx.send(decoded)
         
