@@ -80,14 +80,17 @@ class Ctfs():
 
     @commands.group()
     async def ctf(self, ctx):
+        global guild
+        global gid
+        guild = ctx.guild
+        gid = ctx.guild.id 
+
         if ctx.invoked_subcommand is None:
             await ctx.send('Invalid command passed.  Use >help.')
 
     @commands.has_permissions(manage_channels=True)
     @ctf.command()
     async def create(self, ctx, params):
-        guild = ctx.guild
-        gid = ctx.guild.id
         
         category = discord.utils.get(ctx.guild.categories, name="CTF")
         if category == None: # Checks if category exists, if it doesn't it will create it.
@@ -103,8 +106,6 @@ class Ctfs():
 
     @ctf.command()
     async def join(self, ctx):
-        guild = ctx.guild
-        gid = ctx.guild.id
         if teamdb[str(gid)].find_one({'name': str(ctx.message.channel)}):
             role = discord.utils.get(ctx.guild.roles, name=str(ctx.message.channel))
             user = ctx.message.author
@@ -115,8 +116,6 @@ class Ctfs():
 
     @ctf.command()
     async def leave(self, ctx):
-        guild = ctx.guild
-        gid = ctx.guild.id
         if teamdb[str(gid)].find_one({'name': str(ctx.message.channel)}):
             role = discord.utils.get(ctx.guild.roles, name=str(ctx.message.channel))
             user = ctx.message.author
@@ -128,8 +127,6 @@ class Ctfs():
     @commands.has_permissions(manage_channels=True)
     @ctf.command()
     async def end(self, ctx):
-        guild = ctx.guild
-        gid = ctx.guild.id
         if teamdb[str(gid)].find_one({'name': str(ctx.message.channel)}):
             #delete role from server, delete entry from db
             role = discord.utils.get(ctx.guild.roles, name=str(ctx.message.channel))
@@ -144,8 +141,6 @@ class Ctfs():
     async def challenge(self, ctx, params, verbose=None):       
         # Testing if the command was sent in a ctf channel
         # This is how I will differenciate between different ctfs in the same server.
-        guild = ctx.guild
-        gid = ctx.guild.id
         server = teamdb[str(gid)]
         if teamdb[str(gid)].find_one({'name': str(ctx.message.channel)}):
             correct_channel = True

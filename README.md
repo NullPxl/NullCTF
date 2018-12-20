@@ -3,6 +3,7 @@
 >### *A [discord.py](http://discordpy.readthedocs.io/en/latest/) bot focused on providing CTF tools for collaboration in Discord servers (ctftime.org commands, team setup, utilites, etc)!  If you have a feature request, make it a GitHub issue or use the >request "x" command.*
 
 [Invite to your server](https://discordapp.com/oauth2/authorize?client_id=455502163452362753&scope=bot&permissions=268545136)
+\
 [Join the support server](https://discord.gg/yf8E2s8)
 
 #  How to Use
