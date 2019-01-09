@@ -24,9 +24,10 @@ from discord.ext import commands
 from colorthief import ColorThief
 from help_info import *
 from auth import *
+
 client = discord.Client()
 bot = commands.Bot(command_prefix='>')
-extensions = ['encoding_decoding', 'cipher', 'ctfs', 'utility']
+extensions = ['encoding_decoding', 'cipher', 'ctfs', 'utility', 'settings']
 bot.remove_command('help')
 blacklisted = []
 cool_names = ['nullpxl', 'Test_Monkey', 'Yiggles', 'JohnHammond', 'voidUpdate', 'Michel Ney'] # This is intended to be able to be circumvented.

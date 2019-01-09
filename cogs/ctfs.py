@@ -91,11 +91,16 @@ class Ctfs():
     @commands.has_permissions(manage_channels=True)
     @ctf.command()
     async def create(self, ctx, params):
-        
-        category = discord.utils.get(ctx.guild.categories, name="CTF")
+        try:
+            sconf = serverdb[str(gid) + 'CONF']
+            scat = sconf.find_one({'name': "category_name"})['ctfcategory'] # scat means server category
+        except:
+            scat = "CTF"
+            
+        category = discord.utils.get(ctx.guild.categories, name=scat)
         if category == None: # Checks if category exists, if it doesn't it will create it.
-            await guild.create_category(name='CTF')
-            category = discord.utils.get(ctx.guild.categories, name="CTF")
+            await guild.create_category(name=scat)
+            category = discord.utils.get(ctx.guild.categories, name=scat)
 
         await guild.create_text_channel(name=params, category=category)        
         server = teamdb[str(gid)]
