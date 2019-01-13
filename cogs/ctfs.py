@@ -265,13 +265,14 @@ class Ctfs():
                 await ctx.channel.send(embed=embed)
         
         if status == 'top':
-            top_url = 'https://ctftime.org/api/v1/top/'
-            response = requests.get(top_url, headers=headers, params=params)
-            data = response.json()
-            leaderboards = ''
-            
             if (not params):
                 params = '2018'
+            
+            params = str(params)
+            top_url = 'https://ctftime.org/api/v1/top/' + params + '/'
+            response = requests.get(top_url, headers=headers)
+            data = response.json()
+            leaderboards = ''
             
             for team in range(10):
                 rank = team + 1
