@@ -1,8 +1,3 @@
-import requests
-import re
-import random
-from string import *
-
 help_page = '''
 
 

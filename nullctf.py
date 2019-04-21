@@ -1,27 +1,10 @@
 import asyncio
-import urllib
-import requests
-import re
 import random
-import json
-import base64
-import binascii
-import collections
-import string
 import sys
 import os
-import urllib.parse
-from urllib.request import urlopen
-import io
-from dateutil.parser import parse
-import time
-import datetime
-from datetime import timezone
-from datetime import datetime
 import discord
 from discord.ext.commands import Bot
 from discord.ext import commands
-from colorthief import ColorThief
 from help_info import *
 from auth import *
 
@@ -30,8 +13,13 @@ bot = commands.Bot(command_prefix='>')
 extensions = ['encoding_decoding', 'cipher', 'ctfs', 'utility', 'settings']
 bot.remove_command('help')
 blacklisted = []
-cool_names = ['nullpxl', 'Test_Monkey', 'Yiggles', 'JohnHammond', 'voidUpdate', 'Michel Ney'] # This is intended to be able to be circumvented.
+cool_names = ['nullpxl', 'Test_Monkey', 'Yiggles', 'JohnHammond', 'voidUpdate', 'Michel Ney', 'theKidOfArcrania'] # This is intended to be able to be circumvented.
 # If you do something like report a bug with the report command (OR GITHUB), e.g, >report "a bug", you might be added to the list!
+
+
+# TODO: ok so I was/am an idiot and kind of forgot that I was calling the updateDb function every time ctftime current, timeleft, and countdown are called...  so I should probably fix that.
+
+# https://github.com/Rapptz/discord.py/blob/master/examples/background_task.py
 
 @bot.event
 async def on_ready():
