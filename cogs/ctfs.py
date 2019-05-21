@@ -17,6 +17,7 @@ from random import randint
 from datetime import *
 from dateutil.parser import parse
 from mongo import *
+from colorama import Fore, Style
 
 from colorthief import ColorThief
 import discord
@@ -69,10 +70,14 @@ class Ctfs():
                  }
             info.append(ctf)
         
+        got_ctfs = []
         for ctf in info: # If the document doesn't exist: add it, if it does: update it.
-            print(f"Got {ctf['name']} from ctftime")
             query = ctf['name']
             ctfs.update({'name': query}, {"$set":ctf}, upsert=True)
+            got_ctfs.append(ctf['name'])
+        print(Fore.WHITE + f"{datetime.now()}: " + Fore.GREEN + f"Got and updated {got_ctfs}")
+        print(Style.RESET_ALL)
+        
         
         for ctf in ctfs.find(): # Delete ctfs that are over from the db
             if ctf['end'] < unix_now:
@@ -142,7 +147,7 @@ class Ctfs():
         else:
             await ctx.send('You must be in a channel created using >ctf create to use this command!')
     
-    @ctf.command()
+    @ctf.command(aliases=['chal'])
     async def challenge(self, ctx, params, verbose=None):       
         # Testing if the command was sent in a ctf channel
         # This is how I will differenciate between different ctfs in the same server.
@@ -169,36 +174,40 @@ class Ctfs():
 
         if correct_channel == True:
 
-            if params == 'add': # Usage: ctf challenge add "challenge name"
+            if params == 'add' or params == 'a': # Usage: ctf challenge add "challenge name"
                 updatechallenge('Unsolved')
                 await ctx.send(f"'{verbose}' has been added to the challenge list for {str(ctx.message.channel)}")
 
             
-            if params == 'solved': # Usage: ctf challenge solved "challenge name"
+            if params == 'solved' or params == 's': # Usage: ctf challenge solved "challenge name"
                 solve = f"Solved - {str(ctx.message.author)}"
                 updatechallenge(solve)
                 await ctx.send(f":triangular_flag_on_post: {verbose} has been solved by {str(ctx.message.author)}")
                            
 
-            if params == 'working': # Usage: ctf challenge working "challenge name"
+            if params == 'working' or params == 'w': # Usage: ctf challenge working "challenge name"
                 working = f"Working - {str(ctx.message.author)}"
                 updatechallenge(working)
                 await ctx.send(f"{str(ctx.message.author)} is working on {verbose}!")
 
             if params == 'list': # Usage: ctf challenge list
                 ctf = server.find_one({'name': str(ctx.message.channel)})
-                challenges = str(ctf['challenges']).replace('"', '').replace("'", "").replace('{', '').replace('}', '').split(',')
-                formatted_chals = ""
-                for i, c in enumerate(challenges):
-                    if i != 0:
-                        pos = c.index(':') - 1
-                    else:
-                        pos = c.index(':')
-                    c = c.lstrip(' ')
-                    formatted_c = '[' + c[:pos] + ']' + c[pos:] + '\n'
-                    formatted_chals += formatted_c
-                
-                await ctx.send(f"```ini\n{formatted_chals}```")
+                try:
+                    challenges = str(ctf['challenges']).replace('"', '').replace("'", "").replace('{', '').replace('}', '').split(',')
+                    formatted_chals = ""
+                    for i, c in enumerate(challenges):
+                        if i != 0:
+                            pos = c.index(':') - 1
+                        else:
+                            pos = c.index(':')
+                        c = c.lstrip(' ')
+                        formatted_c = '[' + c[:pos] + ']' + c[pos:] + '\n'
+                        formatted_chals += formatted_c
+                    
+                    await ctx.send(f"```ini\n{formatted_chals}```")
+                except KeyError as e: # If nothing has been added to the challenges list
+                    await ctx.send("Add some challenges with `>ctf challenge add \"challenge name\"`")
+                    
                        
 
 

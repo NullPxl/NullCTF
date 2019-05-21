@@ -1,5 +1,6 @@
 import asyncio
 import random
+from colorama import Back, Fore, Style
 import sys
 import os
 import discord
@@ -8,12 +9,14 @@ from discord.ext import commands
 from help_info import *
 from auth import *
 
+
 client = discord.Client()
 bot = commands.Bot(command_prefix='>')
-extensions = ['encoding_decoding', 'cipher', 'ctfs', 'utility', 'settings']
+extensions = ['encoding_decoding', 'cipher', 'ctfs', 'utility']
 bot.remove_command('help')
 blacklisted = []
-cool_names = ['nullpxl', 'Test_Monkey', 'Yiggles', 'JohnHammond', 'voidUpdate', 'Michel Ney', 'theKidOfArcrania'] # This is intended to be able to be circumvented.
+cool_names = ['nullpxl', 'Yiggles', 'JohnHammond', 'voidUpdate', 'Michel Ney', 'theKidOfArcrania', 'l14ck3r0x01'] 
+# This is intended to be able to be circumvented.
 # If you do something like report a bug with the report command (OR GITHUB), e.g, >report "a bug", you might be added to the list!
 
 
@@ -24,8 +27,14 @@ cool_names = ['nullpxl', 'Test_Monkey', 'Yiggles', 'JohnHammond', 'voidUpdate', 
 @bot.event
 async def on_ready():
     print(('<' + bot.user.name) + ' Online>')
-    print(discord.__version__)
+    print(f"discord.py {discord.__version__}\n")
     await bot.change_presence(activity=discord.Game(name='>help / >report "issue"'))
+
+@bot.event
+async def on_command_error(ctx, error):
+    await ctx.send(f"There was an error, sorry!\nIf you think this should be fixed, report it with >report \"what happened\"")
+    print(Style.BRIGHT + Fore.RED + f"Error occured with: {ctx.command}\n{error}\n")
+    print(Style.RESET_ALL)
 
 @bot.event
 async def on_message(message):

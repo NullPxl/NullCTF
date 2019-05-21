@@ -88,4 +88,3 @@ report an issue you found with the bot, if it is helpful your name will be added
 '''
 
 src = "https://github.com/NullPxl/NullCTF"
-creator_info = "https://youtube.com/nullpxl\nhttps://github.com/nullpxl\nhttps://twitter.com/nullpxl"

@@ -6,6 +6,8 @@ import urllib.parse
 import discord
 from discord.ext import commands
 
+#TODO: l14ck3r0x01: ROT47 , base32 encoding
+
 class EncodingDecoding():
 
     def __init__(self, bot):
