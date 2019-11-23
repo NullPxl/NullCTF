@@ -23,7 +23,7 @@ from colorthief import ColorThief
 import discord
 from discord.ext import commands
 
-class Ctfs():
+class Ctfs(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
@@ -275,7 +275,7 @@ class Ctfs():
         
         if status == 'top':
             if (not params):
-                params = '2018'
+                params = '2019'
             
             params = str(params)
             top_url = 'https://ctftime.org/api/v1/top/' + params + '/'
@@ -404,7 +404,7 @@ class Ctfs():
     async def htb(self, ctx):
         twitter_page = requests.get('https://twitter.com/hackthebox_eu')
         all_content = str(twitter_page.text.encode('utf-8'))
-        tweet = re.search('\\w+ will go live \\d{2}/\\d{2}/\\d{4} at \\d{2}:\\d{2}:\\d{2} UTC', all_content)
+        tweet = re.search('\\w+ will go live \\d{2} \\w+ \\d{4} at \\d{2}:\\d{2}:\\d{2} UTC. \\w+ will be retired!', all_content)
         match = tweet.group(0)
         await ctx.send(match + '\nhttps://hackthebox.eu')
 

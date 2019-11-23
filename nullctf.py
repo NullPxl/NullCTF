@@ -57,7 +57,7 @@ async def source(ctx):
 @bot.command()
 async def help(ctx, page=None):
     if (not page) or (page == '1'):
-        page_num = '1'
+        page = '1'
         emb = discord.Embed(description=help_page, colour=4387968)
         emb.set_author(name='>request "x" - request a feature')
     
@@ -70,7 +70,7 @@ async def help(ctx, page=None):
 # Bot sends a dm to creator with the name of the user and their request.
 @bot.command()
 async def request(ctx, feature):
-    creator = await bot.get_user_info(230827776637272064)
+    creator = await bot.fetch_user(230827776637272064)
     authors_name = str(ctx.author)
     await creator.send(f''':pencil: {authors_name}: {feature}''')
     await ctx.send(f''':pencil: Thanks, "{feature}" has been requested!''')
@@ -78,7 +78,7 @@ async def request(ctx, feature):
 # Bot sends a dm to creator with the name of the user and their report.
 @bot.command()
 async def report(ctx, error_report):
-    creator = await bot.get_user_info(230827776637272064)
+    creator = await bot.fetch_user(230827776637272064)
     authors_name = str(ctx.author)
     await creator.send(f''':triangular_flag_on_post: {authors_name}: {error_report}''')
     await ctx.send(f''':triangular_flag_on_post: Thanks for the help, "{error_report}" has been reported!''')
