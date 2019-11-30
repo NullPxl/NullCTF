@@ -82,6 +82,26 @@ class Ctfs(commands.Cog):
         for ctf in ctfs.find(): # Delete ctfs that are over from the db
             if ctf['end'] < unix_now:
                 ctfs.remove({'name': ctf['name']})
+    
+    @staticmethod
+    def gen_page(challengelist): # will return page w/ less than 2k chars
+        challenge_page = ""
+        challenge_pages = []
+        for c in challengelist:
+            # print(c)
+            if not len(challenge_page + c) >= 2000:
+                challenge_page += c
+                if c == challengelist[-1]: # if it is the last item
+                    challenge_pages.append(challenge_page)
+            
+            elif len(challenge_page + c) >= 2000:
+                challenge_pages.append(challenge_page)
+                challenge_page = ""
+                challenge_page += c
+
+        # print(challenge_pages)
+        return challenge_pages
+
 
     @commands.group()
     async def ctf(self, ctx):
@@ -147,7 +167,7 @@ class Ctfs(commands.Cog):
         else:
             await ctx.send('You must be in a channel created using >ctf create to use this command!')
     
-    @ctf.command(aliases=['chal'])
+    @ctf.command(aliases=['chal', 'chall'])
     async def challenge(self, ctx, params, verbose=None):       
         # Testing if the command was sent in a ctf channel
         # This is how I will differenciate between different ctfs in the same server.
@@ -156,7 +176,7 @@ class Ctfs(commands.Cog):
             correct_channel = True
             
             def updatechallenge(status):
-                challenge = {str(verbose): status}
+                challenge = {str(verbose).replace(',', ''): status}
                 ctf = server.find_one({'name': str(ctx.message.channel)})
                 try: # If there are existing challenges already...
                     challenges = ctf['challenges']
@@ -189,12 +209,37 @@ class Ctfs(commands.Cog):
                 working = f"Working - {str(ctx.message.author)}"
                 updatechallenge(working)
                 await ctx.send(f"{str(ctx.message.author)} is working on {verbose}!")
+            
+            # if params == 'delete' or params == 'remove' or params == 'd' or params == 'r':
+
+                # why tf is this difficult???? pymongo what r u doing
+
+                # for ctf in server.find():
+                #     for challenge in ctf['challenges']:
+                #         if challenge  == verbose:
+                #         server.remove({'challenges': verbose})
+                # challenge = 
+                # ctf = server.find_one({'name': str(ctx.message.channel)})
+                # for challenge in ctf['challenges']:
+                #     if challenge == verbose:
+                #         server.remove({ctf['challenges']: verbose})
+                
+                # print(ctf["challenges"])
+                # server.remote({ctf["challenges"]: verbose})
+                # challenges = ctf['challenges']
+                # print(challenges)
+                # print("\n\n\n")
+                # server.remove({f"ctf.challenges.{verbose}": {'$regex': '.*'}})
+                # await ctx.send("worked")
+                # print(challenges)
+
 
             if params == 'list': # Usage: ctf challenge list
+                ctf_challenge_list = []
                 ctf = server.find_one({'name': str(ctx.message.channel)})
                 try:
                     challenges = str(ctf['challenges']).replace('"', '').replace("'", "").replace('{', '').replace('}', '').split(',')
-                    formatted_chals = ""
+                    # formatted_chals = ""
                     for i, c in enumerate(challenges):
                         if i != 0:
                             pos = c.index(':') - 1
@@ -202,11 +247,16 @@ class Ctfs(commands.Cog):
                             pos = c.index(':')
                         c = c.lstrip(' ')
                         formatted_c = '[' + c[:pos] + ']' + c[pos:] + '\n'
-                        formatted_chals += formatted_c
+                        ctf_challenge_list.append(formatted_c)
+                    # print(ctf_challenge_list)
+                        # formatted_chals += formatted_c
                     
-                    await ctx.send(f"```ini\n{formatted_chals}```")
+                    for page in Ctfs.gen_page(ctf_challenge_list):
+                        await ctx.send(f"```ini\n{page}```")
                 except KeyError as e: # If nothing has been added to the challenges list
                     await ctx.send("Add some challenges with `>ctf challenge add \"challenge name\"`")
+                # except discord.errors.HTTPException as l: # If the list is more than 2k characters
+                #     await ctx.send("your list is too long")
                     
                        
 
