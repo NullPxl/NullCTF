@@ -6,8 +6,13 @@ import os
 import discord
 from discord.ext.commands import Bot
 from discord.ext import commands
-from help_info import *
-from auth import *
+import help_info
+import auth
+
+#Auth is set up like so:
+#auth_token = 'DISCORD TOKEN'
+#conn = "mongodb+srv://MONGODBUSER:PASSWORD@YOURCLUSTER.mongodb.net"
+
 
 
 client = discord.Client()
@@ -15,7 +20,7 @@ bot = commands.Bot(command_prefix='>')
 extensions = ['encoding_decoding', 'cipher', 'ctfs', 'utility']
 bot.remove_command('help')
 blacklisted = []
-cool_names = ['nullpxl', 'Yiggles', 'JohnHammond', 'voidUpdate', 'Michel Ney', 'theKidOfArcrania', 'l14ck3r0x01'] 
+cool_names = ['nullpxl', 'Yiggles', 'JohnHammond', 'voidUpdate', 'Michel Ney', 'theKidOfArcrania', 'l14ck3r0x01', 'hasu', 'KFBI'] 
 # This is intended to be able to be circumvented.
 # If you do something like report a bug with the report command (OR GITHUB), e.g, >report "a bug", you might be added to the list!
 
@@ -32,7 +37,11 @@ async def on_ready():
 
 @bot.event
 async def on_command_error(ctx, error):
-    await ctx.send(f"There was an error, sorry!\nIf you think this should be fixed, report it with >report \"what happened\"")
+    if isinstance(error, commands.CommandNotFound):
+        await ctx.send("Invalid command passed.  Use >help")
+    else:
+        await ctx.send(f"There was an error, sorry!\nIf you think this should be fixed, report it with >report \"what happened\"")
+    
     print(Style.BRIGHT + Fore.RED + f"Error occured with: {ctx.command}\n{error}\n")
     print(Style.RESET_ALL)
 
@@ -52,18 +61,24 @@ async def on_message(message):
 # Sends the github link.
 @bot.command()
 async def source(ctx):
-    await ctx.send(src)
+    await ctx.send(help_info.src)
 
 @bot.command()
 async def help(ctx, page=None):
-    if (not page) or (page == '1'):
-        page = '1'
-        emb = discord.Embed(description=help_page, colour=4387968)
-        emb.set_author(name='>request "x" - request a feature')
     
-    if page == '2':
-        emb = discord.Embed(description=help_page_2, colour=4387968)
-        emb.set_author(name='>request "x" - request a feature')
+    if page == 'ctftime':
+        emb = discord.Embed(description=help_info.ctftime_help, colour=4387968)
+        emb.set_author(name='CTFTime Help')
+    elif page == 'ctf':
+        emb = discord.Embed(description=help_info.ctf_help, colour=4387968)
+        emb.set_author(name='CTF Help')
+    elif page == 'utility':
+        emb = discord.Embed(description=help_info.utility_help, colour=4387968)
+        emb.set_author(name='Utilities Help')
+    
+    else:
+        emb = discord.Embed(description=help_info.help_page, colour=4387968)
+        emb.set_author(name='NullCTF Help')
     
     await ctx.channel.send(embed=emb)
 
@@ -101,4 +116,4 @@ if __name__ == '__main__':
     sys.path.insert(1, os.getcwd() + '/cogs/')
     for extension in extensions:
         bot.load_extension(extension)
-    bot.run(auth_token)
+    bot.run(auth.auth_token)

@@ -16,23 +16,15 @@ class Ciphers(commands.Cog):
             upper = collections.deque(string.ascii_uppercase)
             lower = collections.deque(string.ascii_lowercase)
             
-            if (direction == None) or (direction == 'left'):
-                upper.rotate((- i))
-                lower.rotate((- i))
-            
-            if direction == 'right':
-                upper.rotate(i)
-                lower.rotate(i)
+            upper.rotate((- i))
+            lower.rotate((- i))
             
             upper = ''.join(list(upper))
             lower = ''.join(list(lower))
             translated = message.translate(str.maketrans(string.ascii_uppercase, upper)).translate(str.maketrans(string.ascii_lowercase, lower))
             allrot += '{}: {}\n'.format(i, translated)
         
-        try:
-            await ctx.send((((('rotated ' + message) + ' to the ') + direction) + '\n') + allrot)
-        except:
-            await ctx.send((('rotated ' + message) + ' to the left\n') + allrot)
+        await ctx.send(f"{allrot}")
 
     @commands.command()
     async def atbash(self, ctx, message):

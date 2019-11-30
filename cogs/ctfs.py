@@ -199,13 +199,13 @@ class Ctfs(commands.Cog):
                 await ctx.send(f"'{verbose}' has been added to the challenge list for {str(ctx.message.channel)}")
 
             
-            if params == 'solved' or params == 's': # Usage: ctf challenge solved "challenge name"
+            elif params == 'solved' or params == 's': # Usage: ctf challenge solved "challenge name"
                 solve = f"Solved - {str(ctx.message.author)}"
                 updatechallenge(solve)
                 await ctx.send(f":triangular_flag_on_post: {verbose} has been solved by {str(ctx.message.author)}")
                            
 
-            if params == 'working' or params == 'w': # Usage: ctf challenge working "challenge name"
+            elif params == 'working' or params == 'w': # Usage: ctf challenge working "challenge name"
                 working = f"Working - {str(ctx.message.author)}"
                 updatechallenge(working)
                 await ctx.send(f"{str(ctx.message.author)} is working on {verbose}!")
@@ -234,7 +234,7 @@ class Ctfs(commands.Cog):
                 # print(challenges)
 
 
-            if params == 'list': # Usage: ctf challenge list
+            elif params == 'list': # Usage: ctf challenge list
                 ctf_challenge_list = []
                 ctf = server.find_one({'name': str(ctx.message.channel)})
                 try:
@@ -255,8 +255,9 @@ class Ctfs(commands.Cog):
                         await ctx.send(f"```ini\n{page}```")
                 except KeyError as e: # If nothing has been added to the challenges list
                     await ctx.send("Add some challenges with `>ctf challenge add \"challenge name\"`")
-                # except discord.errors.HTTPException as l: # If the list is more than 2k characters
-                #     await ctx.send("your list is too long")
+            
+            else:
+                await ctx.send("Options: list, add/a, working/w, solved/s")
                     
                        
 
@@ -329,8 +330,11 @@ class Ctfs(commands.Cog):
             
             params = str(params)
             top_url = 'https://ctftime.org/api/v1/top/' + params + '/'
-            response = requests.get(top_url, headers=headers)
-            data = response.json()
+            try:
+                response = requests.get(top_url, headers=headers)
+                data = response.json()
+            except KeyError as e:
+                await ctx.send("Can't find that year in the leaderboards")
             leaderboards = ''
             
             for team in range(10):

@@ -21,6 +21,8 @@
  * `>ctf challenge list` This is the list command that was previously mentioned, it displays the added challenges, who's working on what, and if a challenge is solved (and by who).
  ![enter image description here](https://i.imgur.com/KH5dYZr.png)
 
+ > NOTE: There is shorthand!  challenge -> chal/chall, add -> a, working -> w, solved -> s, (deleting challenges is on the agenda)
+
  * `>ctf end` Delete the ctf info from the db, and remove the role from your server.  *Must have permissions to manage channels*
 
 ---
@@ -64,9 +66,9 @@
 
 * `>cointoss` Get a 50/50 cointoss to make all your life's decisions.
 
-* `>request/report "a feature"/"a bug"` Dm's the creator with your feature/bug  request/report.
+* `>request/report "a feature"/"a bug"` Dm's the creator (nullpxl#3928) with your feature/bug  request/report.
 
-* `>help pagenumber` Returns the help page of your supplied number (currently there are 2 pages)
+* `>help` Returns the help page
 
 ## Have a feature request?  Make a GitHub issue or use the >request command.
 
