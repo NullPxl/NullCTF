@@ -210,31 +210,19 @@ class Ctfs(commands.Cog):
                 updatechallenge(working)
                 await ctx.send(f"{str(ctx.message.author)} is working on {verbose}!")
             
-            # if params == 'delete' or params == 'remove' or params == 'd' or params == 'r':
+            elif params == 'delete' or params == 'remove' or params == 'd' or params == 'r':
 
-                # why tf is this difficult???? pymongo what r u doing
-
-                # for ctf in server.find():
-                #     for challenge in ctf['challenges']:
-                #         if challenge  == verbose:
-                #         server.remove({'challenges': verbose})
-                # challenge = 
-                # ctf = server.find_one({'name': str(ctx.message.channel)})
-                # for challenge in ctf['challenges']:
-                #     if challenge == verbose:
-                #         server.remove({ctf['challenges']: verbose})
-                
-                # print(ctf["challenges"])
-                # server.remote({ctf["challenges"]: verbose})
-                # challenges = ctf['challenges']
-                # print(challenges)
-                # print("\n\n\n")
-                # server.remove({f"ctf.challenges.{verbose}": {'$regex': '.*'}})
-                # await ctx.send("worked")
-                # print(challenges)
+                ctf = server.find_one({'name': str(ctx.message.channel)})
+                challenges = ctf['challenges']
+                challenges.pop(verbose, None)
+                ctf_info = {'name': str(ctx.message.channel),
+                'challenges': challenges
+                }
+                server.update({'name': str(ctx.message.channel)}, {"$set": ctf_info}, upsert=True)
+                await ctx.send(f"Removed {verbose}")
 
 
-            elif params == 'list': # Usage: ctf challenge list
+            elif params == 'list' or params == 'ls': # Usage: ctf challenge list
                 ctf_challenge_list = []
                 ctf = server.find_one({'name': str(ctx.message.channel)})
                 try:

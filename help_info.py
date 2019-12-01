@@ -16,8 +16,8 @@ ctf_help = '''
 `>ctf create "CTF NAME"`
 create a text channel and role in the CTF category for a ctf (must have permissions to manage channels)*
 
-`>ctf challenge [add/working/solved] "challenge name"`
-add a ctf challenge to a list of challenges in the ctf, then mark it as solved or being worked on
+`>ctf challenge [add/working/solved/remove] "challenge name"`
+add a ctf challenge to a list of challenges in the ctf, then mark it as solved or being worked on.  Shorthand: challenge -> chal/chall, add -> a, working -> w, solved -> s, remove -> r
 
 `>ctf challenge list`
 get a list of the challenges in the ctf, and their statuses

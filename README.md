@@ -16,12 +16,12 @@
  * `>ctf join/leave` Using this command will either give or remove the role of a created ctf to/from you.
  ![enter image description here](https://i.imgur.com/4QPUgvM.png)
  
- * `>ctf challenge add/working/solved "challenge name"` Allows users to add challenges to a list, and then set the status of that challenge. *Use quotations*
+ * `>ctf challenge add/working/solved/remove "challenge name"` Allows users to add or remove challenges to a list, and then set the status of that challenge. *Use quotations*
  
  * `>ctf challenge list` This is the list command that was previously mentioned, it displays the added challenges, who's working on what, and if a challenge is solved (and by who).
  ![enter image description here](https://i.imgur.com/KH5dYZr.png)
 
- > NOTE: There is shorthand!  challenge -> chal/chall, add -> a, working -> w, solved -> s, (deleting challenges is on the agenda)
+ > NOTE: There is shorthand!  challenge -> chal/chall, add -> a, working -> w, solved -> s, remove -> r
 
  * `>ctf end` Delete the ctf info from the db, and remove the role from your server.  *Must have permissions to manage channels*
 
