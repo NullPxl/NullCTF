@@ -1,5 +1,3 @@
-nullsig.pyc
-nullctf.pyc
+config_vars.py
 __pycache__/
 cogs/__pycache__/
-auth.py

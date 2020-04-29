@@ -24,7 +24,7 @@ class Ciphers(commands.Cog):
             translated = message.translate(str.maketrans(string.ascii_uppercase, upper)).translate(str.maketrans(string.ascii_lowercase, lower))
             allrot += '{}: {}\n'.format(i, translated)
         
-        await ctx.send(f"{allrot}")
+        await ctx.send(f"```{allrot}```")
 
     @commands.command()
     async def atbash(self, ctx, message):

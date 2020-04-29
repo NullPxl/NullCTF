@@ -565,10 +565,26 @@
     },
     "flv": {
         "signs": [
-            " 66 74 79 70 4D 34 56 20"
+            "66 74 79 70 4D 34 56 20"
 
         ],
         "mime": "video/x-flv"
+
+    },
+    "ps": {
+        "signs": [
+            "25 21 50 53"
+
+        ],
+        "mime": "application/postscript"
+
+    },
+    "vbe": {
+        "signs": [
+            "23 40 7E 5E"
+
+        ],
+        "mime": "application/x-vbe"
 
     },
     "wmv": {

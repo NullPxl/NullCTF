@@ -8,10 +8,13 @@ from discord.ext import commands
 
 #TODO: l14ck3r0x01: ROT47 , base32 encoding
 
-class EncodingDecoding(commands.Cog):
+class Encoding(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
+
+    async def cog_command_error(self, ctx, error):
+        await ctx.send("There was an error with the data :[")
 
     @commands.command()
     async def b64(self, ctx, encode_or_decode, string):
@@ -23,6 +26,18 @@ class EncodingDecoding(commands.Cog):
         
         if encode_or_decode == 'encode':
             encoded = base64.b64encode(byted_str).decode('utf-8').replace('\n', '')
+            await ctx.send(encoded)
+    
+    @commands.command()
+    async def b32(self, ctx, encode_or_decode, string):
+        byted_str = str.encode(string)
+
+        if encode_or_decode == 'decode':
+            decoded = base64.b32decode(byted_str).decode('utf-8')
+            await ctx.send(decoded)
+        
+        if encode_or_decode =='encode':
+            encoded = base64.b32encode(byted_str).decode('utf-8').replace('\n', '')
             await ctx.send(encoded)
 
     @commands.command()
@@ -63,4 +78,4 @@ class EncodingDecoding(commands.Cog):
             await ctx.send(urllib.parse.quote(message))
 
 def setup(bot):
-    bot.add_cog(EncodingDecoding(bot))
+    bot.add_cog(Encoding(bot))

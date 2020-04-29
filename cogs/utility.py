@@ -1,10 +1,8 @@
-import base64
-import binascii
 import collections
 import string
 import urllib.parse
-import json
 import random
+import json
 import discord
 from discord.ext import commands
 
@@ -12,17 +10,6 @@ class Utility(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
-
-    # @commands.command(aliases=['purge'])
-    # async def clear(self, ctx, amount):
-    #     amount = int(amount)
-    #     await ctx.message.delete()
-        
-    #     try:
-    #         for amount in range(amount, 0, (- 100)):
-    #             await ctx.channel.purge(limit=amount)
-    #     except discord.errors.HTTPException:
-    #         await ctx.send("Can't delete messages more than 14 days old!  Try a lower number.")
 
     @commands.command(aliases=['char'])
     async def characters(self, ctx, string):
@@ -77,11 +64,6 @@ class Utility(commands.Cog):
         
         if choice == 2:
             await ctx.send('tails')
-
-    # @commands.command()
-    # async def randread(self, ctx, *args):
-    #     choice = random.choice(args)
-    #     await ctx.channel.send(choice, tts=True)
 
 def setup(bot):
     bot.add_cog(Utility(bot))
