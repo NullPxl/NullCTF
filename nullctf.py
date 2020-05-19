@@ -78,7 +78,7 @@ async def report(ctx, error_report):
 
 @bot.command()
 async def amicool(ctx):
-    authors_name = str(ctx.author)
+    authors_name = str(ctx.author).split("#")[0]
     if authors_name in cool_names:
         await ctx.send('You are very cool :]')
     else:
