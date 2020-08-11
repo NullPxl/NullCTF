@@ -9,6 +9,7 @@ import sys
 sys.path.append("..")
 from config_vars import *
 
+# All commands for getting data from ctftime.org (a popular platform for finding CTF events)
 
 class CtfTime(commands.Cog):
 
@@ -25,7 +26,9 @@ class CtfTime(commands.Cog):
 
     @tasks.loop(minutes=30.0, reconnect=True)
     async def updateDB(self):
-        # print("updateDB called")
+        # Every 30 minutes, this will grab the 5 closest upcoming CTFs from ctftime.org and update my db with it.
+        # I do this because there is no way to get current ctfs from the api, but by logging all upcoming ctfs [cont.]
+        # I can tell by looking at the start and end date if it's currently running or not using unix timestamps.
         now = datetime.utcnow()
         unix_now = int(now.replace(tzinfo=timezone.utc).timestamp())
         headers = {
@@ -91,6 +94,7 @@ class CtfTime(commands.Cog):
 
     @ctftime.command(aliases=['now', 'running'])
     async def current(self, ctx):
+        # Send discord embeds of the currently running ctfs.
         now = datetime.utcnow()
         unix_now = int(now.replace(tzinfo=timezone.utc).timestamp())
         running = False
@@ -105,6 +109,7 @@ class CtfTime(commands.Cog):
                     embed.set_thumbnail(url=ctf['img'])
                 else:
                     embed.set_thumbnail(url="https://pbs.twimg.com/profile_images/2189766987/ctftime-logo-avatar_400x400.png")
+                    # CTFtime logo
                     
                 embed.add_field(name='Duration', value=ctf['dur'], inline=True)
                 embed.add_field(name='Format', value=ctf['format'], inline=True)
@@ -116,6 +121,7 @@ class CtfTime(commands.Cog):
 
     @ctftime.command(aliases=["next"])
     async def upcoming(self, ctx, amount=None):
+        # Send embeds of upcoming ctfs from ctftime.org, using their api.
         if not amount:
             amount = '3'
         headers = {
@@ -157,6 +163,7 @@ class CtfTime(commands.Cog):
     
     @ctftime.command(aliases=["leaderboard"])
     async def top(self, ctx, year = None):
+        # Send a message of the ctftime.org leaderboards from a supplied year (defaults to current year).
         
         if not year:
             # Default to current year
@@ -179,6 +186,8 @@ class CtfTime(commands.Cog):
                     score = str(round(top_data[team]['points'], 4))
 
                     if team != 9:
+                        # This is literally just for formatting.  I'm sure there's a better way to do it but I couldn't think of one :(
+                        # If you know of a better way to do this, do a pull request or msg me and I'll add  your name to the cool list
                         leaderboards += f"\n[{rank}]    {teamname}: {score}"
                     else:
                         leaderboards += f"\n[{rank}]   {teamname}: {score}\n"
@@ -189,6 +198,7 @@ class CtfTime(commands.Cog):
                 # LOG THIS
     @ctftime.command()
     async def timeleft(self, ctx):
+        # Send the specific time that ctfs that are currently running have left.
         now = datetime.utcnow()
         unix_now = int(now.replace(tzinfo=timezone.utc).timestamp())
         running = False
@@ -210,6 +220,7 @@ class CtfTime(commands.Cog):
 
     @ctftime.command()
     async def countdown(self, ctx, params=None):
+        # Send the specific time that upcoming ctfs have until they start.
         now = datetime.utcnow()
         unix_now = int(now.replace(tzinfo=timezone.utc).timestamp())
         
@@ -218,6 +229,7 @@ class CtfTime(commands.Cog):
             index = ""
             for ctf in ctfs.find():
                 if ctf['start'] > unix_now:
+                    # if the ctf start time is in the future...
                     self.upcoming_l.append(ctf)
             for i, c in enumerate(self.upcoming_l):
                 index += f"\n[{i + 1}] {c['name']}\n"

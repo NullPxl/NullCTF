@@ -10,6 +10,7 @@ class Ciphers(commands.Cog):
 
     @commands.command()
     async def rot(self, ctx, message, direction=None):
+        # Bruteforce a rot cipher.
         allrot = ''
         
         for i in range(0, 26):
@@ -28,6 +29,7 @@ class Ciphers(commands.Cog):
 
     @commands.command()
     async def atbash(self, ctx, message):
+        # Return the result of performing the atbash cipher on the message.
         normal = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
         changed = 'zyxwvutsrqponmlkjihgfedcbaZYXWVUTSRQPONMLKJIHGFEDCBA'
         trans = str.maketrans(normal, changed)

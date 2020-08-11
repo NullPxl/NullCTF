@@ -6,6 +6,8 @@ import json
 import discord
 from discord.ext import commands
 
+# This can be thought of as a miscellaneous category (anything 'utility' based.)
+
 class Utility(commands.Cog):
 
     def __init__(self, bot):
@@ -25,6 +27,7 @@ class Utility(commands.Cog):
 
     @commands.command()
     async def counteach(self, ctx, message):
+        # Count the amount of characters in a string.
         count = {}
         
         for char in message:
@@ -37,6 +40,7 @@ class Utility(commands.Cog):
 
     @commands.command(aliases=['head'])
     async def magicb(self, ctx, filetype):
+        # Get the magic bytes from a filetype
         file = open('magic.json').read()
         alldata = json.loads(file)
         try:

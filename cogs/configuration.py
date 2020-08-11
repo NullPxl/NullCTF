@@ -4,6 +4,9 @@ import sys
 sys.path.append("..")
 from config_vars import *
 
+# Extension for per-discord-server configuration.
+# Configurations are logged in the database under the server id (right click on your server icon in discord dev mode).
+
 class Configuration(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -19,6 +22,7 @@ class Configuration(commands.Cog):
     @commands.has_permissions(manage_channels=True)
     @config.command()
     async def ctf_category(self, ctx, category_name):
+        # Set the category that new ctf channels are created in by default.
         category = discord.utils.get(ctx.guild.categories, name=category_name)
         
         if category == None: # Checks if category exists, if it doesn't it will create it.
@@ -35,6 +39,7 @@ class Configuration(commands.Cog):
     @commands.has_permissions(manage_channels=True)
     @config.command()
     async def archive_category(self, ctx, category_name):
+        # Set the category that archived ctf channels are put in by default.
         category = discord.utils.get(ctx.guild.categories, name=category_name)
         
         if category == None: # Checks if category exists, if it doesn't it will create it.

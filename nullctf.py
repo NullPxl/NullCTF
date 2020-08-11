@@ -7,10 +7,14 @@ import config_vars
 
 client = discord.Client()
 bot = commands.Bot(command_prefix=">")
+# The default help command is removed so a custom one can be added.
 bot.remove_command('help')
 
+# Each extension corresponds to a file within the cogs directory.  Remove from the list to take away the functionality.
 extensions = ['ctf', 'ctftime', 'configuration', 'encoding', 'cipher', 'utility']
-cool_names = ['nullpxl', 'Yiggles', 'JohnHammond', 'voidUpdate', 'Michel Ney', 'theKidOfArcrania', 'l14ck3r0x01', 'hasu', 'KFBI', 'mrFu', 'warlock_rootx', 'd347h4ck'] 
+# List of names reserved for those who gave cool ideas or reported something interesting.
+# If your name is in the list and you use the command '>amicool' you'll get a nice message.
+cool_names = ['nullpxl', 'Yiggles', 'JohnHammond', 'voidUpdate', 'Michel Ney', 'theKidOfArcrania', 'l14ck3r0x01', 'hasu', 'KFBI', 'mrFu', 'warlock_rootx', 'd347h4ck', 'tourpan'] 
 
 @bot.event
 async def on_ready():
@@ -18,11 +22,11 @@ async def on_ready():
     print(f"discord.py {discord.__version__}\n")
     print("-------------------------------")
 
-    await bot.change_presence(activity=discord.Game(name=">help | >report \"x\""))
+    await bot.change_presence(activity=discord.Game(name=">help | >source"))
 
 @bot.command()
 async def help(ctx, page=None):
-    
+    # Custom help command.  Each main category is set as a 'page'.
     if page == 'ctftime':
         emb = discord.Embed(description=help_info.ctftime_help, colour=4387968)
         emb.set_author(name='CTFTime Help')
@@ -44,6 +48,7 @@ async def help(ctx, page=None):
 
 @bot.command()
 async def source(ctx):
+    # Sends the github link of the bot.
     await ctx.send(help_info.src)
 
 @bot.event

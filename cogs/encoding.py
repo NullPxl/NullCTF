@@ -6,6 +6,9 @@ import urllib.parse
 import discord
 from discord.ext import commands
 
+# Encoding/Decoding from various schemes.
+
+
 #TODO: l14ck3r0x01: ROT47 , base32 encoding
 
 class Encoding(commands.Cog):
