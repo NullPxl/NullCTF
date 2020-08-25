@@ -38,7 +38,7 @@ class NonceNotFound(Exception):
 
 def getChallenges(url, username, password):
     # Pull challenges from a ctf hosted with the commonly used CTFd platform using provided credentials
-    whitelist = set(string.ascii_letters+string.digits+' '+'-'+'!'+'#'+'$'+'_'+'['+']'+'('+')'+'?'+'@'+'+'+'<'+'>')
+    whitelist = set(string.ascii_letters+string.digits+' '+'-'+'!'+'#'+'_'+'['+']'+'('+')'+'?'+'@'+'+'+'<'+'>')
     fingerprint = "Powered by CTFd"
     s = requests.session()
     if url[-1] == "/": url = url[:-1]
@@ -109,7 +109,7 @@ class CTF(commands.Cog):
     async def create(self, ctx, name):
         # Create a new channel in the CTF category (default='CTF' or configured with the configuration extension)
         try:
-            sconf = serverdb[str(ctx.guild.id) + '-CONF'] # put this in a try/except, if it doesn't exist set default to CTF
+            sconf = serverdb[str(ctx.guild.id) + '-CONF']
             servcat = sconf.find_one({'name': "category_name"})['ctf_category']
         except:
             servcat = "CTF"
@@ -122,7 +122,7 @@ class CTF(commands.Cog):
         ctf_name = strip_string(name, set(string.ascii_letters + string.digits + ' ' + '-')).replace(' ', '-').lower()
         if ctf_name[0] == '-': ctf_name = ctf_name[1:] # edge case where channel names can't start with a space (but can end in one)
         # There cannot be 2 spaces (which are converted to '-') in a row when creating a channel.  This makes sure these are taken out.
-        new_ctf_name = ctf_name # TODO: this has not been tested! test this before pushing (channel creation)
+        new_ctf_name = ctf_name
         prev = ''
         while '--' in ctf_name:
             for i, c in enumerate(ctf_name):
@@ -212,7 +212,7 @@ which will move the channel and delete the role, but retain challenge info(`>con
     def updateChallenge(ctx, name, status):
         # Update the db with a new challenge and its status
         server = teamdb[str(ctx.guild.id)]
-        whitelist = set(string.ascii_letters+string.digits+' '+'-'+'!'+'#'+'$'+'_'+'['+']'+'('+')'+'?'+'@'+'+'+'<'+'>')
+        whitelist = set(string.ascii_letters+string.digits+' '+'-'+'!'+'#'+'_'+'['+']'+'('+')'+'?'+'@'+'+'+'<'+'>')
         challenge = {strip_string(str(name), whitelist): status}
         ctf = server.find_one({'name': str(ctx.message.channel)})
         try: # If there are existing challenges already...
@@ -252,6 +252,8 @@ which will move the channel and delete the role, but retain challenge info(`>con
         # Typos can happen (remove a ctf challenge from the list)
         ctf = teamdb[str(ctx.guild.id)].find_one({'name': str(ctx.message.channel)})
         challenges = ctf['challenges']
+        whitelist = set(string.ascii_letters+string.digits+' '+'-'+'!'+'#'+'_'+'['+']'+'('+')'+'?'+'@'+'+'+'<'+'>')
+        name = strip_string(name, whitelist)
         challenges.pop(name, None)
         ctf_info = {'name': str(ctx.message.channel),
         'challenges': challenges

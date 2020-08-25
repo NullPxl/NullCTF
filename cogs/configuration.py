@@ -23,6 +23,7 @@ class Configuration(commands.Cog):
     @config.command()
     async def ctf_category(self, ctx, category_name):
         # Set the category that new ctf channels are created in by default.
+        category_name = category_name.replace("$", "")
         category = discord.utils.get(ctx.guild.categories, name=category_name)
         
         if category == None: # Checks if category exists, if it doesn't it will create it.
@@ -40,6 +41,7 @@ class Configuration(commands.Cog):
     @config.command()
     async def archive_category(self, ctx, category_name):
         # Set the category that archived ctf channels are put in by default.
+        category_name = category_name.replace("$", "")
         category = discord.utils.get(ctx.guild.categories, name=category_name)
         
         if category == None: # Checks if category exists, if it doesn't it will create it.
