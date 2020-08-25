@@ -14,7 +14,7 @@ bot.remove_command('help')
 extensions = ['ctf', 'ctftime', 'configuration', 'encoding', 'cipher', 'utility']
 # List of names reserved for those who gave cool ideas or reported something interesting.
 # If your name is in the list and you use the command '>amicool' you'll get a nice message.
-cool_names = ['nullpxl', 'Yiggles', 'JohnHammond', 'voidUpdate', 'Michel Ney', 'theKidOfArcrania', 'l14ck3r0x01', 'hasu', 'KFBI', 'mrFu', 'warlock_rootx', 'd347h4ck', 'tourpan'] 
+cool_names = ['nullpxl', 'Yiggles', 'JohnHammond', 'voidUpdate', 'Michel Ney', 'theKidOfArcrania', 'l14ck3r0x01', 'hasu', 'KFBI', 'mrFu', 'warlock_rootx', 'd347h4ck', 'tourpan', 'careless_finch'] 
 
 @bot.event
 async def on_ready():
