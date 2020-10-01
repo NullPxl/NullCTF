@@ -1,0 +1,6 @@
+discord.py
+pymongo
+requests
+colorama
+urllib3
+python-dateutil
