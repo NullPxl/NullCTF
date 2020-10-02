@@ -1,6 +1,8 @@
 import discord
 from discord.ext.commands import Bot
 from discord.ext import commands
+import os
+import sys
 
 import help_info
 import config_vars
@@ -14,7 +16,7 @@ bot.remove_command('help')
 extensions = ['ctf', 'ctftime', 'configuration', 'encoding', 'cipher', 'utility']
 # List of names reserved for those who gave cool ideas or reported something interesting.
 # If your name is in the list and you use the command '>amicool' you'll get a nice message.
-cool_names = ['nullpxl', 'Yiggles', 'JohnHammond', 'voidUpdate', 'Michel Ney', 'theKidOfArcrania', 'l14ck3r0x01', 'hasu', 'KFBI', 'mrFu', 'warlock_rootx', 'd347h4ck', 'tourpan', 'careless_finch'] 
+cool_names = ['nullpxl', 'Yiggles', 'JohnHammond', 'voidUpdate', 'Michel Ney', 'theKidOfArcrania', 'l14ck3r0x01', 'hasu', 'KFBI', 'mrFu', 'warlock_rootx', 'd347h4ck', 'tourpan', 'careless_finch', 'fumenoid'] 
 
 @bot.event
 async def on_ready():
@@ -43,8 +45,14 @@ async def help(ctx, page=None):
     else:
         emb = discord.Embed(description=help_info.help_page, colour=4387968)
         emb.set_author(name='NullCTF Help')
-    
+
+    await attach_embed_info(ctx, emb)
     await ctx.channel.send(embed=emb)
+
+
+async def attach_embed_info(ctx=None, embed=None):
+    embed.set_thumbnail(url=f'{bot.user.avatar_url}')
+    return embed
 
 @bot.command()
 async def source(ctx):
@@ -91,6 +99,10 @@ async def amicool(ctx):
         await ctx.send('Psst, kid.  Want to be cool?  Find an issue and report it or request a feature!')
 
 if __name__ == '__main__':
+    sys.path.insert(1, os.getcwd() + '/cogs/')
     for extension in extensions:
-        bot.load_extension('cogs.' + extension)
+        try:
+            bot.load_extension(extension)
+        except Exception as e:
+            print(f'Failed to load cogs : {e}')
     bot.run(config_vars.discord_token)
