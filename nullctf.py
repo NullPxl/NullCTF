@@ -45,8 +45,14 @@ async def help(ctx, page=None):
     else:
         emb = discord.Embed(description=help_info.help_page, colour=4387968)
         emb.set_author(name='NullCTF Help')
-    
+
+    await attach_embed_info(ctx, emb)
     await ctx.channel.send(embed=emb)
+
+
+async def attach_embed_info(ctx=None, embed=None):
+    embed.set_thumbnail(url=f'{bot.user.avatar_url}')
+    return embed
 
 @bot.command()
 async def source(ctx):
@@ -98,6 +104,5 @@ if __name__ == '__main__':
         try:
             bot.load_extension(extension)
         except Exception as e:
-            logger.critical(f'Failed to load cogs: {e}')
             print(f'Failed to load cogs : {e}')
     bot.run(config_vars.discord_token)

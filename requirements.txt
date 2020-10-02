@@ -4,3 +4,4 @@ requests
 colorama
 urllib3
 python-dateutil
+dnspython
