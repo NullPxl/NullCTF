@@ -17,7 +17,7 @@ extensions = ['ctf', 'ctftime', 'configuration', 'encoding', 'cipher', 'utility'
 # List of names reserved for those who gave cool ideas or reported something interesting.
 # If your name is in the list and you use the command '>amicool' you'll get a nice message.
 cool_names = ['nullpxl', 'Yiggles', 'JohnHammond', 'voidUpdate', 'Michel Ney', 'theKidOfArcrania', 'l14ck3r0x01', 'hasu', 'KFBI', 'mrFu', 'warlock_rootx', 'd347h4ck', 'tourpan', 'careless_finch', 'fumenoid'] 
-
+cool_ids = ['230827776637272064','656738416121348112','329716761211699205','174276690699091968'] # i cant find others :/
 @bot.event
 async def on_ready():
     print(f"{bot.user.name} - Online")
@@ -91,8 +91,9 @@ async def report(ctx, error_report):
 
 @bot.command()
 async def amicool(ctx):
-    authors_name = str(ctx.author).split("#")[0]
-    if authors_name in cool_names:
+    authors_id = str(ctx.author.id) #.split("#")[0]
+    #print(ctx.author.id)
+    if authors_id in cool_ids :
         await ctx.send('You are very cool :]')
     else:
         await ctx.send('lolno')
@@ -105,4 +106,4 @@ if __name__ == '__main__':
             bot.load_extension(extension)
         except Exception as e:
             print(f'Failed to load cogs : {e}')
-    bot.run(config_vars.discord_token)
+    bot.run(config_vars.token)
