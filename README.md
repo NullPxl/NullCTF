@@ -69,6 +69,8 @@ The following commands are the ones you will most likely want to pay attention t
 ## Utility Commands
 * `>help` Returns the help page
 
+* `>amicool` Are you cool?
+
 * `>magicb filetype` Returns the mime and magicbytes of your supplied filetype. Useful for stegonography challenges where a filetype is corrupt.
 
 * `>rot  "a message"` Returns all 25 possible rotations for a message.
@@ -99,14 +101,12 @@ The following commands are the ones you will most likely want to pay attention t
 
 # Setup - General Overview
 ---
-General guide for setup, not very detailed currently but I will expand in the future if people actually end up wanting to host locally :P 
 * This may be necessary in the future because of Disord's recent [verification requirements](https://support.discordapp.com/hc/en-us/articles/360040720412-Bot-Verification-and-Data-Whitelisting) for bots in over 100 servers (which this bot is already over).  This rule, which will disallow users to invite bots that have not been verified by the owner (which requires photoid) will be enforced starting october 7th. 
 ```
-Create a discord bot on discord's developer portal -> get the bot token -> clone this repo -> install discord.py >= 1.3.3 ->
+Create a discord bot on discord's developer portal -> get the bot token -> clone this repo ->
 Create mongodb account -> create project -> create cluster -> create db user -> 
 add your ip to db whitelist access -> connect to cluster and select python as driver ->
-get connection string and follow mongodb's steps with your password ->
-pip install pymongo and dnspython -> use the following template for creating dbs and collections under the file config_vars.py
+get connection string and follow mongodb's steps with your password ->  use the below template for creating dbs and collections under the file config_vars.py -> build with docker (`docker build`) -> invite the bot to your server (go to the bot settings page on discord developer portal)
 ```
 ```
 # config_vars.py
@@ -124,6 +124,4 @@ teamdb = client['ctfteams'] # Create ctf teams database
 
 serverdb = client['serverinfo'] # configuration db
 ```
-```
-invite the bot to your server
 ```
