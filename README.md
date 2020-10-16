@@ -2,6 +2,11 @@
 
 >### *A [discord.py](http://discordpy.readthedocs.io/en/latest/) bot focused on providing CTF tools for collaboration in Discord servers (ctftime.org commands, team setup + ctfd integration, utilites, etc)!  If you have a feature request, make it a GitHub issue or use the >request "x" command.*
 
+## As of October 7th 2020 the bot can no longer be invited to new servers.
+This is due to Discord's new [verification requirements](https://support.discordapp.com/hc/en-us/articles/360040720412-Bot-Verification-and-Data-Whitelisting) for bots in over 100 servers.  It would require me to verify my identity with photo id, something which I am not personally comfortable with.
+I understand that this isn't exactly convenient, but I hope that by making this code open source (and including setup instructions at the bottom of this readme) people can still use this bot.
+- I will be looking into the possibility of creating multiple concurrently running instances of the bot in the future.
+
 [Invite to your server](https://discordapp.com/oauth2/authorize?client_id=455502163452362753&permissions=268528720&scope=bot)
 \
 [Join the support server](https://discord.gg/yf8E2s8)
