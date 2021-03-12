@@ -8,7 +8,7 @@ import help_info
 import config_vars
 
 client = discord.Client()
-bot = commands.Bot(command_prefix=">")
+bot = commands.Bot(command_prefix=">", allowed_mentions = discord.AllowedMentions(everyone = False, Users=False, Roles=False))
 # The default help command is removed so a custom one can be added.
 bot.remove_command('help')
 
