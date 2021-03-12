@@ -17,7 +17,7 @@ extensions = ['ctf', 'ctftime', 'configuration', 'encoding', 'cipher', 'utility'
 # List of names reserved for those who gave cool ideas or reported something interesting.
     # please don't spam me asking to be added.  if you send something interesting to me i will add you to the list.
 # If your name is in the list and you use the command '>amicool' you'll get a nice message.
-cool_names = ['nullpxl', 'Yiggles', 'JohnHammond', 'voidUpdate', 'Michel Ney', 'theKidOfArcrania', 'l14ck3r0x01', 'hasu', 'KFBI', 'mrFu', 'warlock_rootx', 'd347h4ck', 'tourpan', 'careless_finch', 'fumenoid', '_wh1t3r0se_', 'The_Crazyman'] 
+cool_names = ['nullpxl', 'Yiggles', 'JohnHammond', 'voidUpdate', 'Michel Ney', 'theKidOfArcrania', 'l14ck3r0x01', 'hasu', 'KFBI', 'mrFu', 'warlock_rootx', 'd347h4ck', 'tourpan', 'careless_finch', 'fumenoid', '_wh1t3r0se_', 'The_Crazyman','0x0elliot']
 # This is intended to be circumvented; the idea being that people will change their names to people in this list just so >amicool works for them, and I think that's funny.
 
 @bot.event
