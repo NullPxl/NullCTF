@@ -103,8 +103,8 @@ class CtfTime(commands.Cog):
             if ctf['start'] < unix_now and ctf['end'] > unix_now: # Check if the ctf is running
                 running = True
                 embed = discord.Embed(title=':red_circle: ' + ctf['name']+' IS LIVE', description=ctf['url'], color=15874645)
-                start = datetime.utcfromtimestamp(ctf['start']).strftime('%Y-%m-%d %H:%M:%S') + ' UTC'
-                end = datetime.utcfromtimestamp(ctf['end']).strftime('%Y-%m-%d %H:%M:%S') + ' UTC'
+                start = f"<t:{ctf['start']}>"
+                end = f"<t:{ctf['end']}>"
                 if ctf['img'] != '':
                     embed.set_thumbnail(url=ctf['img'])
                 else:
