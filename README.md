@@ -3,7 +3,7 @@
 >### *A [discord.py](http://discordpy.readthedocs.io/en/latest/) bot focused on providing CTF tools for collaboration in Discord servers (ctftime.org commands, team setup + ctfd integration, utilites, etc)!  If you have a feature request, make it a GitHub issue or use the >request "x" command.*
 
 [Invite to your server](https://discord.com/api/oauth2/authorize?client_id=885993913591140473&permissions=268561520&scope=bot)
-## Please let me know if there's any issues with the link! This is a secondary instance because the original is over the 100 server limit Discord imposes for non-verified bots ([verification requirements](https://support.discordapp.com/hc/en-us/articles/360040720412-Bot-Verification-and-Data-Whitelisting))
+## Please let me know if there's any issues with the link! This is one of multiple alternate instances because the original is over the 100 server limit Discord imposes for non-verified bots ([verification requirements](https://support.discordapp.com/hc/en-us/articles/360040720412-Bot-Verification-and-Data-Whitelisting))
 \
 [Join the support server](https://discord.gg/yf8E2s8)
 
