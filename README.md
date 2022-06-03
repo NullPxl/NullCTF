@@ -2,7 +2,7 @@
 
 >### *A [discord.py](http://discordpy.readthedocs.io/en/latest/) bot focused on providing CTF tools for collaboration in Discord servers (ctftime.org commands, team setup + ctfd integration, utilites, etc)!  If you have a feature request, make it a GitHub issue or use the >request "x" command.*
 
-[Invite to your server](https://discord.com/api/oauth2/authorize?client_id=885993913591140473&permissions=268561520&scope=bot)
+[Invite to your server](https://discord.com/api/oauth2/authorize?client_id=982358072611721246&permissions=268561520&scope=bot)
 ## Please let me know if there's any issues with the link! This is one of multiple alternate instances because the original is over the 100 server limit Discord imposes for non-verified bots ([verification requirements](https://support.discordapp.com/hc/en-us/articles/360040720412-Bot-Verification-and-Data-Whitelisting))
 \
 [Join the support server](https://discord.gg/yf8E2s8)
@@ -107,7 +107,7 @@ The following commands are the ones you will most likely want to pay attention t
 Create a discord bot on discord's developer portal -> get the bot token -> clone this repo ->
 Create mongodb account -> create project -> create cluster -> create db user -> 
 add your ip to db whitelist access -> connect to cluster and select python as driver ->
-get connection string and follow mongodb's steps with your password ->  use the below template for creating dbs and collections under the file config_vars.py -> build with docker (`docker build`) -> invite the bot to your server (go to the bot settings page on discord developer portal)
+get connection string and follow mongodb's steps with your password ->  use the below template for creating dbs and collections under the file config_vars.py -> build with docker (`docker build`). You may have to set pymongo==3.10.1 or similar in requirements.txt -> invite the bot to your server (go to the bot settings page on discord developer portal)
 ```
 ```
 # config_vars.py
