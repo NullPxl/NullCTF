@@ -13,7 +13,7 @@ bot = commands.Bot(command_prefix=">", allowed_mentions = discord.AllowedMention
 bot.remove_command('help')
 
 # Each extension corresponds to a file within the cogs directory.  Remove from the list to take away the functionality.
-extensions = ['ctf', 'ctftime', 'configuration', 'encoding', 'cipher', 'utility']
+extensions = ['ctf', 'ctftime', 'configuration', 'encoding', 'cipher', 'utility', 'writeups']
 # List of names reserved for those who gave cool ideas or reported something interesting.
     # please don't spam me asking to be added.  if you send something interesting to me i will add you to the list.
 # If your name is in the list and you use the command '>amicool' you'll get a nice message.
