@@ -13,7 +13,7 @@ class Writeups(commands.Cog):
     @commands.command(name='writeups', usage='<query>')
     async def writeups(self, ctx, *, query=None):
         if query is None:
-            await ctx.send("Query not provided: `>writeups <query>` For an exact match, enclose your search query between double quotes.To exclude a search term, prepend a "-" character.") 
+            await ctx.send("Query not provided: `>writeups <query>` For an exact match, enclose your search query between double quotes. To exclude a search term, prepend a '-' character.") 
         else:
             writeupapi = "http://ctf-api.hfz-1337.ninja/?q="
             url = writeupapi + urllib.parse.quote_plus(query, safe="")
