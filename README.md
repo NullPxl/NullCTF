@@ -98,6 +98,10 @@ The following commands are the ones you will most likely want to pay attention t
 
 * `>request/report "a feature"/"a bug"` Dm's the creator (nullpxl#3928) with your feature/bug  request/report.
 
+---
+## Writeups Command
+* `>writeups <search query>` Searches for CTF writeups based on the provided string. Search includes, CTF Event, challenge name, writeups content, etc. Double quotes can be used around all or part of a query to find an exact match and a minus sign can be used to exclude results.
+
 ## Have a feature request?  Make a GitHub issue or use the >request command.
 
 # Setup - General Overview
