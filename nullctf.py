@@ -43,7 +43,10 @@ async def help(ctx, page=None):
     elif page == 'utility':
         emb = discord.Embed(description=help_info.utility_help, colour=4387968)
         emb.set_author(name='Utilities Help')
-    
+    elif page == 'writeups':
+        emb = discord.Embed(description=help_info.writeups_help, colour=4387968)
+        emb.set_author(name='Writeups Help')
+
     else:
         emb = discord.Embed(description=help_info.help_page, colour=4387968)
         emb.set_author(name='NullCTF Help')
