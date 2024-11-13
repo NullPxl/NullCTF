@@ -1,0 +1,13 @@
+[project]
+name = "nullctf"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "colorama>=0.4.6",
+    "discord>=2.3.2",
+    "pymongo>=4.10.1",
+    "python-dateutil>=2.9.0.post0",
+    "requests>=2.32.3",
+]

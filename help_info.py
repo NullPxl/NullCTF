@@ -1,4 +1,4 @@
-ctftime_help = '''
+ctftime_help = """
 
 `>ctftime upcoming [1-5]`
 return info on a number of upcoming ctfs from ctftime.org
@@ -11,9 +11,9 @@ return specific times for the time until a ctf begins, or until a currently runn
 
 `>ctftime top [year]`
 display the leaderboards from ctftime from a certain year.
-'''
+"""
 
-ctf_help = '''
+ctf_help = """
 
 `>ctf create "CTF NAME"`
 create a text channel and role in the CTF category for a ctf (must have permissions to manage channels)*
@@ -41,18 +41,18 @@ move the ctf channel to the archive category.
 
 `>ctf delete`
 delete the ctf role, and entry from the database for the ctf (must have permissions to manage channels)*
-'''
+"""
 
-config_help = '''
+config_help = """
 
 `>config ctf_category "CTF CATEGORY"`
 specify the category to be used for CTF channels, defaults to "CTF".
 
 `>config archive_category "ARCHIVE CATEGORY"`
 specify the category to be used for archived CTF channels, defaults to "Archive".
-'''
+"""
 
-utility_help = '''
+utility_help = """
 `>magicb [filetype]`
 return the magicbytes/file header of a supplied filetype.
 `>rot "message"`
@@ -85,26 +85,39 @@ get a direct link to a twitter profile page with your supplied user
 get a 50/50 cointoss to make all your life's decisions
 `>amicool`
 for the truth.
-'''
+"""
 
 
-help_page = '''
+# help_page = '''
+#
+# `>help ctftime`
+# info for all ctftime commands
+#
+# `>help ctf`
+# info for all ctf commands
+#
+# `>help config`
+# bot configuration info
+#
+# `>help utility`
+# everything else! (basically misc)
+#
+# `>report/request "an issue or feature"`
+# report an issue, or request a feature for NullCTF, if it is helpful your name will be added to the 'cool names' list!
+# '''
+
+help_page = """
 
 `>help ctftime`
 info for all ctftime commands
-
-`>help ctf`
-info for all ctf commands
-
-`>help config`
-bot configuration info
 
 `>help utility`
 everything else! (basically misc)
 
 `>report/request "an issue or feature"`
 report an issue, or request a feature for NullCTF, if it is helpful your name will be added to the 'cool names' list!
-'''
+"""
 
 
 src = "https://github.com/NullPxl/NullCTF"
+
